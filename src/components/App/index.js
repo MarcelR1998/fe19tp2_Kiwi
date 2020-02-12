@@ -19,12 +19,17 @@ import { withFirebase } from '../Firebase';
 
 import { withAuthentication } from '../Session';
 
+let styledDiv = {
+    display: "grid",
+    gridTemplateColumns: "1fr 8fr 1fr",
+    height: "100vh",
+}
+
 const App = () => (
 
     <Router>
-        <div>
+        <div style={styledDiv}>
             <Navigation />
-            <hr />
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />

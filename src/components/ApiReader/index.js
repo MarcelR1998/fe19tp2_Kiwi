@@ -1,5 +1,5 @@
 import React from 'react';
-import { stockList } from './stockExchange.js';
+import { countries } from './miscData.js';
 
 import { apiKey } from '../../constants/urls'
 
@@ -52,9 +52,24 @@ class ApiReader extends React.Component {
 
     componentDidMount() {
 
-        console.log(stockList);
+        const getCountry = (country) => {
 
-        fetch(`${"https://finnhub.io/api/v1/stock/symbol?exchange=US&token=" + apiKey}`)
+            let exchangeCode = countries.find(item =>
+                item.name == country
+                /*   if (item.name == country) {
+                      console.log(item.code);
+                      return item.code */
+            )
+            return exchangeCode.code;
+        }
+
+        let countryCode = getCountry("US exchanges");
+
+        let url = "https://finnhub.io/api/v1/stock/symbol?exchange=" + countryCode + apiKey;
+        console.log(countryCode)
+        console.log(url)
+
+        fetch(url)
             .then(res => res.json())
             .then(
                 (res) => {
@@ -76,14 +91,16 @@ class ApiReader extends React.Component {
     }
 
     render() {
+
         const { error, isLoaded, items } = this.state;
+        console.log(items);
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
             /*  console.log(items.map(item => (
- 
+     
                  item.symbol
              ))); */
             return (
@@ -92,12 +109,13 @@ class ApiReader extends React.Component {
                      <li key={items.symbol}>{items.symbol}</li>
                  </ul> */
                 <ul>
-                    {/*  {items.map(item => (
-                        <li key={item.symbol}>
-                            {item.symbol}
-                        </li>
-                    ))} */}
-                    <li>Hello</li>
+                    {
+                        items.map(item => (
+                            <li key={item.symbol}>
+                                {item.symbol}
+                            </li>
+                        ))
+                    }
                 </ul>
             );
         }

@@ -168,7 +168,6 @@ const Input = styled.input`
   border: 1px solid #fff;
   border-radius: 5px;
   outline: 0;
-​
   &:hover {
     border: 1px solid #00b0ff;
     transition: border 0.5s;
@@ -195,7 +194,6 @@ const Button = styled.button`
   border: 0;
   border-radius: 5px;
   cursor: pointer;
-​
   &:hover {
     background-color: #009ee6;
     transition: background-color 0.5s;
@@ -204,7 +202,6 @@ const Button = styled.button`
 
 const ButtonGoogle = styled(Button)`
   background-color: #334ecd;
-​
   &:hover {
     background-color: #4760d2;
   }
@@ -221,7 +218,6 @@ const Divider = styled.div`
   position: relative;
   z-index: 2;
   margin-bottom: 3vmin;
-​
   &:after {
     content: "";
     position: absolute;

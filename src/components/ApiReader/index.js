@@ -5,6 +5,10 @@ import { apiKey, baseUrl, stockExchange } from '../../constants/urls';
 
 import { filterSymbol } from './usStocks';
 
+import { companyNames } from './recommendationTrends.js';
+
+
+
 class ApiReader extends React.Component {
     constructor(props) {
         super(props);
@@ -33,6 +37,7 @@ class ApiReader extends React.Component {
         let url = baseUrl + stockExchange + countryCode + apiKey;
         console.log(countryCode)
         console.log(url)
+        console.log(companyNames)
         this.setState({
             isLoaded: true,
         });
@@ -58,6 +63,7 @@ class ApiReader extends React.Component {
             )
     }
 
+
     getCompanyCode(companyName) {
 
         let companyCode = this.state.items.find(item =>
@@ -70,11 +76,11 @@ class ApiReader extends React.Component {
         return companyCode;
     }
 
-    getStock() {
-        const myVal = filterSymbol('QTUMUSDT')[0];
+    /* getStock(companyDescription) {
+        const myVal = filterSymbol(companyDescription)[0];
         console.log(myVal);
-        return myVal.description
-    }
+        return myVal.symbol;
+    } */
     render() {
 
         const { error, isLoaded, items } = this.state;
@@ -87,7 +93,9 @@ class ApiReader extends React.Component {
             return <div>Loading...</div>;
         } else {
             return (
-                <div>HEJ!{this.getStock()}DÅ</div>
+                <div>
+                    {/*    <div>{this.getStock('ALCOA CORP')}</div> */}
+                </div>
             )
             /* (
                 <ul>

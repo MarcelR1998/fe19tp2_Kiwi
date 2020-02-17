@@ -44586,4 +44586,4 @@ const usStocks = [
     }
 ]
 
-export const filterSymbol = (str) => usStocks.filter(stock => stock.symbol.toUpperCase().includes(str));
+export const filterSymbol = (str) => usStocks.filter(stock => stock.description.toUpperCase().includes(str));

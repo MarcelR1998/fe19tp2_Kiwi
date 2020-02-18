@@ -1,3 +1,5 @@
+import { baseUrl, apiKey, baseRecommendationUrl } from '../../constants/urls.js';
+
 let stocklist = [
     {
         "description": "AGILENT TECHNOLOGIES INC",
@@ -17,7 +19,7 @@ let stocklist = [
 ]
 
 let getURL = (company) => {
-    let newURL = 'https://finnhub.io/api/v1/stock/' + 'recommendation?symbol=' + company + '&token=bp1bshfrh5r9majagbfg';
+    let newURL = baseUrl + baseRecommendationUrl + company + apiKey;
     return newURL
 }
 

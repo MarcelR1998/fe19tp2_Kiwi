@@ -4,7 +4,5 @@ export const baseUrl = 'https://finnhub.io/api/v1/stock/';
 
 export const stockExchange = 'symbol?exchange=';
 
-export const stockRecommendation = function (companySymbol) {
-    let companyRecommendation = 'recommendation?symbol=' + companySymbol
-    return companyRecommendation;
-}
+export const baseRecommendationUrl = 'recommendation?symbol=';
+

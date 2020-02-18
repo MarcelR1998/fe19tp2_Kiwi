@@ -9,11 +9,11 @@ let stocklist = [
         "displaySymbol": "AA",
         "symbol": "AA"
     },
-    {
-        "description": "PERTH MINT PHYSICAL GOLD ETF",
-        "displaySymbol": "AAAU",
-        "symbol": "AAAU"
-    }
+    /*     {
+            "description": "PERTH MINT PHYSICAL GOLD ETF",
+            "displaySymbol": "AAAU",
+            "symbol": "AAAU"
+        } */
 ]
 
 let getURL = (company) => {
@@ -22,8 +22,9 @@ let getURL = (company) => {
 }
 
 export let companyNames = stocklist.map(des => {
-    return getURL(des.symbol)
+    return { [des.symbol]: getURL(des.symbol) }
 })
+export const companyObjects = Object.assign({}, ...companyNames);
 
 
 

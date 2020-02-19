@@ -1,55 +1,115 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import SignOutButton from '../SignOut';
+import SignOutButton from "../SignOut";
 
-import * as ROUTES from '../../constants/routes';
-import { AuthUserContext } from '../Session';
-import * as ROLES from '../../constants/roles';
+import * as ROUTES from "../../constants/routes";
+import { AuthUserContext } from "../Session";
+import * as ROLES from "../../constants/roles";
 
+import styled from "styled-components";
 
 const Navigation = () => (
-    <div>
-        <AuthUserContext.Consumer>
-            {authUser =>
-                authUser ? (
-                    <NavigationAuth authUser={authUser} />
-                ) : (
-                        <NavigationNonAuth />
-                    )
-            }
-        </AuthUserContext.Consumer>
-    </div>);
+  <Nav>
+    <AuthUserContext.Consumer>
+      {authUser =>
+        authUser ? (
+          <NavigationAuth authUser={authUser} />
+        ) : (
+          <NavigationNonAuth />
+        )
+      }
+    </AuthUserContext.Consumer>
+  </Nav>
+);
 
 const NavigationAuth = ({ authUser }) => (
-    <ul>
-        <li>
-            <Link to={ROUTES.LANDING}>Landing</Link>
-        </li> <li>
-            <Link to={ROUTES.HOME}>Home</Link>
-        </li>
-        <li>
-            <Link to={ROUTES.ACCOUNT}>Account</Link>
-        </li>
-        {authUser.roles.includes(ROLES.ADMIN) && (
-            <li>
-                <Link to={ROUTES.ADMIN}>Admin</Link>
-            </li>
-        )}
-        <li>
-            <SignOutButton />
-        </li>
-    </ul>);
+  <NavList>
+    <NavItem>
+      <NavLink to={ROUTES.LANDING}>Landing</NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink home to={ROUTES.HOME}>
+        Home
+      </NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink account to={ROUTES.ACCOUNT}>
+        Account
+      </NavLink>
+    </NavItem>
+    {authUser.roles.includes(ROLES.ADMIN) && (
+      <NavItem>
+        <NavLink admin to={ROUTES.ADMIN}>
+          Admin
+        </NavLink>
+      </NavItem>
+    )}
+    <NavItem>
+      <SignOutButton />
+    </NavItem>
+  </NavList>
+);
 const NavigationNonAuth = () => (
-    <ul>
-        <li>
-            <Link to={ROUTES.LANDING}>Landing</Link>
-        </li> <li>
-            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-        </li>
-    </ul>);
+  <NavList>
+    <NavItem>
+      <NavLink to={ROUTES.LANDING}>Landing</NavLink>
+    </NavItem>{" "}
+    <NavItem>
+      <NavLink to={ROUTES.SIGN_IN}>Sign In</NavLink>
+    </NavItem>
+  </NavList>
+);
 
+const Nav = styled.div`
+  background-color: #039be5;
+`;
 
+const NavList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const NavItem = styled.li`
+  width: 100%;
+  margin-bottom: 15px;
+  &:hover {
+    background-color: #03a9f4;
+  }
+`;
+
+const NavLink = styled(Link)`
+  position: relative;
+  display: block;
+  padding: 50px 25px 15px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  &:before {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Font Awesome 5 Pro";
+    font-weight: 900;
+    font-size: 1.4em;
+    
+    content: "${props => {
+      if (props.home) {
+        return "\f201";
+      } else if (props.account) {
+        return "\f007";
+      } else if (props.admin) {
+        return "\f502";
+      } else {
+        return "\f059";
+      }
+    }}";
+  }
+`;
 
 export default Navigation;
-

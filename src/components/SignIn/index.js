@@ -11,117 +11,117 @@ import styled from "styled-components";
 import image from "../../img/finance.svg";
 
 const SignInPage = () => (
-    <PageWrapper>
-        <Container>
-            <FormWrapper>
-                <h1>Sign in</h1>
-                <FormContainer>
-                    <SignInGoogle />
-                    <Divider>
-                        <DividerText>or</DividerText>
-                    </Divider>
-                    <SignInForm />
-                </FormContainer>
-                <PasswordForgetLink />
-                <SignUpLink />
-            </FormWrapper>
-            <ImageWrapper>
-                <Image src={image} alt="Image"></Image>
-            </ImageWrapper>
-        </Container>
-    </PageWrapper>
+  <PageWrapper>
+    <Container>
+      <FormWrapper>
+        <h1>Sign in</h1>
+        <FormContainer>
+          <SignInGoogle />
+          <Divider>
+            <DividerText>or</DividerText>
+          </Divider>
+          <SignInForm />
+        </FormContainer>
+        <PasswordForgetLink />
+        <SignUpLink />
+      </FormWrapper>
+      <ImageWrapper>
+        <Image src={image} alt="Image"></Image>
+      </ImageWrapper>
+    </Container>
+  </PageWrapper>
 );
 
 const INITIAL_STATE = {
-    email: "",
-    password: "",
-    error: null
+  email: "",
+  password: "",
+  error: null
 };
 class SignInFormBase extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { ...INITIAL_STATE };
-    }
-    onSubmit = event => {
-        const { email, password } = this.state;
-        this.props.firebase
-            .doSignInWithEmailAndPassword(email, password)
-            .then(() => {
-                this.setState({ ...INITIAL_STATE });
-                this.props.history.push(ROUTES.HOME);
-            })
-            .catch(error => {
-                this.setState({ error });
-            });
-        event.preventDefault();
-    };
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
-    render() {
-        const { email, password, error } = this.state;
-        const isInvalid = password === "" || email === "";
-        return (
-            <Form onSubmit={this.onSubmit}>
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                ></Input>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                ></Input>
-                <Button disabled={isInvalid} type="submit">
-                    Sign In
+  constructor(props) {
+    super(props);
+    this.state = { ...INITIAL_STATE };
+  }
+  onSubmit = event => {
+    const { email, password } = this.state;
+    this.props.firebase
+      .doSignInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE });
+        this.props.history.push(ROUTES.HOME);
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+    event.preventDefault();
+  };
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  render() {
+    const { email, password, error } = this.state;
+    const isInvalid = password === "" || email === "";
+    return (
+      <Form onSubmit={this.onSubmit}>
+        <Label htmlFor="email">Email Address</Label>
+        <Input
+          name="email"
+          value={email}
+          onChange={this.onChange}
+          type="text"
+          placeholder="Email Address"
+        ></Input>
+        <Label htmlFor="password">Password</Label>
+        <Input
+          name="password"
+          value={password}
+          onChange={this.onChange}
+          type="password"
+          placeholder="Password"
+        ></Input>
+        <Button disabled={isInvalid} type="submit">
+          Sign In
         </Button>
-                {error && <p>{error.message}</p>}
-            </Form>
-        );
-    }
+        {error && <p>{error.message}</p>}
+      </Form>
+    );
+  }
 }
 
 class SignInGoogleBase extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { error: null };
-    }
-    onSubmit = event => {
-        this.props.firebase
-            .doSignInWithGoogle()
-            .then(socialAuthUser => {
-                // Create a user in your Firebase Realtime Database too
-                return this.props.firebase.user(socialAuthUser.user.uid).set({
-                    username: socialAuthUser.user.displayName,
-                    email: socialAuthUser.user.email,
-                    roles: []
-                });
-            })
-            .then(socialAuthUser => {
-                this.setState({ error: null });
-                this.props.history.push(ROUTES.HOME);
-            })
-            .catch(error => {
-                this.setState({ error });
-            });
-        event.preventDefault();
-    };
-    render() {
-        const { error } = this.state;
-        return (
-            <FormGoogle onSubmit={this.onSubmit}>
-                <ButtonGoogle type="submit">Sign In with Google</ButtonGoogle>
-                {error && <p>{error.message}</p>}
-            </FormGoogle>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+  onSubmit = event => {
+    this.props.firebase
+      .doSignInWithGoogle()
+      .then(socialAuthUser => {
+        // Create a user in your Firebase Realtime Database too
+        return this.props.firebase.user(socialAuthUser.user.uid).set({
+          username: socialAuthUser.user.displayName,
+          email: socialAuthUser.user.email,
+          roles: []
+        });
+      })
+      .then(socialAuthUser => {
+        this.setState({ error: null });
+        this.props.history.push(ROUTES.HOME);
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+    event.preventDefault();
+  };
+  render() {
+    const { error } = this.state;
+    return (
+      <FormGoogle onSubmit={this.onSubmit}>
+        <ButtonGoogle type="submit">Sign In with Google</ButtonGoogle>
+        {error && <p>{error.message}</p>}
+      </FormGoogle>
+    );
+  }
 }
 
 const SignInGoogle = compose(withRouter, withFirebase)(SignInGoogleBase);
@@ -130,7 +130,6 @@ const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
 
 const PageWrapper = styled.div`
   display: flex;
-  width: 100vw;
   height: 100vh;
 `;
 
@@ -172,7 +171,6 @@ const Input = styled.input`
     border: 1px solid #00b0ff;
     transition: border 0.5s;
   }
-​
   &:focus {
     background-color: #f2f2f2;
     border: 1px solid #00b0ff;

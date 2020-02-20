@@ -22,7 +22,6 @@ import { withAuthentication } from '../Session';
 let styledDiv = {
     display: "grid",
     gridTemplateColumns: "1fr 8fr 1fr",
-    height: "100vh",
 }
 
 const App = () => (

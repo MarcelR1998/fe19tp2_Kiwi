@@ -5,7 +5,7 @@ import { apiKey, baseUrl, stockExchange } from '../../constants/urls';
 
 import { filterSymbol } from './usStocks';
 
-import { companyObjects } from './recommendationTrends.js'; // {AAPL: http...}
+import { companyObjects, urlKeys, urlValues, hej } from './recommendationTrends.js'; // {AAPL: http...}
 import Charts from '../Charts'
 
 class ApiReader extends React.Component {
@@ -21,10 +21,13 @@ class ApiReader extends React.Component {
     componentDidMount() {
         const companySymbols = Object.keys(companyObjects); // ['AAPL',...]
         const urls = Object.values(companyObjects); // ['Http:...'...]
-        console.log(companySymbols)
-        return (
+        /* let newList = [];
+        urls.forEach(item => item.forEach(url => newList.push(url))); */
 
-            Promise.all(urls.map((url, index) =>
+        let flattenedUrl = urls.flat();
+        console.log(flattenedUrl);
+        return (
+            Promise.all(flattenedUrl.map((url, index) =>
                 fetch(url)
                     .then(res => res.json())
                     .then(
@@ -46,31 +49,29 @@ class ApiReader extends React.Component {
             const stocks = Object.values(this.state);
             const companySymbols = Object.keys(this.state);
 
-            console.log(companySymbols);
-            let printThisGentleman = companySymbols.map(companySymbol => this.state[companySymbol]);
-            let dataPoints = stocks.map(stock => stock.map(stock => stock.period));
+            console.log(stocks);
+            /*    let printThisGentleman = companySymbols.map(companySymbol => this.state[companySymbol]); */
+            /* let dataPoints = stocks.map(stock => stock.map(stock => stock.period));
             let dataPoints2 = stocks.map(stock => stock.map(stock => stock.buy));
             console.log(dataPoints[0]);
-            console.log(printThisGentleman)
+            console.log(printThisGentleman) */
             /*
                         {APple: {2012-12-12: 23, ...},
                         Google: {}}
                         */
 
             let chartData = {
-                labels: dataPoints[0],
+                labels: [1, 2, 3],
                 datasets: [
                     {
                         label: 'Apple',
-                        data: dataPoints2[0],
+                        data: [2, 3, 4],
                     }
                 ]
             };
 
 
 
-
-            console.log(chartData.labels);
             return (
                 <div>
                     <Charts chartData={chartData} />

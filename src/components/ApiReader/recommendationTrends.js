@@ -11,11 +11,11 @@ let stocklist = [
         "displaySymbol": "AA",
         "symbol": "AA"
     },
-    /*  {
-         "description": "ATA CREATIVITY GLOBAL - ADR",
-         "displaySymbol": "AACG",
-         "symbol": "AACG"
-     }, */
+    {
+        "description": "PERTH MINT PHYSICAL GOLD ETF",
+        "displaySymbol": "AAAU",
+        "symbol": "AAAU"
+    },
 ]
 
 export const urlKeys = Object.keys(specificApiList);

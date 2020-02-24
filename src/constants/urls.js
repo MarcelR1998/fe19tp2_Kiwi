@@ -1,6 +1,6 @@
 export const apiKey = '&token=bp1bshfrh5r9majagbfg';
 
-export const apiKeySec = '&token=bosk5efrh5r9pnm5tbl0';
+export const secondApiKey = '&token=bosk5efrh5r9pnm5tbl0';
 
 export const baseUrl = 'https://finnhub.io/api/v1/';
 

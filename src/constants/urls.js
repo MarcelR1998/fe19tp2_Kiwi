@@ -1,6 +1,6 @@
 export const apiKey = '&token=bp1bshfrh5r9majagbfg';
 
-export const secondApiKey = '&token=bosk5efrh5r9pnm5tbl0';
+export const ApiKeySecond = '&token=bosk5efrh5r9pnm5tbl0';
 
 export const baseUrl = 'https://finnhub.io/api/v1/';
 
@@ -20,8 +20,8 @@ export const specificApiList =
 {
     quoteUrl: 'quote?symbol=',
     priceTarget: 'stock/price-target?symbol=',
-    companyNewsUrl: 'news/',
-    baseRecommendationUrl: 'stock/recommendation?symbol='
+    baseRecommendationUrl: 'stock/recommendation?symbol=',
+    companyNewsUrl: 'news/'
 }
 
 

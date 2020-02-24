@@ -11,7 +11,7 @@ class Chart extends Component {
     render() {
         return (
             <div className="chart">
-                <Line
+                <Pie
                     data={this.props.chartData}
                     options={{
                         title: {

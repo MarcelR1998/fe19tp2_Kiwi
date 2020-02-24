@@ -12,9 +12,9 @@ let stocklist = [
         "symbol": "AA"
     },
     {
-        "description": "PERTH MINT PHYSICAL GOLD ETF",
-        "displaySymbol": "AAAU",
-        "symbol": "AAAU"
+        "description": "APPLE INC",
+        "displaySymbol": "AAPL",
+        "symbol": "AAPL"
     },
 ]
 
@@ -23,7 +23,7 @@ export const urlValues = Object.values(specificApiList);
 
 let getURL = (company) => {
     let fetchUrl = [];
-    urlValues.map(url => fetchUrl.push(baseUrl + url + company + apiKey))
+    urlValues.map(url => { if (url.includes("news")) { fetchUrl.push(baseUrl + url + company + "?" + apiKey) } else { fetchUrl.push(baseUrl + url + company + apiKey) } })
     return fetchUrl;
 }
 

@@ -11,21 +11,25 @@ class Chart extends Component {
     render() {
         return (
             <div className="chart">
-                <Pie
+                <Line
                     data={this.props.chartData}
                     options={{
+
                         title: {
-                            display: true,
-                            text: 'Target Mean of my stocks'
+                            display: false,
+
                         },
                         legend: {
-                            display: true,
+                            display: false,
                             position: 'right'
                         }
-                    }}
+
+                    }
+                    }
                 />
             </div>
         )
     }
 }
 export default Chart;
+

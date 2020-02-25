@@ -126,14 +126,17 @@ class ApiReader extends React.Component {
     }
     render() {
 
-        if (this.state) {
+        if (this.state.masterObject[lastSymbol]) {
             //const stocks = Object.values(this.state);
             //const companySymbols = Object.keys(this.state);
             //const lastSymbol = companySymbols[companySymbols.length - 1];
             console.log(this.lastSymbol)
             let dataPoints = this.state.masterObject;
             let AAPLData = dataPoints['AAPL']
-            console.log(dataPoints.AAPL);
+            /*  setTimeout(() => {
+                 console.log(dataPoints.A['priceTarget'])
+             }, 12000); */
+            console.log(dataPoints['AAPL']['quoteUrl'].h);
             console.log(Object.values(dataPoints));
 
             //console.log (stocks);
@@ -148,11 +151,11 @@ class ApiReader extends React.Component {
                         */
 
             let chartData = {
-                labels: [1, 2, 3],
+                labels: ['A', 'AA', 'AAPL'],
                 datasets: [
                     {
-                        label: "A",
-                        data: [1, 2, 3],
+                        label: 'Quote',
+                        data: [dataPoints['A']['quoteUrl'].h, dataPoints['AA']['quoteUrl'].h, dataPoints['AAPL']['quoteUrl'].h],
                         backgroundColor: [
                             'rgb(247, 166, 74)',
                             'rgb(248, 182, 106)',

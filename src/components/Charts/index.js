@@ -14,18 +14,37 @@ class Chart extends Component {
                 <Line
                     data={this.props.chartData}
                     options={{
+
+
                         title: {
-                            display: true,
-                            text: 'Target Mean of my stocks'
+                            display: false,
+
                         },
                         legend: {
-                            display: true,
-                            position: 'right'
+                            display: false,
+                            position: 'right',
+
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+
+                                },
+                                display: false
+
+                            }],
+                            xAxes: [{
+                                display: true //this will remove all the x-axis grid lines
+                            }]
                         }
-                    }}
+                    }
+
+                    }
                 />
             </div>
         )
     }
 }
 export default Chart;
+

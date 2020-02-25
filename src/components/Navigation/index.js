@@ -56,12 +56,16 @@ const NavigationNonAuth = () => (
       <NavLink to={ROUTES.LANDING}>Landing</NavLink>
     </NavItem>{" "}
     <NavItem>
-      <NavLink to={ROUTES.SIGN_IN}>Sign In</NavLink>
+      <NavLink signin to={ROUTES.SIGN_IN}>
+        Sign In
+      </NavLink>
     </NavItem>
   </NavList>
 );
 
 const Nav = styled.div`
+  position: fixed;
+  height: 100vh;
   background-color: #039be5;
 `;
 
@@ -75,8 +79,8 @@ const NavList = styled.ul`
 `;
 
 const NavItem = styled.li`
-  width: 100%;
   margin-bottom: 15px;
+  text-align: center;
   &:hover {
     background-color: #03a9f4;
   }
@@ -86,6 +90,7 @@ const NavLink = styled(Link)`
   position: relative;
   display: block;
   padding: 50px 25px 15px;
+  font-size: 14px;
   color: #fff;
   text-align: center;
   text-decoration: none;
@@ -96,7 +101,7 @@ const NavLink = styled(Link)`
     transform: translateX(-50%);
     font-family: "Font Awesome 5 Pro";
     font-weight: 900;
-    font-size: 1.4em;
+    font-size: 24px;
     
     content: "${props => {
       if (props.home) {
@@ -105,6 +110,8 @@ const NavLink = styled(Link)`
         return "\f007";
       } else if (props.admin) {
         return "\f502";
+      } else if (props.signin) {
+        return "\f2f6";
       } else {
         return "\f059";
       }

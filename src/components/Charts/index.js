@@ -15,16 +15,31 @@ class Chart extends Component {
                     data={this.props.chartData}
                     options={{
 
+
                         title: {
                             display: false,
 
                         },
                         legend: {
                             display: false,
-                            position: 'right'
-                        }
+                            position: 'right',
 
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+
+                                },
+                                display: false
+
+                            }],
+                            xAxes: [{
+                                display: true //this will remove all the x-axis grid lines
+                            }]
+                        }
                     }
+
                     }
                 />
             </div>

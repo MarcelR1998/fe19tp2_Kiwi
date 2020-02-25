@@ -1,6 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import styled from "styled-components";
-import Charts from '../Charts/index.js'
+import Charts from '../Charts/index.js';
+import ApiReader from '../ApiReader';
 
 let user = {
     stocks: [{ symbol: "AAPL", amount: 5 }, { symbol: "KIWI CO", amount: 74 },],
@@ -20,8 +21,11 @@ let chartData = {
                 'rgb(249, 198, 139)',
             ],
             fill: false,
-            borderWidth: 9,
-            color: 'rgba(232, 233, 233, 1)'
+            borderWidth: 2,
+            backgroundColor: 'rgba(0, 240, 233, 1)',
+            borderColor: 'rgba(0, 0, 250)',
+            pointBorderWidth: 5
+
 
 
 
@@ -29,7 +33,8 @@ let chartData = {
     ]
 };
 
-const StockCards = () => {
+const StockCards = (props) => {
+
     return (
         <StockList>
             {user.stocks.map(stock =>

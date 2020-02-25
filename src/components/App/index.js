@@ -22,6 +22,7 @@ import { withAuthentication } from '../Session';
 let styledDiv = {
     display: "grid",
     gridTemplateColumns: "1fr 8fr 1fr",
+    gridTemplateRow: "auto"
 }
 
 const App = () => (
@@ -29,6 +30,7 @@ const App = () => (
     <Router>
         <div style={styledDiv}>
             <Navigation />
+            <div>-</div>
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />

@@ -10,6 +10,7 @@ class Search extends React.Component {
     renderStock = stock => {
         const { search } = this.state;
         const symbol = stock.symbol.toLowerCase();
+        const description = stock.description.toLowerCase();
     }
 
     onchange = e => {
@@ -20,7 +21,8 @@ class Search extends React.Component {
     render() {
         const { search } = this.state;
         const filteredStocks = usStocksList.filter(stock => {
-        return stock.symbol.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        return stock.symbol.toLowerCase().indexOf(search.toLowerCase()) !== -1 || stock.description.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        
     });
 
       return (

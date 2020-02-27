@@ -23,6 +23,7 @@ const companySymbols = Object.keys(companyObjects); // ['AAPL',...]
 const lastSymbol = companySymbols[companySymbols.length - 1];
 const lastUrl = urlKeys[urlKeys.length - 1];
 const urls = Object.values(companyObjects); // [['Http:...'...],['Http:...'...]]
+let historyData = [];
 
 class ApiReader extends React.Component {
     constructor(props) {
@@ -33,7 +34,8 @@ class ApiReader extends React.Component {
         this.companySymbols = companySymbols;
         this.lastSymbol = lastSymbol;
         this.lastUrl = lastUrl;
-        this.buildMasterObject = this.buildMasterObject.bind(this)
+        this.buildMasterObject = this.buildMasterObject.bind(this);
+        this.historyData = historyData;
         //this.changeTime = this.changeTime.bind(this)
     }
 
@@ -74,6 +76,21 @@ class ApiReader extends React.Component {
             console.log(Object.keys(this.buildMasterObject()), Object.values(this.buildMasterObject()).map(data => data.priceTarget))
 
 
+            this.historyData.push(
+                {
+                    A: dataPoints['A']['quoteUrl'],
+                    date: dataPoints['A']['quoteUrl'].t
+                },
+                {
+                    AA: dataPoints['AA']['quoteUrl'],
+                    date: dataPoints['AA']['quoteUrl'].t
+                },
+                {
+                    AAPL: dataPoints['AAPL']['quoteUrl'],
+                    date: dataPoints['AAPL']['quoteUrl'].t
+                })
+            /* console.log(historyData.forEach(data => console.log(data['A']))) */
+
             let chartData = {
                 labels: ['A', 'AA', 'AAPL'],
                 datasets: [
@@ -95,7 +112,7 @@ class ApiReader extends React.Component {
                 <div>
                     {this.state.masterObject[this.lastSymbol] ? this.state.masterObject[this.lastSymbol].hasOwnProperty(this.lastUrl) ? 'HEJ' : '' : ''}
                     <Charts chartData={chartData} />
-                    <StockCard data={this.state.masterObject} />
+                    <StockCard data={this.state.masterObject} history={historyData} />
                 </div>
             )
 

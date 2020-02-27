@@ -29,7 +29,8 @@ let user = {
     ]
 };
  */
-const StockCards = ({ data }) => {
+const StockCards = ({ data, history }) => {
+    /* console.log(history.forEach(symbol => console.log(symbol))) */
     const makeDataArray = Object.keys(data).map(key => data[key].quoteUrl.c)
     let chartData = {
         labels: Object.keys(data),
@@ -50,6 +51,7 @@ const StockCards = ({ data }) => {
             }
         ]
     };
+
 
     return (
         <StockList>

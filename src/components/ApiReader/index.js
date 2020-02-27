@@ -9,8 +9,11 @@ import { companyObjects, urlKeys, urlValues, hej } from './recommendationTrends.
 import { sendMessage } from '../../constants/functions';
 import axios from 'axios';
 import rateLimit from 'axios-rate-limit';
+import StockCard from '../StockCard';
 
 import Charts from '../Charts'
+
+
 
 //const http = rateLimit(axios.create(), { maxRequests: 2, perMilliseconds: 4000, maxRPS: 2 })
 const http = rateLimit(axios.create(), { maxRequests: 2, perMilliseconds: 1000, maxRPS: 2 })
@@ -31,17 +34,15 @@ class ApiReader extends React.Component {
         this.lastSymbol = lastSymbol;
         this.lastUrl = lastUrl;
         this.buildMasterObject = this.buildMasterObject.bind(this)
-
+        //this.changeTime = this.changeTime.bind(this)
     }
 
     buildMasterObject() {
-        // för varje företag i statet ("a", "aa")
-
+        return this.state.masterObject
     }
 
     async componentDidMount() {
-
-
+        // todo: read users stocks from firebase
         let flattenedUrl = urls.flat(); // [url,url,url]
         const masterObject = {}
         //const urlKeys = ['quotes', 'priceTargets', 'news', 'recs'];
@@ -70,6 +71,7 @@ class ApiReader extends React.Component {
             let AAPLData = dataPoints['AAPL'];
             console.log(dataPoints['AAPL']['quoteUrl'].h);
             console.log(Object.values(dataPoints));
+            console.log(Object.keys(this.buildMasterObject()), Object.values(this.buildMasterObject()).map(data => data.priceTarget))
 
 
             let chartData = {
@@ -93,6 +95,7 @@ class ApiReader extends React.Component {
                 <div>
                     {this.state.masterObject[this.lastSymbol] ? this.state.masterObject[this.lastSymbol].hasOwnProperty(this.lastUrl) ? 'HEJ' : '' : ''}
                     <Charts chartData={chartData} />
+                    <StockCard data={this.state.masterObject} />
                 </div>
             )
 

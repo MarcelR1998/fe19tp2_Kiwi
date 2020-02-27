@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import styled from "styled-components";
 import Charts from '../Charts/index.js';
-import ApiReader from '../ApiReader';
+import ApiReader, { buildMasterObject } from '../ApiReader/index.js';
 
 let user = {
     stocks: [{ symbol: "AAPL", amount: 5 }, { symbol: "KIWI CO", amount: 74 },],
@@ -9,7 +9,7 @@ let user = {
     userID: 123
 }
 
-let chartData = {
+/* let chartData = {
     labels: ['A', 'AA', 'AAPL'],
     datasets: [
         {
@@ -25,15 +25,31 @@ let chartData = {
             backgroundColor: 'rgba(0, 240, 233, 1)',
             borderColor: 'rgba(0, 0, 250)',
             pointBorderWidth: 5
-
-
-
-
         }
     ]
 };
-
-const StockCards = (props) => {
+ */
+const StockCards = ({ data }) => {
+    const makeDataArray = Object.keys(data).map(key => data[key].quoteUrl.c)
+    let chartData = {
+        labels: Object.keys(data),
+        datasets: [
+            {
+                label: 'Quote',
+                data: makeDataArray,
+                backgroundColor: [
+                    'rgb(247, 166, 74)',
+                    'rgb(248, 182, 106)',
+                    'rgb(249, 198, 139)',
+                ],
+                fill: false,
+                borderWidth: 2,
+                backgroundColor: 'rgba(0, 240, 233, 1)',
+                borderColor: 'rgba(0, 0, 250)',
+                pointBorderWidth: 5
+            }
+        ]
+    };
 
     return (
         <StockList>
@@ -44,6 +60,7 @@ const StockCards = (props) => {
                     <StyledCharts chartData={chartData}></StyledCharts>
                 </StockItem>
             )}
+
         </StockList>
     )
 };

@@ -5,6 +5,23 @@ import { compose } from 'recompose';
 
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
+const stocklist = [
+    {
+        "description": "AGILENT TECHNOLOGIES INC",
+        "displaySymbol": "A",
+        "symbol": "A"
+    },
+    {
+        "description": "ALCOA CORP",
+        "displaySymbol": "AA",
+        "symbol": "AA"
+    },
+    {
+        "description": "APPLE INC",
+        "displaySymbol": "AAPL",
+        "symbol": "AAPL"
+    },
+]
 
 const INITIAL_STATE = {
     username: '',
@@ -44,6 +61,7 @@ class SignUpFormBase extends Component {
                         username,
                         email,
                         roles,
+                        stocklist
                     });
             })
             .then(authUser => {

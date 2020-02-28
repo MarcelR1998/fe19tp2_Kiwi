@@ -36,7 +36,11 @@ class Search extends React.Component {
             return this.renderStock(stock);
           })}
           {console.log(filteredStocks.map(stock => stock.description))}
-          {filteredStocks.map(stock => <div>{stock.description}</div>)}
+          {console.log(filteredStocks.length)}
+
+
+
+
         </div>
 
       </div>

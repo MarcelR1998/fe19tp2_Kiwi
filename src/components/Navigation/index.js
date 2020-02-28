@@ -29,18 +29,18 @@ const NavigationAuth = ({ authUser }) => (
             <NavLink to={ROUTES.LANDING}>Landing</NavLink>
         </NavItem>
         <NavItem>
-            <NavLink home to={ROUTES.HOME}>
+            <NavLink to={ROUTES.HOME}>
                 Home
       </NavLink>
         </NavItem>
         <NavItem>
-            <NavLink account to={ROUTES.ACCOUNT}>
+            <NavLink to={ROUTES.ACCOUNT}>
                 Account
       </NavLink>
         </NavItem>
         {authUser.roles.includes(ROLES.ADMIN) && (
             <NavItem>
-                <NavLink admin to={ROUTES.ADMIN}>
+                <NavLink to={ROUTES.ADMIN}>
                     Admin
         </NavLink>
             </NavItem>
@@ -54,9 +54,9 @@ const NavigationNonAuth = () => (
     <NavList>
         <NavItem>
             <NavLink to={ROUTES.LANDING}>Landing</NavLink>
-        </NavItem>{" "}
+        </NavItem>
         <NavItem>
-            <NavLink signin to={ROUTES.SIGN_IN}>
+            <NavLink to={ROUTES.SIGN_IN}>
                 Sign In
       </NavLink>
         </NavItem>

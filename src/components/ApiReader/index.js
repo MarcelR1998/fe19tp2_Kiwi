@@ -5,24 +5,28 @@ import { apiKey, baseUrl, stockExchange } from '../../constants/urls';
 
 import { filterSymbol } from './usStocks';
 
-import { companyObjects, urlKeys, urlValues, hej } from './recommendationTrends.js'; // {AAPL: http...}
+import { companyObjects, urlKeys, urlValues, hej, companyNamesFunc, companyObjectsFunc } from './recommendationTrends.js'; // {AAPL: http...}
 import { sendMessage } from '../../constants/functions';
 import axios from 'axios';
 import rateLimit from 'axios-rate-limit';
 import StockCard from '../StockCard';
 
 import Charts from '../Charts'
+import UserStockList from '../UserStockList';
 
+import { withFirebase } from '../Firebase';
 
 
 //const http = rateLimit(axios.create(), { maxRequests: 2, perMilliseconds: 4000, maxRPS: 2 })
 const http = rateLimit(axios.create(), { maxRequests: 2, perMilliseconds: 1000, maxRPS: 2 })
 http.getMaxRPS() // 2
 
-const companySymbols = Object.keys(companyObjects); // ['AAPL',...]
-const lastSymbol = companySymbols[companySymbols.length - 1];
-const lastUrl = urlKeys[urlKeys.length - 1];
-const urls = Object.values(companyObjects); // [['Http:...'...],['Http:...'...]]
+let companySymbols = Object.keys(companyObjects); // ['AAPL',...]
+
+let lastSymbol = companySymbols[companySymbols.length - 1];
+
+let lastUrl = urlKeys[urlKeys.length - 1];
+let urls = Object.values(companyObjects); // [['Http:...'...],['Http:...'...]]
 let historyData = [];
 
 class ApiReader extends React.Component {
@@ -36,6 +40,7 @@ class ApiReader extends React.Component {
         this.lastUrl = lastUrl;
         this.buildMasterObject = this.buildMasterObject.bind(this);
         this.historyData = historyData;
+        this.getSymbolData = this.getSymbolData.bind(this);
         //this.changeTime = this.changeTime.bind(this)
     }
 
@@ -43,7 +48,58 @@ class ApiReader extends React.Component {
         return this.state.masterObject
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+
+        this.props.firebase.user(this.props.uid).on('value', snapshot => {
+            const stockObject = snapshot.val();
+            const stocklist = stockObject.stocklist;
+            //console.log()
+            const companyNames = companyNamesFunc(stocklist);
+            console.log(companyNames)
+            const companyObj = Object.assign({}, ...companyNames);
+            const companySymb = Object.keys(companyObj)
+            //urls = Object.values(companyObjects)
+            //console.log(urls)
+            this.getSymbolData(companyObj, companySymb);
+        });
+
+
+
+
+
+
+    }
+    componentWillUnmount() {
+        this.props.firebase.user(this.props.uid).off();
+    }
+    async getSymbolData(companyObj, companySymb) {
+        console.log(companyObj)
+        console.log(companySymb)
+
+        // todo: read users stocks from firebase
+        /* let flattenedUrl = urls.flat();  */// [url,url,url]
+        const masterObject = {}
+        //const urlKeys = ['quotes', 'priceTargets', 'news', 'recs'];
+        companySymb.forEach(symbol => { // ['AA', 'AAPL',]
+            ////console.log (companyObjects[symbol])
+
+            let urls = companyObj[symbol];
+
+            urls.map(async (url, index) => {
+                const legend = urlKeys[index];
+                try {
+                    const result = await http.get(url)
+                    masterObject[symbol] = { ...masterObject[symbol], [legend]: result.data }
+                    console.log(masterObject);
+                    this.setState({ masterObject: masterObject })
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+        })
+    }
+    /* CDM backup:
+        async componentDidMount() {
         // todo: read users stocks from firebase
         let flattenedUrl = urls.flat(); // [url,url,url]
         const masterObject = {}
@@ -65,7 +121,10 @@ class ApiReader extends React.Component {
             })
         })
     }
+    */
     render() {
+        const authUser = this.props.uid;
+        console.log(authUser);
 
         if (this.state.masterObject[lastSymbol]) {
             console.log(this.lastSymbol)
@@ -113,6 +172,7 @@ class ApiReader extends React.Component {
                     {this.state.masterObject[this.lastSymbol] ? this.state.masterObject[this.lastSymbol].hasOwnProperty(this.lastUrl) ? 'HEJ' : '' : ''}
                     <Charts chartData={chartData} />
                     <StockCard data={this.state.masterObject} history={historyData} />
+                    <UserStockList></UserStockList>
                 </div>
             )
 
@@ -124,4 +184,4 @@ class ApiReader extends React.Component {
 }
 
 
-export default ApiReader;
+export default withFirebase(ApiReader);

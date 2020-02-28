@@ -55,10 +55,10 @@ const StockCards = ({ data, history }) => {
 
     return (
         <StockList>
-            {user.stocks.map(stock =>
-                <StockItem key={user.userID}>
-                    <Symbol key={user.stocks.bio}>{stock.symbol}</Symbol>
-                    <Amount key={user.bio}>{stock.amount}</Amount>
+            {user.stocks.map((stock, index) =>
+                <StockItem key={index}>
+                    <Symbol>{stock.symbol}</Symbol>
+                    <Amount>{stock.amount}</Amount>
                     <StyledCharts chartData={chartData}></StyledCharts>
                 </StockItem>
             )}

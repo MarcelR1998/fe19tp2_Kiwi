@@ -1,6 +1,11 @@
 import { baseUrl, apiKey, specificApiList, } from '../../constants/urls.js';
+import { withFirebase } from '../Firebase';
 
-let stocklist = [
+
+
+
+
+export let stocklist = [
     {
         "description": "AGILENT TECHNOLOGIES INC",
         "displaySymbol": "A",
@@ -30,7 +35,14 @@ let getURL = (company) => {
 export let companyNames = stocklist.map(des => {
     return { [des.symbol]: getURL(des.symbol) }
 })
+
+export const companyNamesFunc = (stocklist) => stocklist.map(des => {
+    return { [des.symbol]: getURL(des.symbol) }
+});
+
 export const companyObjects = Object.assign({}, ...companyNames);
+
+export const companyObjectsFunc = (companyNames) => (Object.assign({}, ...companyNames));
 
 
 

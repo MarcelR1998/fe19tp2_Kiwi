@@ -8,11 +8,11 @@ import { withFirebase } from '../Firebase';
 class Search extends React.Component {
     state = {
         search: ""
-      };
+    };
 
-      componentDidMount() {
+    componentDidMount() {
         this.setState({ loading: true });
-        this.props.firebase.user(this.props.authUser.uid).child('stocklist').on('value', snapshot => {
+        this.props.firebase.user(this.props.uid).child('stocklist').on('value', snapshot => {
             const userObject = snapshot.val();
             console.log(userObject);
 
@@ -26,7 +26,7 @@ class Search extends React.Component {
         this.props.firebase.users().off();
     }
 
-      renderStock = stock => {
+    renderStock = stock => {
         const { search } = this.state;
         const symbol = stock.symbol.toLowerCase();
         const description = stock.description.toLowerCase();
@@ -41,64 +41,71 @@ class Search extends React.Component {
             console.log("Stocklist needed.")
             return;
         }
-        this.props.firebase.user(this.props.authUser.uid).child('stocklist').set(stocklist)
+        /* this.props.firebase.user(this.props.uid).child('stocklist').set(stocklist) */
+        this.props.firebase.user(this.props.uid).update({ stocklist: stocklist })
 
     }
 
     handleAddStock = newStock => {
         console.log(newStock)
         if (this.state.stocklist.some(stock => stock.symbol === newStock.symbol)) {
-   
+
         } else {
             const newStockList = this.state.stocklist;
             newStockList.push(newStock);
             this.updateUserStocklist(newStockList);
         }
     }
-    
+
     handleRemoveStock = oldStock => {
 
         const newStockList = this.state.stocklist.filter(stock => stock.symbol !== oldStock.symbol)
         this.updateUserStocklist(newStockList)
     }
-    
+
     render() {
- 
+
         const { search } = this.state;
         const filteredStocks = usStocksList.filter(stock => {
-        return stock.symbol.toLowerCase().indexOf(search.toLowerCase()) !== -1 || stock.description.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-        
-    });
+            return stock.symbol.toLowerCase().indexOf(search.toLowerCase()) !== -1 || stock.description.toLowerCase().indexOf(search.toLowerCase()) !== -1;
 
-    return (
+        });
 
-        <div>
-          <SearchField label="Search Stock"
-            placeholder="Search for stocks and luck"
-            icon="search"
-            onChange={this.onchange} />
-          <div>
-           
-            {this.state.search && filteredStocks.splice(0, 50).map((stock, index) => 
-            <AddStocklist key={'s' + index}><Stocksymbol>{stock.symbol}</Stocksymbol>
-            <Stockdescription>{stock.description}</Stockdescription>
-            {!(this.state.stocklist.some(stateStock => stateStock.symbol === stock.symbol)) ? 
-            <AddDeleteButton onClick={(e) => this.handleAddStock(stock)}><AddDeleteText>+</AddDeleteText></AddDeleteButton>: null }
-            </AddStocklist>)}
-             <Hr />
-             {this.state.stocklist && this.state.stocklist.map((stock, index) => 
-            <MyStocklist key={'o' + index}><Stocksymbol>{stock.symbol}</Stocksymbol>
-            <Stockdescription>{stock.description}</Stockdescription>
-            <AddDeleteButton onClick={(e) => this.handleRemoveStock(stock)} primary>
-            <AddDeleteText>-</AddDeleteText></AddDeleteButton><StockValue>315,6</StockValue><UpDownView></UpDownView>
+        /* console.log(this.props.masterObject.A.quoteUrl.c) */;
 
-            </MyStocklist>)
-            }
-          </div>
-        </div>
-      )
+        /*  const stockValue = (stock.symbol) => {
+             this.props.masterObject[stock.symbol].quoteUrl.c
+         } */
+
+        return (
+
+            <div>
+                <SearchField label="Search Stock"
+                    placeholder="Search for stocks and luck"
+                    icon="search"
+                    onChange={this.onchange} />
+                <div>
+
+                    {this.state.search && filteredStocks.splice(0, 50).map((stock, index) =>
+                        <AddStocklist key={'s' + index}><Stocksymbol>{stock.symbol}</Stocksymbol>
+                            <Stockdescription>{stock.description}</Stockdescription>
+                            {!(this.state.stocklist.some(stateStock => stateStock.symbol === stock.symbol)) ?
+                                <AddDeleteButton onClick={(e) => this.handleAddStock(stock)}><AddDeleteText>+</AddDeleteText></AddDeleteButton> : null}
+                        </AddStocklist>)}
+                    <Hr />
+                    {this.state.stocklist && this.state.stocklist.map((stock, index) =>
+                        <MyStocklist key={'o' + index}><Stocksymbol>{stock.symbol}</Stocksymbol>
+                            <Stockdescription>{stock.description}</Stockdescription>
+                            <AddDeleteButton onClick={(e) => this.handleRemoveStock(stock)} primary>
+                                <AddDeleteText>-</AddDeleteText></AddDeleteButton><StockValue>315,6</StockValue><UpDownView></UpDownView>
+
+                        </MyStocklist>)
+                    }
+                </div>
+            </div>
+        )
     }
-    }
+}
 const SearchField = styled.input`
 width: 320px;
 height: 30px;
@@ -134,7 +141,7 @@ grid-template-rows: 15px 3px 22px 15px 15px;
 
 `;
 
- const Stocksymbol = styled.p`
+const Stocksymbol = styled.p`
  font-family: Roboto;
  font-style: bold;
  font-weight: 900;
@@ -148,7 +155,7 @@ grid-template-rows: 15px 3px 22px 15px 15px;
  
  `;
 
- const AddDeleteText = styled.p`
+const AddDeleteText = styled.p`
 font-family: Roboto;
 color: #ffffff;
 font-style: bold;
@@ -159,7 +166,7 @@ margin-top: 14px;
 
 `;
 
- const Stockdescription = styled.p`
+const Stockdescription = styled.p`
  font-family: 'Roboto';
   font-style: medium;
   font-size: 12px;
@@ -172,7 +179,7 @@ margin-top: 14px;
  
  `;
 
- const MyStocklist = styled.div`
+const MyStocklist = styled.div`
  width: 320px;
  height: 140px;
  
@@ -188,7 +195,7 @@ margin-top: 14px;
  grid-template-rows: 15px 3px 22px 15px 15px 50px 20px;
  
  `;
- const UpDownView = styled.div`
+const UpDownView = styled.div`
  width: 320px;
  height: 20px;
  
@@ -203,16 +210,16 @@ margin-top: 14px;
  
  `;
 
- const AddDeleteButton = styled.button`
+const AddDeleteButton = styled.button`
  width:${props =>
-    props.primary ? '35px' : '65px'};
+        props.primary ? '35px' : '65px'};
  
  height: 32px;
 
  border-radius: 10px;
  margin-bottom: 47px;
  background-color: ${props =>
-    props.primary ? 'red' : '#10B452'};
+        props.primary ? 'red' : '#10B452'};
     
     grid-column:  ${props =>
         props.primary ? '4' : '3 /4'};
@@ -233,13 +240,12 @@ const StockValue = styled.p`
  grid-row: 6 / 6;
  
  `;
- const Hr = styled.hr`
+const Hr = styled.hr`
  border-top: 1px solid #C4C4C4;
  
  `;
 
 
-  export default withFirebase(Search);
-    
+export default withFirebase(Search);
 
- 
+

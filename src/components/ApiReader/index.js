@@ -57,19 +57,21 @@ class ApiReader extends React.Component {
                 const stockObject = snapshot.val();
                 const stocklist = stockObject.stocklist;
                 //console.log()
-                const companyNames = companyNamesFunc(stocklist);
-                const companyObj = Object.assign({}, ...companyNames);
-                const companySymb = Object.keys(companyObj)
-                //urls = Object.values(companyObjects)
-                //console.log(urls)
-                this.getSymbolData(companyObj, companySymb);
-                /* let newStocklist = stocklist.push({
-                    name: 'Gustaf',
-                    symbol: 'jjj'
-                })
-        
-                console.log(newStocklist, stocklist) */
+                if (stocklist) {
+                    const companyNames = companyNamesFunc(stocklist);
+                    const companyObj = Object.assign({}, ...companyNames);
+                    const companySymb = Object.keys(companyObj)
+                    //urls = Object.values(companyObjects)
+                    //console.log(urls)
 
+                    this.getSymbolData(companyObj, companySymb);
+                    /* let newStocklist = stocklist.push({
+                        name: 'Gustaf',
+                        symbol: 'jjj'
+                    })
+            
+                    console.log(newStocklist, stocklist) */
+                } else { alert('add stock') }
 
             });
         } else { console.log('error') }
@@ -140,13 +142,14 @@ class ApiReader extends React.Component {
     }
     */
     render() {
-        const authUser = this.props.uid;
+        /* const authUser = this.props.uid; */
         /* console.log(authUser); */
+        console.log(this.props.uid);
 
         if (this.state.masterObject[lastSymbol]) {
             /*    console.log(this.lastSymbol) */
             let dataPoints = this.state.masterObject;
-
+            /* console.log(this.state.masterObject.map(stock => stock)) */
             /*  console.log(dataPoints['AAPL']['quoteUrl'].h);
              console.log(Object.values(dataPoints));
              console.log(Object.keys(this.buildMasterObject()), Object.values(this.buildMasterObject()).map(data => data.priceTarget)) */
@@ -189,6 +192,7 @@ class ApiReader extends React.Component {
                     {this.state.masterObject[this.lastSymbol] ? this.state.masterObject[this.lastSymbol].hasOwnProperty(this.lastUrl) ? 'HEJ' : '' : ''}
                     {/*  <Charts chartData={chartData} /> */}
                     <StockCard data={this.state.masterObject} history={historyData} />
+                    <Search masterObject={this.state.masterObject} />
                     {/*  <UserStockList></UserStockList> */}
                 </div>
             )

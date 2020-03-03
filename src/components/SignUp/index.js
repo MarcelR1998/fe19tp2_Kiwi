@@ -22,6 +22,23 @@ const SignUpPage = () => (<div>
 );
 
 
+const stocklist = [
+    {
+      "description": "AGILENT TECHNOLOGIES INC",
+      "displaySymbol": "A",
+      "symbol": "A"
+    },
+    {
+      "description": "ALCOA CORP",
+      "displaySymbol": "AA",
+      "symbol": "AA"
+    },
+    {
+      "description": "APPLE INC",
+      "displaySymbol": "AAPL",
+      "symbol": "AAPL"
+    }
+  ];
 class SignUpFormBase extends Component {
     constructor(props) {
         super(props);
@@ -44,6 +61,7 @@ class SignUpFormBase extends Component {
                         username,
                         email,
                         roles,
+                        stocklist
                     });
             })
             .then(authUser => {

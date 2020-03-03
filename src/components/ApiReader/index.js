@@ -68,7 +68,7 @@ class ApiReader extends React.Component {
             console.log(this.lastSymbol)
             let dataPoints = this.state.masterObject;
             let AAPLData = dataPoints['AAPL'];
-            console.log(dataPoints['AAPL']['quoteUrl'].h);
+            console.log(dataPoints['AAPL']['quoteUrl']);
             console.log(Object.values(dataPoints));
 
 

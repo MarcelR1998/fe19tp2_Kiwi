@@ -3,9 +3,15 @@ import { withFirebase } from "../Firebase";
 import styled from "styled-components";
 
 const SignOutButton = ({ firebase }) => (
-    <StyledButton type="button" onClick={firebase.doSignOut}>
-        Sign&nbsp;Out
+  <StyledButton type="button" onClick={firebase.doSignOut}>
+    Sign&nbsp;Out
   </StyledButton>
+);
+
+export const SignOutLink = ({ firebase }) => (
+  <StyledLink type="button" onClick={firebase.doSignOut}>
+    Sign&nbsp;Out
+  </StyledLink>
 );
 
 const StyledButton = styled.button`
@@ -30,5 +36,7 @@ const StyledButton = styled.button`
     font-size: 24px;
   }
 `;
+
+const StyledLink = styled.button``;
 
 export default withFirebase(SignOutButton);

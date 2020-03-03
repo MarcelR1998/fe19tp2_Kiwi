@@ -1,37 +1,38 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "recompose";
 import { SignUpLink } from "../SignUp";
 import { PasswordForgetLink } from "../PasswordForget";
-
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
-
 import styled from "styled-components";
 import image from "../../img/finance.svg";
-
+import { AuthUserContext } from '../Session';
 const SignInPage = () => (
-  <PageWrapper>
-    <Container>
-      <FormWrapper>
-        <h1>Sign in</h1>
-        <FormContainer>
-          <SignInGoogle />
-          <Divider>
-            <DividerText>or</DividerText>
-          </Divider>
-          <SignInForm />
-        </FormContainer>
-        <PasswordForgetLink />
-        <SignUpLink />
-      </FormWrapper>
-      <ImageWrapper>
-        <Image src={image} alt="Image"></Image>
-      </ImageWrapper>
-    </Container>
-  </PageWrapper>
+  <AuthUserContext.Consumer>
+    {authUser =>
+      authUser ? (
+        <Redirect to="/home" />) : <PageWrapper>
+          <Container>
+            <FormWrapper>
+              <h1>Sign in</h1>
+              <FormContainer>
+                <SignInGoogle />
+                <Divider>
+                  <DividerText>or</DividerText>
+                </Divider>
+                <SignInForm />
+              </FormContainer>
+              <PasswordForgetLink />
+              <SignUpLink />
+            </FormWrapper>
+            <ImageWrapper>
+              <Image src={image} alt="Image"></Image>
+            </ImageWrapper>
+          </Container>
+        </PageWrapper>}
+  </AuthUserContext.Consumer>
 );
-
 const INITIAL_STATE = {
   email: "",
   password: "",
@@ -87,7 +88,6 @@ class SignInFormBase extends Component {
     );
   }
 }
-
 class SignInGoogleBase extends Component {
   constructor(props) {
     super(props);
@@ -123,16 +123,12 @@ class SignInGoogleBase extends Component {
     );
   }
 }
-
 const SignInGoogle = compose(withRouter, withFirebase)(SignInGoogleBase);
-
 const SignInForm = compose(withRouter, withFirebase)(SignInFormBase);
-
 const PageWrapper = styled.div`
   display: flex;
   height: 100vh;
 `;
-
 const Container = styled.div`
   width: 70%;
   height: 100%;
@@ -140,25 +136,20 @@ const Container = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const FormWrapper = styled.div`
   margin-right: 10%;
 `;
-
 const FormContainer = styled.div`
   width: 30vw;
 `;
-
 const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
 `;
-
 const FormGoogle = styled(Form)`
   margin-bottom: 3vmin;
 `;
-
 const Input = styled.input`
   font-size: 14px;
   padding: 15px 20px;
@@ -181,7 +172,6 @@ const Label = styled.label`
   font-size: 12px;
   line-height: 21px;
 `;
-
 const Button = styled.button`
   padding: 12px 15px;
   font-size: 14px;
@@ -197,20 +187,16 @@ const Button = styled.button`
     transition: background-color 0.5s;
   }
 `;
-
 const ButtonGoogle = styled(Button)`
   background-color: #334ecd;
   &:hover {
     background-color: #4760d2;
   }
 `;
-
 const ImageWrapper = styled.div``;
-
 const Image = styled.img`
   width: 30vw;
 `;
-
 const Divider = styled.div`
   text-align: center;
   position: relative;
@@ -226,13 +212,11 @@ const Divider = styled.div`
     z-index: -1;
   }
 `;
-
 const DividerText = styled.span`
   margin: 0;
   padding: 0 10px;
   background: #fff;
   display: inline-block;
 `;
-
 export default SignInPage;
 export { SignInForm, SignInGoogle };

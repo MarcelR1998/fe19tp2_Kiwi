@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { compose } from 'recompose';
-
+import { AuthUserContext } from '../Session';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
-
 const INITIAL_STATE = {
     username: '',
     email: '',
@@ -14,31 +13,34 @@ const INITIAL_STATE = {
     isAdmin: false,
     error: null,
 };
-
-const SignUpPage = () => (<div>
-    <h1>SignUp</h1>
-    <SignUpForm />
-</div>
+const SignUpPage = () => (
+    <AuthUserContext.Consumer>
+        {authUser =>
+            authUser ? (
+                <Redirect to="/home" />) :
+                <div>
+                    <h1>SignUp</h1>
+                    <SignUpForm />
+                </div>}
+    </AuthUserContext.Consumer>
 );
-
-
 const stocklist = [
     {
-      "description": "AGILENT TECHNOLOGIES INC",
-      "displaySymbol": "A",
-      "symbol": "A"
+        "description": "AGILENT TECHNOLOGIES INC",
+        "displaySymbol": "A",
+        "symbol": "A"
     },
     {
-      "description": "ALCOA CORP",
-      "displaySymbol": "AA",
-      "symbol": "AA"
+        "description": "ALCOA CORP",
+        "displaySymbol": "AA",
+        "symbol": "AA"
     },
     {
-      "description": "APPLE INC",
-      "displaySymbol": "AAPL",
-      "symbol": "AAPL"
+        "description": "APPLE INC",
+        "displaySymbol": "AAPL",
+        "symbol": "AAPL"
     }
-  ];
+];
 class SignUpFormBase extends Component {
     constructor(props) {
         super(props);
@@ -50,7 +52,6 @@ class SignUpFormBase extends Component {
         if (isAdmin) {
             roles.push(ROLES.ADMIN);
         }
-
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
@@ -76,11 +77,9 @@ class SignUpFormBase extends Component {
     onChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     };
-
     onChangeCheckbox = event => {
         this.setState({ [event.target.name]: event.target.checked });
     };
-
     render() {
         const {
             username,
@@ -95,7 +94,6 @@ class SignUpFormBase extends Component {
             passwordOne === '' ||
             email === '' ||
             username === '';
-
         return (
             <form onSubmit={this.onSubmit}>
                 <input
@@ -143,7 +141,5 @@ const SignUpForm = compose(
     withRouter,
     withFirebase,
 )(SignUpFormBase);
-
-
 export default SignUpPage;
 export { SignUpForm, SignUpLink };

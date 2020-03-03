@@ -3,6 +3,7 @@ import usStocksList from '../ApiReader/usStocksList.json'
 import styled from "styled-components";
 import { withFirebase } from '../Firebase';
 
+import SearchList from './SearchList';
 
 
 class Search extends React.Component {
@@ -23,7 +24,7 @@ class Search extends React.Component {
         });
     }
     componentWillUnmount() {
-        this.props.firebase.users().off();
+        this.props.firebase.user(this.props.uid).off();
     }
 
     renderStock = stock => {
@@ -41,18 +42,24 @@ class Search extends React.Component {
             console.log("Stocklist needed.")
             return;
         }
-        /* this.props.firebase.user(this.props.uid).child('stocklist').set(stocklist) */
-        this.props.firebase.user(this.props.uid).update({ stocklist: stocklist })
+        this.props.firebase.user(this.props.uid).child('stocklist').set(stocklist);
+        //this.props.firebase.user(this.props.uid).update({ stocklist: stocklist })
 
     }
 
     handleAddStock = newStock => {
         console.log(newStock)
-        if (this.state.stocklist.some(stock => stock.symbol === newStock.symbol)) {
+        let stockList = this.state.stocklist;
+        if (!stockList) {
+            console.log("triggered")
+            stockList = [];
+        }
+        if (stockList.some(stock => stock.symbol === newStock.symbol)) {
 
         } else {
-            const newStockList = this.state.stocklist;
+            const newStockList = stockList;
             newStockList.push(newStock);
+            console.log(newStockList)
             this.updateUserStocklist(newStockList);
         }
     }
@@ -85,13 +92,20 @@ class Search extends React.Component {
                     icon="search"
                     onChange={this.onchange} />
                 <div>
+                    {/* { filteredStocks, userStocks, handleAddStock }  */}
+                    {this.state.search && <SearchList
+                        filteredStocks={filteredStocks.splice(0, 50)}
+                        userStocks={this.state.stocklist}
+                        handleAddStock={this.handleAddStock}
+                        handleRemoveStock={this.handleRemoveStock}
+                    />}
 
-                    {this.state.search && filteredStocks.splice(0, 50).map((stock, index) =>
+                    {/*this.state.search && filteredStocks.splice(0, 50).map((stock, index) =>
                         <AddStocklist key={'s' + index}><Stocksymbol>{stock.symbol}</Stocksymbol>
                             <Stockdescription>{stock.description}</Stockdescription>
-                            {!(this.state.stocklist.some(stateStock => stateStock.symbol === stock.symbol)) ?
-                                <AddDeleteButton onClick={(e) => this.handleAddStock(stock)}><AddDeleteText>+</AddDeleteText></AddDeleteButton> : null}
-                        </AddStocklist>)}
+                            {!(this.state.stocklist.some(stateStock => stateStock.symbol === stock.symbol)) ? 
+                                <AddDeleteButton onClick={(e) => this.handleAddStock(stock)}><AddDeleteText>+</AddDeleteText></AddDeleteButton> : null }
+                            </AddStocklist>)*/}
                     <Hr />
                     {this.state.stocklist && this.state.stocklist.map((stock, index) =>
                         <MyStocklist key={'o' + index}><Stocksymbol>{stock.symbol}</Stocksymbol>

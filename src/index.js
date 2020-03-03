@@ -8,7 +8,7 @@ import ApiReader from './components/ApiReader';
 ReactDOM.render(
     <FirebaseContext.Provider value={new Firebase()}>
         <App />
-        <ApiReader />
+        {/* <ApiReader /> */}
     </FirebaseContext.Provider>,
     document.getElementById('root'),
 );

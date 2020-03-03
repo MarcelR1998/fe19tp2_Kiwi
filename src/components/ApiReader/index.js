@@ -71,8 +71,7 @@ class ApiReader extends React.Component {
                     })
             
                     console.log(newStocklist, stocklist) */
-                } else { alert('add stock') }
-
+                }
             });
         } else { console.log('error') }
         /* stocklist.push({

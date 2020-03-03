@@ -31,7 +31,8 @@ const NavigationAuth = ({ authUser }) => (
       <NavBanner>LOGO</NavBanner>
       <NavUser>
         <TopSearch>
-          <SearchInput placeholder="Search"></SearchInput>
+          <Search />
+          {/* <SearchInput placeholder="Search"></SearchInput> */}
         </TopSearch>
         <UserNav />
         {/* <UserBtn>

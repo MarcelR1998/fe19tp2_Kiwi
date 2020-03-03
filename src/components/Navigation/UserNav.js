@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import { SignOutLink } from "../SignOut";
+import SignOutButton from "../SignOut";
 import styled from "styled-components";
 import { AuthUserContext } from "../Session";
 
@@ -24,6 +24,13 @@ class UserNav extends Component {
             <UserCard>
               {this.state.show && (
                 <CardWrapper>
+                  <User>
+                    <UserImg src="https://66.media.tumblr.com/a667b9f6ba81810d3b608b5fd2dbdc19/c09b191bc35ed178-7b/s1280x1920/0c0ca5bdbfb10eb94f8a4f039e1d33479da22b79.jpg"></UserImg>
+                    <UserData>
+                      <UserNames>{authUser.username}</UserNames>
+                      <UserEmail>{authUser.email}</UserEmail>
+                    </UserData>
+                  </User>
                   <CardList>
                     <ListItem>
                       <CardLink account to={ROUTES.ACCOUNT}>
@@ -36,7 +43,7 @@ class UserNav extends Component {
                       </CardLink>
                     </ListItem>
                     <ListItem>
-                      <SignOutLink />
+                      <SignOutButton />
                     </ListItem>
                   </CardList>
                 </CardWrapper>
@@ -47,7 +54,6 @@ class UserNav extends Component {
                 this.show();
               }}
             >
-              <UserImg src="https://66.media.tumblr.com/a667b9f6ba81810d3b608b5fd2dbdc19/c09b191bc35ed178-7b/s1280x1920/0c0ca5bdbfb10eb94f8a4f039e1d33479da22b79.jpg"></UserImg>
               <UserName>{authUser.username}</UserName>
               <i class="fas fa-angle-down"></i>
             </UserBtn>
@@ -69,10 +75,41 @@ const CardWrapper = styled.div`
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 `;
 
+const User = styled.div`
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+`;
+
+const UserData = styled.div``;
+
+const UserNames = styled.span`
+  padding-right: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 24px;
+  font-weight: bold;
+`;
+
+const UserName = styled.span`
+  padding-right: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  font-weight: bold;
+`;
+
+const UserEmail = styled.div`
+  font-size: 12px;
+  color: #555;
+`;
+
 const CardList = styled.ul`
+  background-color: #f8f8f8;
   list-style: none;
   margin: 0;
-  padding: 10px 0;
+  padding: 0 0 10px;
 `;
 
 const ListItem = styled.li``;
@@ -94,9 +131,9 @@ const UserInfo = styled.div`
 `;
 
 const UserImg = styled.img`
-  height: 40px;
-  width: 40px;
-  margin-right: 10px;
+  height: 70px;
+  width: 70px;
+  padding: 10px;
   border-radius: 50%;
   object-fit: cover;
 `;
@@ -113,13 +150,6 @@ const UserBtn = styled.div`
     color: #666;
     transition: color 0.3s linear;
   }
-`;
-
-const UserName = styled.span`
-  padding-right: 5px;
-  font-size: 12px;
-  line-height: 24px;
-  font-weight: bold;
 `;
 
 export default UserNav;

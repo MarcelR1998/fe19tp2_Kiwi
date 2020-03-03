@@ -150,7 +150,6 @@ const NavSide = styled.div`
 
 const TopSearch = styled.div`
   flex-grow: 1;
-  text-align: right;
 `;
 
 const SearchInput = styled.input`

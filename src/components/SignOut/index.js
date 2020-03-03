@@ -8,12 +8,6 @@ const SignOutButton = ({ firebase }) => (
   </StyledButton>
 );
 
-export const SignOutLink = ({ firebase }) => (
-  <StyledLink type="button" onClick={firebase.doSignOut}>
-    Sign&nbsp;Out
-  </StyledLink>
-);
-
 const StyledButton = styled.button`
   position: relative;
   display: block;
@@ -36,7 +30,5 @@ const StyledButton = styled.button`
     font-size: 24px;
   }
 `;
-
-const StyledLink = styled.button``;
 
 export default withFirebase(SignOutButton);

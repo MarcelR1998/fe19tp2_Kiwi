@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import SignOutButton from "../SignOut";
 import UserNav from "../Navigation/UserNav";
+import Search from "../Search";
 
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";

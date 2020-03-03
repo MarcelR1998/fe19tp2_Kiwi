@@ -45,6 +45,7 @@ const PageContainer = styled.div`
 
 const Main = styled.div`
   grid-area: main;
+  overflow: scroll;
 `;
 
 export default withAuthentication(App);

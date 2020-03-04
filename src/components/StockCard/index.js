@@ -1,91 +1,200 @@
-import React, { useReducer, useState } from 'react';
+import React from "react";
+import usStocksList from "../ApiReader/usStocksList.json";
 import styled from "styled-components";
-import Charts from '../Charts/index.js';
-import ApiReader from '../ApiReader';
+import { withFirebase } from "../Firebase";
 
-let user = {
-    stocks: [{ symbol: "AAPL", amount: 5 }, { symbol: "KIWI CO", amount: 74 },],
-    bio: "I like walking my dog and becoming rich trading stocks",
-    userID: 123
+
+
+class StockCard extends React.Component {
+
+    state = {
+
+    };
+
+    componentDidMount() {
+        this.setState({ loading: true });
+        this.props.firebase
+            .user(this.props.uid)
+            .child("stocklist")
+            .on("value", snapshot => {
+                const userObject = snapshot.val();
+                console.log(userObject);
+
+                this.setState({
+                    stocklist: userObject,
+                    loading: false
+                });
+            });
+    }
+    componentWillUnmount() {
+        this.props.firebase.user(this.props.uid).off();
+    }
+
+    renderStock = stock => {
+        const symbol = stock.symbol.toLowerCase();
+        const description = stock.description.toLowerCase();
+    };
+
+    updateUserStocklist = stocklist => {
+        if (!stocklist) {
+            console.log("Stocklist needed.");
+            return;
+        }
+        this.props.firebase
+            .user(this.props.uid)
+            .child("stocklist")
+            .set(stocklist);
+        //this.props.firebase.user(this.props.uid).update({ stocklist: stocklist })
+    };
+
+    handleAddStock = newStock => {
+        console.log(newStock);
+        let stockList = this.state.stocklist;
+        if (!stockList) {
+            console.log("triggered");
+            stockList = [];
+        }
+        if (stockList.some(stock => stock.symbol === newStock.symbol)) {
+        } else {
+            const newStockList = stockList;
+            newStockList.push(newStock);
+            console.log(newStockList);
+            this.updateUserStocklist(newStockList);
+        }
+    };
+
+    handleRemoveStock = oldStock => {
+        const newStockList = this.state.stocklist.filter(
+            stock => stock.symbol !== oldStock.symbol
+        );
+        this.updateUserStocklist(newStockList);
+    };
+
+    render() {
+        return (
+            <CardWrapper>
+                <CardContainer>
+                    {this.state.stocklist &&
+                        this.state.stocklist.map((stock, index) => (
+                            <MyStocklist key={"o" + index}>
+                                <Stocksymbol>{stock.symbol}</Stocksymbol>
+                                <Stockdescription>{stock.description}</Stockdescription>
+                                <AddDeleteButton
+                                    onClick={e => this.handleRemoveStock(stock)}
+                                    primary
+                                >
+                                    <AddDeleteText>-</AddDeleteText>
+                                </AddDeleteButton>
+                                <StockValue>315,6</StockValue>
+                                <UpDownView></UpDownView>
+                            </MyStocklist>
+                        ))}
+                </CardContainer>
+            </CardWrapper>
+        );
+    }
 }
 
-let chartData = {
-    labels: ['A', 'AA', 'AAPL'],
-    datasets: [
-        {
-            label: 'Quote',
-            data: [2, 2, 3],
-            backgroundColor: [
-                'rgb(247, 166, 74)',
-                'rgb(248, 182, 106)',
-                'rgb(249, 198, 139)',
-            ],
-            fill: false,
-            borderWidth: 2,
-            backgroundColor: 'rgba(0, 240, 233, 1)',
-            borderColor: 'rgba(0, 0, 250)',
-            pointBorderWidth: 5
-
-
-
-
-        }
-    ]
-};
-
-const StockCards = (props) => {
-
-    return (
-        <StockList>
-            {user.stocks.map(stock =>
-                <StockItem key={user.userID}>
-                    <Symbol key={user.stocks.bio}>{stock.symbol}</Symbol>
-                    <Amount key={user.bio}>{stock.amount}</Amount>
-                    <StyledCharts chartData={chartData}></StyledCharts>
-                </StockItem>
-            )}
-        </StockList>
-    )
-};
-
-const StockList = styled.ul`
-display: flex;
-list-style: none;
-margin: 0;
-padding: 0;
+const CardWrapper = styled.div`
+  position: relative;
 `;
 
-const StockItem = styled.li`
-display: grid;
-grid-template-columns: 1fr 2fr;
-grid-template-rows: 1fr 1fr;
-grid-template-areas:
-"symbol chart"
-"amount chart"
-;
-padding: 20px;
-max-width: fit-content;
-border-radius: 10px;
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
-margin: 1em;
+const CardContainer = styled.div``;
 
+const Stocksymbol = styled.p`
+  font-family: Roboto;
+  font-style: bold;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 0px;
+  margin-top: 10px;
+  margin: ;
+  padding: ;
+  grid-column: 2 / 2;
+  grid-row: 2 / 3;
 `;
 
-const Symbol = styled.div`
-    grid-area: symbol;
-    display: flex;
-    justify-content: center;
-    padding-inline-start: 20px;
+const AddDeleteText = styled.p`
+  font-family: Roboto;
+  color: #ffffff;
+  font-style: bold;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 0px;
+  margin-top: 14px;
 `;
 
-const Amount = styled.div`
-    grid-area: amount;
-   
+const Stockdescription = styled.p`
+  font-family: "Roboto";
+  font-style: medium;
+  font-size: 12px;
+  line-height: 0px;
+  margin-top: 10px;
+  margin: ;
+  padding: ;
+  grid-column: 2 / 2;
+  grid-row: 4 / 4;
 `;
 
-const StyledCharts = styled(Charts)`
-    grid-area: chart;
+const MyStocklist = styled.div`
+  width: 320px;
+  height: 140px;
+
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin: 20px;
+
+  display: inline-grid;
+  grid-template-columns: 20px 215px 30px 35px 20px;
+  grid-template-rows: 15px 3px 22px 15px 15px 50px 20px;
+`;
+const UpDownView = styled.div`
+  width: 320px;
+  height: 20px;
+
+  background-color: #10b452;
+  border: 0;
+  box-sizing: border-box;
+
+  border-radius: 0px 0px 10px 10px;
+  margin: 0px;
+  grid-column: 1;
+  grid-row: 7 / 7;
 `;
 
+const AddDeleteButton = styled.button`
+  width: ${props => (props.primary ? "35px" : "65px")};
 
-export default StockCards;
+  height: 32px;
+
+  border-radius: 10px;
+  margin-bottom: 47px;
+  background-color: ${props => (props.primary ? "red" : "#10B452")};
+
+  grid-column: ${props => (props.primary ? "4" : "3 /4")};
+  grid-row: 2;
+  :focus {
+    outline: 0;
+  }
+`;
+
+const StockValue = styled.p`
+  font-family: Roboto;
+  font-style: bold;
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 0px;
+  margin-top: 20px;
+  margin: ;
+  padding: ;
+  grid-column: 2 / 2;
+  grid-row: 6 / 6;
+`;
+const Hr = styled.hr`
+  border-top: 1px solid #c4c4c4;
+`;
+
+export default withFirebase(StockCard);

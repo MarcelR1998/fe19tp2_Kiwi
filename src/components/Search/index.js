@@ -122,7 +122,7 @@ class Search extends React.Component {
                                 <AddDeleteButton onClick={(e) => this.handleAddStock(stock)}><AddDeleteText>+</AddDeleteText></AddDeleteButton> : null }
                             </AddStocklist>)*/}
           {/* <Hr /> */}
-          {this.state.stocklist &&
+          {/*  {this.state.stocklist &&
             this.state.stocklist.map((stock, index) => (
               <MyStocklist key={"o" + index}>
                 <Stocksymbol>{stock.symbol}</Stocksymbol>
@@ -136,7 +136,7 @@ class Search extends React.Component {
                 <StockValue>315,6</StockValue>
                 <UpDownView></UpDownView>
               </MyStocklist>
-            ))}
+            ))} */}
         </SearchListContainer>
       </SearchWrapper>
     );
@@ -177,7 +177,8 @@ const SearchListUl = styled.ul`
   flex-direction: column;
   background-color: #fff;
   border-radius: 10px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x:hidden;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 `;
 

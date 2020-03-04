@@ -18,8 +18,8 @@ const Navigation = () => (
         authUser ? (
           <NavigationAuth authUser={authUser} />
         ) : (
-          <NavigationNonAuth />
-        )
+            <NavigationNonAuth />
+          )
       }
     </AuthUserContext.Consumer>
   </Nav>
@@ -31,7 +31,7 @@ const NavigationAuth = ({ authUser }) => (
       <NavBanner>LOGO</NavBanner>
       <NavUser>
         <TopSearch>
-          <Search />
+          <Search uid={authUser.uid} />
           {/* <SearchInput placeholder="Search"></SearchInput> */}
         </TopSearch>
         <UserNav />
@@ -204,22 +204,22 @@ const NavLink = styled(Link)`
     font-size: 24px;
     
     content: "${props => {
-      if (props.home) {
-        return "\f009";
-      } else if (props.portfolio) {
-        return "\f200";
-      } else if (props.news) {
-        return "\f1ea";
-      } else if (props.account) {
-        return "\f007";
-      } else if (props.admin) {
-        return "\f502";
-      } else if (props.signin) {
-        return "\f2f6";
-      } else {
-        return "\f059";
-      }
-    }}";
+    if (props.home) {
+      return "\f009";
+    } else if (props.portfolio) {
+      return "\f200";
+    } else if (props.news) {
+      return "\f1ea";
+    } else if (props.account) {
+      return "\f007";
+    } else if (props.admin) {
+      return "\f502";
+    } else if (props.signin) {
+      return "\f2f6";
+    } else {
+      return "\f059";
+    }
+  }}";
   }
 `;
 

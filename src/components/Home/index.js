@@ -11,7 +11,7 @@ const HomePage = () => (
     {authUser =>
       authUser ? (
         <div>
-          <Search uid={authUser.uid} />
+          <StockCard uid={authUser.uid} />
           <h1>Home Page</h1>
           <p>The Home Page is accessible by every signed in user.</p>
           <ApiReader uid={authUser.uid} />

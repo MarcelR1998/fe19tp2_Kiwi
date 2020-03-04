@@ -191,7 +191,7 @@ class ApiReader extends React.Component {
                     {this.state.masterObject[this.lastSymbol] ? this.state.masterObject[this.lastSymbol].hasOwnProperty(this.lastUrl) ? 'HEJ' : '' : ''}
                     {/*  <Charts chartData={chartData} /> */}
                     <StockCard data={this.state.masterObject} history={historyData} />
-                    <Search masterObject={this.state.masterObject} />
+                    {/*    <Search masterObject={this.state.masterObject} /> */}
                     {/*  <UserStockList></UserStockList> */}
                 </div>
             )

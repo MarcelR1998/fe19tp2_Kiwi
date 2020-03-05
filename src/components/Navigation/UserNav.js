@@ -64,15 +64,17 @@ class UserNav extends Component {
   }
 }
 
-const UserCard = styled.div``;
+const UserCard = styled.div`
+  z-index: 5000;
+`;
 
 const CardWrapper = styled.div`
   position: absolute;
   top: 70px;
   right: 15px;
   background-color: #fff;
-  border-radius: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 `;
 
 const User = styled.div`
@@ -80,6 +82,7 @@ const User = styled.div`
   display: flex;
   align-items: center;
   background-color: #fff;
+  border-radius: 10px 10px 0 0;
 `;
 
 const UserData = styled.div``;
@@ -110,6 +113,7 @@ const CardList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0 0 10px;
+  border-radius: 0 0 10px 10px;
 `;
 
 const ListItem = styled.li``;

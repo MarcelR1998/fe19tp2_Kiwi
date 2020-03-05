@@ -12,17 +12,11 @@ import * as ROLES from "../../constants/roles";
 import styled from "styled-components";
 
 const Navigation = () => (
-  <Nav>
-    <AuthUserContext.Consumer>
-      {authUser =>
-        authUser ? (
-          <NavigationAuth authUser={authUser} />
-        ) : (
-            <NavigationNonAuth />
-          )
-      }
-    </AuthUserContext.Consumer>
-  </Nav>
+  <AuthUserContext.Consumer>
+    {authUser =>
+      authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />
+    }
+  </AuthUserContext.Consumer>
 );
 
 const NavigationAuth = ({ authUser }) => (
@@ -84,16 +78,16 @@ const NavigationAuth = ({ authUser }) => (
 );
 const NavigationNonAuth = () => (
   <div>
-    {/* <NavList>
-    <NavItem>
-      <NavLink to={ROUTES.LANDING}>Landing</NavLink>
-    </NavItem>{" "}
-    <NavItem>
-      <NavLink signin to={ROUTES.SIGN_IN}>
-        Sign In
-      </NavLink>
-    </NavItem>
-  </NavList> */}
+    <NavList>
+      <NavItem>
+        <NavLink to={ROUTES.LANDING}>Landing</NavLink>
+      </NavItem>{" "}
+      <NavItem>
+        <NavLink signin to={ROUTES.SIGN_IN}>
+          Sign In
+        </NavLink>
+      </NavItem>
+    </NavList>
   </div>
 );
 
@@ -204,22 +198,22 @@ const NavLink = styled(Link)`
     font-size: 24px;
     
     content: "${props => {
-    if (props.home) {
-      return "\f009";
-    } else if (props.portfolio) {
-      return "\f200";
-    } else if (props.news) {
-      return "\f1ea";
-    } else if (props.account) {
-      return "\f007";
-    } else if (props.admin) {
-      return "\f502";
-    } else if (props.signin) {
-      return "\f2f6";
-    } else {
-      return "\f059";
-    }
-  }}";
+      if (props.home) {
+        return "\f009";
+      } else if (props.portfolio) {
+        return "\f200";
+      } else if (props.news) {
+        return "\f1ea";
+      } else if (props.account) {
+        return "\f007";
+      } else if (props.admin) {
+        return "\f502";
+      } else if (props.signin) {
+        return "\f2f6";
+      } else {
+        return "\f059";
+      }
+    }}";
   }
 `;
 

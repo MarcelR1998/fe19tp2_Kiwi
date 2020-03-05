@@ -55,7 +55,7 @@ class UserNav extends Component {
               }}
             >
               <UserName>{authUser.username}</UserName>
-              <i class="fas fa-angle-down"></i>
+              <i className="fas fa-angle-down"></i>
             </UserBtn>
           </UserInfo>
         )}
@@ -73,6 +73,7 @@ const CardWrapper = styled.div`
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 `;
 
 const User = styled.div`

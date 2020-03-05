@@ -37,10 +37,10 @@ const SearchListItem = ({
           <AddDeleteText>+</AddDeleteText>
         </AddDeleteButton>
       ) : (
-        <AddDeleteButton primary onClick={e => handleRemoveStock(stock)}>
-          <AddDeleteText>-</AddDeleteText>
-        </AddDeleteButton>
-      )}
+          <AddDeleteButton primary onClick={e => handleRemoveStock(stock)}>
+            <AddDeleteText>-</AddDeleteText>
+          </AddDeleteButton>
+        )}
     </AddStocklist>
   );
 };
@@ -147,7 +147,7 @@ const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
 
   height: 32px;
-
+  border: none;
   border-radius: 10px;
   margin-bottom: 47px;
   background-color: ${props => (props.primary ? "red" : "#10B452")};

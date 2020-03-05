@@ -6,8 +6,8 @@ import { companyObjects, urlKeys, urlValues, hej, companyNamesFunc, companyObjec
 import { sendMessage } from '../../constants/functions';
 import axios from 'axios';
 import rateLimit from 'axios-rate-limit';
-import StockCard from '../StockCard';
 import Charts from '../Charts'
+import StockCard from '../StockCard/index.js';
 /* import UserStockList from '../UserStockList'; */
 import { withFirebase } from '../Firebase';
 import { unstable_batchedUpdates } from 'react-dom';
@@ -25,7 +25,7 @@ class ApiReader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            masterObject: {},
+            masterObject: null,
             Loaded: false
         };
         this.companySymbols = companySymbols;
@@ -34,7 +34,7 @@ class ApiReader extends React.Component {
         this.buildMasterObject = this.buildMasterObject.bind(this);
         this.historyData = historyData;
         this.getSymbolData = this.getSymbolData.bind(this);
-        this.lastSymbols = lastSymbols;
+        //this.lastSymbols = lastSymbols;
         //this.changeTime = this.changeTime.bind(this)
     }
     buildMasterObject() {
@@ -45,11 +45,24 @@ class ApiReader extends React.Component {
     }
     componentDidMount() {
         if (this.props.uid) {
+
+            /*  this.props.firebase.user(this.props.uid).once('value', snapshot => {
+                 const initialStockObject = snapshot.val();
+                 const initialStocklist = initialStockObject.stocklist;
+                 if (initialStocklist) {
+                     localStorage.setItem("data", JSON.stringify(initialStocklist))
+                 } else { */
+
+
+
+
             this.props.firebase.user(this.props.uid).on('value', snapshot => {
                 const stockObject = snapshot.val();
                 const stocklist = stockObject.stocklist;
                 //console.log()
+
                 if (stocklist) {
+
                     const companyNames = companyNamesFunc(stocklist);
                     const companyObj = Object.assign({}, ...companyNames);
                     const companySymb = Object.keys(companyObj)
@@ -57,10 +70,17 @@ class ApiReader extends React.Component {
                     //console.log(urls)
                     this.getSymbolData(companyObj, companySymb);
                     lastSymbols = Object.keys(companyObj)[Object.keys(companyObj).length - 1];
-                    return lastSymbols
-                }
-            });
+
+
+                } else { /* localStorage.setItem("data", ["empty2"]) */ console.log('hej') }
+            })
+
+
+
         } else { console.log('error') }
+
+
+
         /* stocklist.push({
             "description": "ATA CREATIVITY GLOBAL - ADR",
             "displaySymbol": "AACG",
@@ -68,6 +88,7 @@ class ApiReader extends React.Component {
         })
         console.log(stocklist)
         this.props.firebase.user(this.props.uid).update({ stocklist: stocklist }) */
+
     }
     componentWillUnmount() {
         this.props.firebase.user(this.props.uid).off();
@@ -126,7 +147,29 @@ class ApiReader extends React.Component {
         /* const authUser = this.props.uid; */
         /* console.log(authUser); */
         console.log(lastSymbols)
+        if (!this.state.masterObject) {
+            return null
+        }
         if (this.state.masterObject[lastSymbols]) {
+            const LSdata = localStorage.getItem('data')
+            if (LSdata) {
+                if (Object.keys(JSON.parse(LSdata)).toString() !== Object.keys(this.state.masterObject).toString()) {
+                    localStorage.setItem('data', JSON.stringify(this.state.masterObject));
+                    console.log('local storage run')
+                }
+                else {
+                    console.log('hello')
+                }
+            }
+            else {
+                //console.log("First run maybe LS set")
+                localStorage.setItem('data', JSON.stringify(this.state.masterObject));
+            }
+        }
+        /*  if (this.state.masterObject[lastSymbol]) {
+             console.log(Object.keys(JSON.parse(localStorage.getItem('data'))).map(key => Object.keys(this.state.masterObject).some(e => e === key)))
+         } else { console.log('local did not run') } */
+        /* if (this.state.masterObject[lastSymbols]) {
             if (Object.keys(JSON.parse(localStorage.getItem('data'))).toString() !== Object.keys(this.state.masterObject).toString()) {
                 localStorage.setItem('data', JSON.stringify(this.state.masterObject));
                 console.log('local storage run')
@@ -134,7 +177,8 @@ class ApiReader extends React.Component {
         }
         if (this.state.masterObject[lastSymbol]) {
             console.log(Object.keys(JSON.parse(localStorage.getItem('data'))).map(key => Object.keys(this.state.masterObject).some(e => e === key)))
-        }
+        } */
+        console.log(this.state.masterObject)
         if (/* this.state.masterObject[lastSymbol] */ this.state.Loaded) {
             /*    console.log(this.lastSymbol) */
             /*  let dataPoints = this.buildMasterObject();
@@ -171,14 +215,12 @@ class ApiReader extends React.Component {
                        }
                    ]
                }; */
-            let result = localStorage.getItem('data')
-            console.log(JSON.parse(result))
+
             return (
                 <div>
-                    {this.state.masterObject[this.lastSymbol] ? this.state.masterObject[this.lastSymbol].hasOwnProperty(this.lastUrl) ? 'HEJ' : '' : ''}
-                    {/*  <Charts chartData={chartData} /> */}
-                    <StockCard data={this.state.masterObject} history={historyData} />
-                    {/*  <UserStockList></UserStockList> */}
+                    {this.state.masterObject[lastSymbols] ? this.state.masterObject[lastSymbols].hasOwnProperty('companyNewsUrl') ? <StockCard uid={this.props.uid} masterObject={this.state.masterObject} /> : '' : <StockCard uid={this.props.uid} />}
+                    
+                    <div onClick={() => localStorage.setItem('data', JSON.stringify(this.state.masterObject))} >SYNC LS AND masterObject!</div>
                 </div>
             )
         } else {

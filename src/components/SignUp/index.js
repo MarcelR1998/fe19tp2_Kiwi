@@ -26,20 +26,20 @@ const SignUpPage = () => (
 );
 const stocklist = [
     {
-        "description": "AGILENT TECHNOLOGIES INC",
-        "displaySymbol": "A",
-        "symbol": "A"
-    },
-    {
-        "description": "ALCOA CORP",
-        "displaySymbol": "AA",
-        "symbol": "AA"
-    },
-    {
         "description": "APPLE INC",
         "displaySymbol": "AAPL",
         "symbol": "AAPL"
-    }
+    },
+    {
+        "description": "ALPHABET INC-CL A",
+        "displaySymbol": "GOOGL",
+        "symbol": "GOOGL"
+    },
+    {
+        "description": "SPOTIFY TECHNOLOGY SA",
+        "displaySymbol": "SPOT",
+        "symbol": "SPOT"
+    },
 ];
 class SignUpFormBase extends Component {
     constructor(props) {

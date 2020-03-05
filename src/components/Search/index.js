@@ -29,12 +29,6 @@ class Search extends React.Component {
     this.props.firebase.user(this.props.uid).off();
   }
 
-  renderStock = stock => {
-    const { search } = this.state;
-    const symbol = stock.symbol.toLowerCase();
-    const description = stock.description.toLowerCase();
-  };
-
   onchange = e => {
     this.setState({ search: e.target.value });
   };
@@ -266,7 +260,7 @@ const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
 
   height: 32px;
-
+  border: none;
   border-radius: 10px;
   margin-bottom: 47px;
   background-color: ${props => (props.primary ? "red" : "#10B452")};

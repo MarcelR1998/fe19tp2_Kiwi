@@ -2,14 +2,14 @@ import React from "react";
 import usStocksList from "../ApiReader/usStocksList.json";
 import styled from "styled-components";
 import { withFirebase } from "../Firebase";
-
-
+import Charts from "../Charts/index.js"
 
 class StockCard extends React.Component {
 
     state = {
 
     };
+
 
     componentDidMount() {
         this.setState({ loading: true });
@@ -22,18 +22,14 @@ class StockCard extends React.Component {
 
                 this.setState({
                     stocklist: userObject,
-                    loading: false
+                    loading: false,
+                    storage: localStorage.getItem('data')
                 });
             });
     }
     componentWillUnmount() {
-        this.props.firebase.user(this.props.uid).off();
+        this.props.firebase.user(this.props.uid).child("stocklist").off();
     }
-
-    renderStock = stock => {
-        const symbol = stock.symbol.toLowerCase();
-        const description = stock.description.toLowerCase();
-    };
 
     updateUserStocklist = stocklist => {
         if (!stocklist) {
@@ -71,6 +67,55 @@ class StockCard extends React.Component {
     };
 
     render() {
+
+        if (this.props.masterObject) {
+
+
+            let chartData = {
+                labels: Object.keys(this.props.masterObject),
+                datasets: [
+                    {
+                        label: 'Quote',
+                        data: Object.values(this.props.masterObject).map(quote => quote.quoteUrl ? quote.quoteUrl.c : 1),
+                        backgroundColor: [
+                            'rgb(247, 166, 74)',
+                            'rgb(248, 182, 106)',
+                            'rgb(249, 198, 139)',
+                        ]
+                    }
+                ]
+            };
+            return chartData;
+        } else {
+            let values = [];
+
+            let dataRes = JSON.parse(localStorage.getItem('data'));
+            if (dataRes) {
+                values = Object.values(dataRes);
+            } else {
+                values = [1, 2, 3]
+            }
+
+
+            let chartData = {
+                labels: Object.keys(dataRes),
+                datasets: [
+                    {
+                        label: 'Quote',
+                        data: values.map(quote => quote.quoteUrl ? quote.quoteUrl.c : 1),
+                        backgroundColor: [
+                            'rgb(247, 166, 74)',
+                            'rgb(248, 182, 106)',
+                            'rgb(249, 198, 139)',
+                        ]
+                    }
+                ]
+            };
+            return chartData;
+        }
+        console.log(this.props.masterObject)
+
+
         return (
             <CardWrapper>
                 <CardContainer>
@@ -85,7 +130,8 @@ class StockCard extends React.Component {
                                 >
                                     <AddDeleteText>-</AddDeleteText>
                                 </AddDeleteButton>
-                                <StockValue>315,6</StockValue>
+                                <StockValue><Charts chartData={chartData} /> </StockValue>
+
                                 <UpDownView></UpDownView>
                             </MyStocklist>
                         ))}

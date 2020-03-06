@@ -218,8 +218,8 @@ class ApiReader extends React.Component {
 
             return (
                 <div>
-                    {this.state.masterObject[lastSymbols] ? this.state.masterObject[lastSymbols].hasOwnProperty('companyNewsUrl') ? <StockCard uid={this.props.uid} masterObject={this.state.masterObject} /> : '' : <StockCard uid={this.props.uid} />}
-                    
+                    {this.state.masterObject[lastSymbols] ? this.state.masterObject[lastSymbols].hasOwnProperty('quoteUrl') ? <StockCard key={200} uid={this.props.uid} masterObject={this.state.masterObject} /> : '' : <StockCard key={100} uid={this.props.uid} />}
+
                     <div onClick={() => localStorage.setItem('data', JSON.stringify(this.state.masterObject))} >SYNC LS AND masterObject!</div>
                 </div>
             )

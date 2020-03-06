@@ -19,9 +19,9 @@ export const generalNewsUrl = 'news?category=general'
 export const specificApiList =
 {
     quoteUrl: 'quote?symbol=',
-    priceTarget: 'stock/price-target?symbol=',
-    baseRecommendationUrl: 'stock/recommendation?symbol=',
-    companyNewsUrl: 'news/'
+    /* priceTarget: 'stock/price-target?symbol=', */
+    /* baseRecommendationUrl: 'stock/recommendation?symbol=', */
+    /* companyNewsUrl: 'news/' */
 }
 
 

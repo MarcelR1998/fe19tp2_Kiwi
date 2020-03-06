@@ -14,13 +14,11 @@ import styled from "styled-components";
 const Navigation = () => (
   <Nav>
     <AuthUserContext.Consumer>
+
       {authUser =>
-        authUser ? (
-          <NavigationAuth authUser={authUser} />
-        ) : (
-            <NavigationNonAuth />
-          )
+        authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />
       }
+
     </AuthUserContext.Consumer>
   </Nav>
 );
@@ -84,16 +82,16 @@ const NavigationAuth = ({ authUser }) => (
 );
 const NavigationNonAuth = () => (
   <div>
-    {/* <NavList>
-    <NavItem>
-      <NavLink to={ROUTES.LANDING}>Landing</NavLink>
-    </NavItem>{" "}
-    <NavItem>
-      <NavLink signin to={ROUTES.SIGN_IN}>
-        Sign In
-      </NavLink>
-    </NavItem>
-  </NavList> */}
+    <NavList>
+      <NavItem>
+        <NavLink to={ROUTES.LANDING}>Landing</NavLink>
+      </NavItem>{" "}
+      <NavItem>
+        <NavLink signin to={ROUTES.SIGN_IN}>
+          Sign In
+        </NavLink>
+      </NavItem>
+    </NavList>
   </div>
 );
 

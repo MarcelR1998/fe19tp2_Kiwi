@@ -86,8 +86,6 @@ const Stocksymbol = styled.p`
   font-size: 24px;
   line-height: 0px;
   margin-top: 10px;
-  margin: ;
-  padding: ;
   grid-column: 2 / 2;
   grid-row: 2 / 3;
 `;
@@ -108,8 +106,6 @@ const Stockdescription = styled.p`
   font-size: 12px;
   line-height: 0px;
   margin-top: 10px;
-  margin: ;
-  padding: ;
   grid-column: 2 / 2;
   grid-row: 4 / 4;
 `;
@@ -133,7 +129,7 @@ const UpDownView = styled.div`
   width: 320px;
   height: 20px;
 
-  background-color: #10b452;
+  background-color: #8bc34a;
   border: 0;
   box-sizing: border-box;
 
@@ -145,15 +141,21 @@ const UpDownView = styled.div`
 
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
-
   height: 32px;
   border: none;
   border-radius: 10px;
   margin-bottom: 47px;
-  background-color: ${props => (props.primary ? "red" : "#10B452")};
+  background-color: ${props => (props.primary ? "#F44336" : "#8BC34A")};
 
   grid-column: ${props => (props.primary ? "4" : "3 /4")};
   grid-row: 2;
+
+  cursor: pointer;
+
+  :hover {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+  }
   :focus {
     outline: 0;
   }
@@ -166,8 +168,6 @@ const StockValue = styled.p`
   font-size: 50px;
   line-height: 0px;
   margin-top: 20px;
-  margin: ;
-  padding: ;
   grid-column: 2 / 2;
   grid-row: 6 / 6;
 `;

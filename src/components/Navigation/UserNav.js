@@ -74,11 +74,7 @@ const CardWrapper = styled.div`
   right: 15px;
   background-color: #fff;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-<<<<<<< HEAD
-  z-index: 1;
-=======
   border-radius: 10px;
->>>>>>> 2cffdea14ee65d20ad29b8ea64329dbabb660745
 `;
 
 const User = styled.div`

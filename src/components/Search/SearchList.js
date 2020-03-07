@@ -22,7 +22,7 @@ const SearchListItem = ({
   stock,
   userStocks,
   handleAddStock,
-  handleRemoveStock
+  handleRemoveStock,
 }) => {
   if (!userStocks) {
     userStocks = [];
@@ -165,7 +165,7 @@ const StockValue = styled.p`
   font-family: Roboto;
   font-style: bold;
   font-weight: 500;
-  font-size: 50px;
+  font-size: 40px;
   line-height: 0px;
   margin-top: 20px;
   grid-column: 2 / 2;

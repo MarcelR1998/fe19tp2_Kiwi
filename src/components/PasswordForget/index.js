@@ -2,10 +2,19 @@ import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import { StyledLink, TextRight } from "../Styles";
+import styled from "styled-components";
+import {
+  FormContainer,
+  StyledForm,
+  StyledInput,
+  FormTitle,
+  FormDesc,
+  StyledLabel,
+  StyledButton
+} from "../Styles";
 
 const PasswordForgetPage = () => (
   <div>
-    <h1>PasswordForget</h1>
     <PasswordForgetForm />
   </div>
 );
@@ -38,19 +47,26 @@ class PasswordForgetFormBase extends Component {
     const { email, error } = this.state;
     const isInvalid = email === "";
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={this.state.email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
-        {error && <p>{error.message}</p>}
-      </form>
+      <Wrapper>
+        <FormContainer>
+          <FormTitle>Restore Password</FormTitle>
+          <FormDesc>Enter an email address you use to sign in.</FormDesc>
+          <StyledForm onSubmit={this.onSubmit}>
+            <StyledLabel htmlFor="email">Email Address</StyledLabel>
+            <StyledInput
+              name="email"
+              value={this.state.email}
+              onChange={this.onChange}
+              type="text"
+              placeholder="Email Address"
+            ></StyledInput>
+            <StyledButton disabled={isInvalid} type="submit">
+              Reset My Password
+            </StyledButton>
+            {error && <p>{error.message}</p>}
+          </StyledForm>
+        </FormContainer>
+      </Wrapper>
     );
   }
 }
@@ -62,5 +78,9 @@ const PasswordForgetLink = () => (
 export default PasswordForgetPage;
 
 const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
+
+const Wrapper = styled.div`
+  margin-top: 10vmin;
+`;
 
 export { PasswordForgetForm, PasswordForgetLink };

@@ -36,3 +36,13 @@ code {
 .icon-signin:before {
   content: "\f2f6" !important;
 }
+
+.account-item {
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .account-item {
+    display: block;
+  }
+}

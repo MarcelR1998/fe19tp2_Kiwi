@@ -2,12 +2,22 @@ import React from "react";
 import usStocksList from "../ApiReader/usStocksList.json";
 import styled from "styled-components";
 import { withFirebase } from "../Firebase";
-import Charts from "../Charts/index.js"
+import Charts from "../Charts/index.js";
+import {
+  StockListWrapper,
+  StyledStockList,
+  StockListItem,
+  StockItemMain,
+  StockItemData,
+  StockItemButton,
+  StockItemGain,
+  StockSymbol,
+  StockDesc,
+  StockValue
+} from "../Styles";
 
 class StockCard extends React.Component {
   state = {};
-
-
 
   componentDidMount() {
     this.setState({ loading: true });
@@ -18,7 +28,7 @@ class StockCard extends React.Component {
         const userObject = snapshot.val();
         this.setState({
           stocklist: userObject,
-          loading: false,
+          loading: false
           /*   storage: localStorage.getItem('data') */
         });
       });
@@ -38,7 +48,7 @@ class StockCard extends React.Component {
       .set(stocklist);
     this.setState({
       stocklist: stocklist
-    })
+    });
   };
 
   handleAddStock = newStock => {
@@ -62,16 +72,22 @@ class StockCard extends React.Component {
     this.updateUserStocklist(newStockList);
   };
 
-  newStockValues = (symbol) =>
-    this.props.masterObject && !this.state.loading
-      ? this.props.masterObject[symbol]
-        ? this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
-        : (<div style={{ transform: "translateY(-16px)" }}><i className="fas fa-spinner fa-spin fa-xs"></i></div>)
-      : (<div style={{ transform: "translateY(-16px)" }}><i className="fas fa-spinner fa-spin fa-xs"></i></div>);
-
+  newStockValues = symbol =>
+    this.props.masterObject && !this.state.loading ? (
+      this.props.masterObject[symbol] ? (
+        this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
+      ) : (
+        <div style={{ transform: "translateY(-16px)" }}>
+          <i className="fas fa-spinner fa-spin fa-xs"></i>
+        </div>
+      )
+    ) : (
+      <div style={{ transform: "translateY(-16px)" }}>
+        <i className="fas fa-spinner fa-spin fa-xs"></i>
+      </div>
+    );
 
   render() {
-
     /*   console.log(this.props.masterObject); */
     /* 
         let dataRes = JSON.parse(localStorage.getItem('data'));
@@ -92,49 +108,36 @@ class StockCard extends React.Component {
         }; */
 
     return (
-      <CardWrapper>
-        <CardContainer>
+      <StockListWrapper>
+        <StyledStockList>
           {this.state.stocklist &&
             this.state.stocklist.map((stock, index) => (
-              <MyStocklist key={"o" + index}>
-                <Stocksymbol>{stock.symbol}</Stocksymbol>
-                <Stockdescription>{stock.description}</Stockdescription>
-                <AddDeleteButton
-                  onClick={e => this.handleRemoveStock(stock)}
-                  primary
-                >
-                  <AddDeleteText>-</AddDeleteText>
-                </AddDeleteButton>
-                <StockValue>  {this.newStockValues(stock.symbol) || 'No data'} </StockValue>
-                <UpDownView></UpDownView>
-              </MyStocklist>
+              <StockListItem key={"o" + index}>
+                <StockItemMain>
+                  <StockItemData>
+                    <StockSymbol>{stock.symbol}</StockSymbol>
+                    <StockDesc>{stock.description}</StockDesc>
+                    <StockValue>
+                      {this.newStockValues(stock.symbol) || "No data"}
+                    </StockValue>
+                  </StockItemData>
+                  <StockItemButton>
+                    <AddDeleteButton
+                      onClick={e => this.handleRemoveStock(stock)}
+                      primary
+                    >
+                      <AddDeleteText>-</AddDeleteText>
+                    </AddDeleteButton>
+                  </StockItemButton>
+                  <StockItemGain></StockItemGain>
+                </StockItemMain>
+              </StockListItem>
             ))}
-        </CardContainer>
-      </CardWrapper>
+        </StyledStockList>
+      </StockListWrapper>
     );
   }
-};
-
-/* multiplyStock = () => {
- 
-} */
-
-const CardWrapper = styled.div`
-  position: relative;
-`;
-
-const CardContainer = styled.div``;
-
-const Stocksymbol = styled.p`
-  font-family: Roboto;
-  font-style: bold;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 0px;
-  margin-top: 10px;
-  grid-column: 2 / 2;
-  grid-row: 2 / 3;
-`;
+}
 
 const AddDeleteText = styled.p`
   font-family: Roboto;
@@ -144,16 +147,6 @@ const AddDeleteText = styled.p`
   font-size: 24px;
   line-height: 0px;
   margin-top: 14px;
-`;
-
-const Stockdescription = styled.p`
-  font-family: "Roboto";
-  font-style: medium;
-  font-size: 12px;
-  line-height: 0px;
-  margin-top: 10px;
-  grid-column: 2 / 2;
-  grid-row: 4 / 4;
 `;
 
 const MyStocklist = styled.div`
@@ -211,20 +204,6 @@ const AddDeleteButton = styled.button`
   :focus {
     outline: 0;
   }
-`;
-
-const StockValue = styled.p`
-  font-family: Roboto;
-  font-style: bold;
-  font-weight: 500;
-  font-size: 40px;
-  line-height: 0px;
-  margin-top: 20px;
-  grid-column: 2 / 2;
-  grid-row: 6 / 6;
-`;
-const Hr = styled.hr`
-  border-top: 1px solid #c4c4c4;
 `;
 
 export default withFirebase(StockCard);

@@ -10,6 +10,12 @@ import { AuthUserContext } from "../Session";
 import * as ROLES from "../../constants/roles";
 
 import styled from "styled-components";
+import {
+  GridNavBanner,
+  GridNavUser,
+  GridPageNav,
+  PageNavWrapper
+} from "../Styles";
 
 const Navigation = () => (
   <Nav>
@@ -26,9 +32,9 @@ const Navigation = () => (
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <NavWrapper>
-    <NavTop>
-      <NavBanner>LOGO</NavBanner>
+  <PageNavWrapper>
+    <GridNavUser>
+      <GridNavBanner>LOGO</GridNavBanner>
       <NavUser>
         <TopSearch>
           <Search uid={authUser.uid} />
@@ -42,8 +48,8 @@ const NavigationAuth = ({ authUser }) => (
           </UserBtn>
         </UserNav> */}
       </NavUser>
-    </NavTop>
-    <NavSide>
+    </GridNavUser>
+    <GridPageNav>
       <NavList>
         {/* <NavItem>
       <NavLink to={ROUTES.LANDING}>Landing</NavLink>
@@ -63,11 +69,11 @@ const NavigationAuth = ({ authUser }) => (
             Portfolio
           </NavLink>
         </NavItem>
-        {/*         <NavItem>
-          <NavLink account to={ROUTES.ACCOUNT}>
+        <NavItem className="account-item">
+          <NavLink className="icon-account" to={ROUTES.ACCOUNT}>
             Account
           </NavLink>
-        </NavItem> */}
+        </NavItem>
         {authUser.roles.includes(ROLES.ADMIN) && (
           <NavItem>
             <NavLink className="icon-admin" to={ROUTES.ADMIN}>
@@ -79,8 +85,8 @@ const NavigationAuth = ({ authUser }) => (
           <SignOutButton />
         </NavItem> */}
       </NavList>
-    </NavSide>
-  </NavWrapper>
+    </GridPageNav>
+  </PageNavWrapper>
 );
 const NavigationNonAuth = () => (
   <div>
@@ -103,25 +109,6 @@ const Nav = styled.div`
   background-color: #039be5;
 `;
 
-const NavWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
-
-const NavBanner = styled.div`
-  grid-area: topbanner;
-  width: 120px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  flex-shrink: 0;
-  background-color: #039be5;
-`;
-
 const NavUser = styled.div`
   padding: 0 25px;
   position: relative;
@@ -131,23 +118,9 @@ const NavUser = styled.div`
   display: flex;
   align-items: center;
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
-`;
-
-const NavTop = styled.div`
-  grid-area: topnav;
-  /* position: fixed;
-  top: 0;
-  right: 0;
-  margin-left: 300px; */
-  display: flex;
-`;
-
-const NavSide = styled.div`
-  grid-area: navside;
-  width: 120px;
-  height: 100%;
-  flex-grow: 1;
-  background-color: #039be5;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const TopSearch = styled.div`
@@ -176,6 +149,11 @@ const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 700px) {
+    width: 100vw;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 `;
 
 const NavItem = styled.li`
@@ -187,6 +165,7 @@ const NavItem = styled.li`
 `;
 
 const NavLink = styled(Link)`
+  width: 70px;
   position: relative;
   display: block;
   padding: 50px 25px 15px;
@@ -194,6 +173,9 @@ const NavLink = styled(Link)`
   color: #fff;
   text-align: center;
   text-decoration: none;
+  @media (max-width: 700px) {
+    width: auto;
+  }
   &:before {
     position: absolute;
     content: "";
@@ -203,24 +185,6 @@ const NavLink = styled(Link)`
     font-family: "Font Awesome 5 Pro";
     font-weight: 900;
     font-size: 24px;
-    
-/*     content: "${props => {
-  if (props.home) {
-    return "\f009";
-  } else if (props.portfolio) {
-    return "\f200";
-  } else if (props.news) {
-    return "\f1ea";
-  } else if (props.account) {
-    return "\f007";
-  } else if (props.admin) {
-    return "\f502";
-  } else if (props.signin) {
-    return "\f2f6";
-  } else {
-    return "\f059";
-  }
-}}"; */
   }
 `;
 

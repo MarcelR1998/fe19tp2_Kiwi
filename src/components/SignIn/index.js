@@ -13,7 +13,9 @@ import {
   StyledForm,
   StyledInput,
   StyledLabel,
-  StyledButton
+  StyledButton,
+  FormTitle,
+  FormDesc
 } from "../Styles";
 
 const SignInPage = () => (
@@ -25,7 +27,10 @@ const SignInPage = () => (
         <PageWrapper>
           <Container>
             <FormWrapper>
-              <h1>Sign in</h1>
+              <FormTitle>Sign in</FormTitle>
+              <FormDesc>
+                Enter you information bellow or login with a social account.
+              </FormDesc>
               <FormContainer>
                 <SignInGoogle />
                 <Divider>
@@ -153,6 +158,9 @@ const Container = styled.div`
 `;
 const FormWrapper = styled.div`
   margin-right: 10%;
+  @media (max-width: 1012px) {
+    margin-right: 0;
+  }
 `;
 const FormGoogle = styled(StyledForm)`
   margin-bottom: 3vmin;
@@ -165,13 +173,21 @@ const ButtonGoogle = styled(StyledButton)`
 `;
 const ImageWrapper = styled.div`
   @media (max-width: 1012px) {
-    order: 1;
+    margin: 25px 0;
+    order: -1;
   }
 `;
 
 const Image = styled.img`
   width: 30vw;
+  @media (max-width: 1012px) {
+    width: 30vw;
+  }
+  @media (max-width: 700px) {
+    width: 50vw;
+  }
 `;
+
 const Divider = styled.div`
   text-align: center;
   position: relative;

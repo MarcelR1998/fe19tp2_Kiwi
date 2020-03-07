@@ -2,9 +2,8 @@ import React from "react";
 import usStocksList from "../ApiReader/usStocksList.json";
 import styled from "styled-components";
 import { withFirebase } from "../Firebase";
-import StockCard from '../StockCard/';
+import StockCard from "../StockCard/";
 import SearchList from "./SearchList";
-
 
 class Search extends React.Component {
   state = {
@@ -36,7 +35,7 @@ class Search extends React.Component {
           stocklist: userObject,
           loading: false
         });
-        console.log(this.props.uid)
+        console.log(this.props.uid);
       });
     document.addEventListener("click", this.handleClick, false);
   }
@@ -62,9 +61,8 @@ class Search extends React.Component {
 
     this.setState({
       stocklist: stocklist
-    })
-    console.log(this.state.stocklist)
-
+    });
+    console.log(this.state.stocklist);
   };
 
   handleAddStock = newStock => {
@@ -90,8 +88,6 @@ class Search extends React.Component {
     this.updateUserStocklist(newStockList);
   };
 
-
-
   render() {
     const { search } = this.state;
     const filteredStocks = usStocksList.filter(stock => {
@@ -103,7 +99,6 @@ class Search extends React.Component {
 
     return (
       <SearchWrapper>
-
         <SearchField
           label="Search Stock"
           placeholder="Search for stocks and luck"
@@ -175,6 +170,15 @@ const SearchField = styled.input`
   border: 0;
   border-radius: 10px;
   outline: 0;
+  @media (max-width: 1200px) {
+    width: 50%;
+  }
+  @media (max-width: 900px) {
+    width: 70%;
+  }
+  @media (max-width: 500px) {
+    width: 90%;
+  }
   &:focus {
     width: 100%;
     transition: width 0.6s;
@@ -289,13 +293,9 @@ const UpDownView = styled.div`
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
-<<<<<<< HEAD
-  border: none;
-=======
-
-  border: 0;
->>>>>>> 2cffdea14ee65d20ad29b8ea64329dbabb660745
-  border-radius: 10px;
+  <<<<<<<headborder: none;
+  =======border: 0;
+  >>>>>>>2cffdea14ee65d20ad29b8ea64329dbabb660745border-radius: 10px;
   margin-bottom: 47px;
   background-color: ${props => (props.primary ? "#F44336" : "#8BC34A")};
 

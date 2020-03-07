@@ -17,7 +17,6 @@ class AdminPage extends Component {
         this.setState({ loading: true });
         this.props.firebase.users().on('value', snapshot => {
             const usersObject = snapshot.val();
-            console.log(usersObject);
             const usersList = Object.keys(usersObject).map(key => ({
                 ...usersObject[key],
                 uid: key,

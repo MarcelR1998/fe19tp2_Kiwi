@@ -7,28 +7,6 @@ import Charts from "../Charts/index.js"
 class StockCard extends React.Component {
   state = {};
 
-  componentDidMount() {
-    this.setState({ loading: true });
-    this.props.firebase
-      .user(this.props.uid)
-      .child("stocklist")
-      .on("value", snapshot => {
-        const userObject = snapshot.val();
-        console.log(userObject);
-
-        this.setState({
-          stocklist: userObject,
-          loading: false
-        });
-      });
-  }
-  componentWillUnmount() {
-    this.props.firebase.user(this.props.uid).off();
-  }
-
-  state = {
-
-  };
 
 
   componentDidMount() {
@@ -38,18 +16,16 @@ class StockCard extends React.Component {
       .child("stocklist")
       .on("value", snapshot => {
         const userObject = snapshot.val();
-        console.log(userObject);
-
         this.setState({
           stocklist: userObject,
           loading: false,
-          storage: localStorage.getItem('data')
+          /*   storage: localStorage.getItem('data') */
         });
       });
   }
-  componentWillUnmount() {
-    this.props.firebase.user(this.props.uid).child("stocklist").off();
-  }
+  /*  componentWillUnmount() {
+     this.props.firebase.user(this.props.uid).child("stocklist").off();
+   } */
 
   updateUserStocklist = stocklist => {
     if (!stocklist) {
@@ -60,11 +36,12 @@ class StockCard extends React.Component {
       .user(this.props.uid)
       .child("stocklist")
       .set(stocklist);
-    //this.props.firebase.user(this.props.uid).update({ stocklist: stocklist })
+    this.setState({
+      stocklist: stocklist
+    })
   };
 
   handleAddStock = newStock => {
-    console.log(newStock);
     let stockList = this.state.stocklist;
     if (!stockList) {
       console.log("triggered");
@@ -74,7 +51,6 @@ class StockCard extends React.Component {
     } else {
       const newStockList = stockList;
       newStockList.push(newStock);
-      console.log(newStockList);
       this.updateUserStocklist(newStockList);
     }
   };
@@ -85,29 +61,18 @@ class StockCard extends React.Component {
     );
     this.updateUserStocklist(newStockList);
   };
-  newStockValues = (symbol) => this.props.masterObject && !this.state.loading ? this.props.masterObject[symbol] ? this.props.masterObject[symbol].quoteUrl.c : 1 : 1
 
-  stockValues = (symbol) => {
-    if (this.props.masterObject && !this.state.loading) {
-      let currentValues = Object.values(this.props.masterObject).map(currentValue => currentValue.quoteUrl.c);
-      let symbols = Object.keys(this.props.masterObject);
+  newStockValues = (symbol) =>
+    this.props.masterObject && !this.state.loading
+      ? this.props.masterObject[symbol]
+        ? this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
+        : (<div style={{ transform: "translateY(-16px)" }}><i className="fas fa-spinner fa-spin fa-xs"></i></div>)
+      : (<div style={{ transform: "translateY(-16px)" }}><i className="fas fa-spinner fa-spin fa-xs"></i></div>);
 
-      let userStockValues = []
-
-      currentValues.forEach((value, index) => {
-        userStockValues.push({ [symbols[index]]: `${currentValues[index]}` })
-      })
-
-      let returnArray = userStockValues.find(value => Object.keys(value)[0] === symbol);
-      let finished = Object.values(returnArray);
-      console.log(typeof finished);
-      return Number.parseFloat(finished).toFixed(2);
-    } else { console.log('hello') }
-  }
 
   render() {
 
-    console.log(this.props.masterObject);
+    /*   console.log(this.props.masterObject); */
     /* 
         let dataRes = JSON.parse(localStorage.getItem('data'));
     
@@ -126,47 +91,6 @@ class StockCard extends React.Component {
           ]
         }; */
 
-    console.log(this.state.stocklist);
-
-
-    /*   let stockValue = () => {
-          let currentValues = Object.values(this.props.masterObject).map(currentValue => currentValue.quoteUrl.c);
-          let symbols = this.state.stocklist.map(symbol => symbol.symbol)
-        let obj = Object.keys()  
-          currentValues
-          let prevValues = this.state.stocklist.map(prevValue => prevValue.quoteUrl.c);
-          
-          return currentValues.map(currentValue => currentValue * 10)
-      } */
-
-
-
-    /*   let values = [];
-
-      let dataRes = JSON.parse(localStorage.getItem('data'));
-      if (dataRes) {
-        values = Object.values(dataRes);
-      } else {
-        values = [1, 2, 3]
-      } */
-
-
-    /*       let chartData = {
-            labels: Object.keys(dataRes),
-            datasets: [
-              {
-                label: 'Quote',
-                data: values.map(quote => quote.quoteUrl ? quote.quoteUrl.c : 1),
-                backgroundColor: [
-                  'rgb(247, 166, 74)',
-                  'rgb(248, 182, 106)',
-                  'rgb(249, 198, 139)',
-                ]
-              }
-            ]
-          }; */
-
-
     return (
       <CardWrapper>
         <CardContainer>
@@ -181,8 +105,7 @@ class StockCard extends React.Component {
                 >
                   <AddDeleteText>-</AddDeleteText>
                 </AddDeleteButton>
-                <StockValue>{/* <Charts chartData={chartData} /> */} {this.newStockValues(stock.symbol) || 1} </StockValue>
-
+                <StockValue>  {this.newStockValues(stock.symbol) || 'No data'} </StockValue>
                 <UpDownView></UpDownView>
               </MyStocklist>
             ))}
@@ -294,7 +217,7 @@ const StockValue = styled.p`
   font-family: Roboto;
   font-style: bold;
   font-weight: 500;
-  font-size: 50px;
+  font-size: 40px;
   line-height: 0px;
   margin-top: 20px;
   grid-column: 2 / 2;

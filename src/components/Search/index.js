@@ -2,36 +2,28 @@ import React from "react";
 import usStocksList from "../ApiReader/usStocksList.json";
 import styled from "styled-components";
 import { withFirebase } from "../Firebase";
-
+import StockCard from '../StockCard/';
 import SearchList from "./SearchList";
 
 
 class Search extends React.Component {
   state = {
     search: "",
-    show: false
+    show: true
   };
-
-  componentWillMount() {
-    document.addEventListener("click", this.handleClick, false);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick, false);
-  }
 
   handleClick = e => {
     if (this.node.contains(e.target)) {
       return;
     }
-    this.handleClickOutside();
+    /*     this.handleClickOutside(); */
   };
 
-  handleClickOutside = () => {
-    this.setState({
-      show: !this.state.show
-    });
-  };
+  /*  handleClickOutside = () => {
+     this.setState({
+       show: !this.state.show
+     });
+   }; */
 
   componentDidMount() {
     this.setState({ loading: true });
@@ -40,16 +32,17 @@ class Search extends React.Component {
       .child("stocklist")
       .on("value", snapshot => {
         const userObject = snapshot.val();
-        console.log(userObject);
-
         this.setState({
           stocklist: userObject,
           loading: false
         });
+        console.log(this.props.uid)
       });
+    document.addEventListener("click", this.handleClick, false);
   }
   componentWillUnmount() {
-    this.props.firebase.user(this.props.uid).off();
+    /* this.props.firebase.user(this.props.uid).off(); */
+    document.removeEventListener("click", this.handleClick, false);
   }
 
   onchange = e => {
@@ -61,15 +54,20 @@ class Search extends React.Component {
       console.log("Stocklist needed.");
       return;
     }
+
     this.props.firebase
       .user(this.props.uid)
       .child("stocklist")
       .set(stocklist);
-    //this.props.firebase.user(this.props.uid).update({ stocklist: stocklist })
+
+    this.setState({
+      stocklist: stocklist
+    })
+    console.log(this.state.stocklist)
+
   };
 
   handleAddStock = newStock => {
-    console.log(newStock);
     let stockList = this.state.stocklist;
     if (!stockList) {
       console.log("triggered");
@@ -79,7 +77,7 @@ class Search extends React.Component {
     } else {
       const newStockList = stockList;
       newStockList.push(newStock);
-      console.log(newStockList);
+      console.log(newStock, stockList);
       this.updateUserStocklist(newStockList);
     }
   };
@@ -88,8 +86,11 @@ class Search extends React.Component {
     const newStockList = this.state.stocklist.filter(
       stock => stock.symbol !== oldStock.symbol
     );
+
     this.updateUserStocklist(newStockList);
   };
+
+
 
   render() {
     const { search } = this.state;
@@ -98,12 +99,11 @@ class Search extends React.Component {
         stock.symbol.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
         stock.description.toLowerCase().indexOf(search.toLowerCase()) !== -1
       );
-    }); /*  const stockValue = (stock.symbol) => {
-             this.props.masterObject[stock.symbol].quoteUrl.c
-         } */
+    });
 
-    /* console.log(this.props.masterObject.A.quoteUrl.c) */ return (
+    return (
       <SearchWrapper>
+
         <SearchField
           label="Search Stock"
           placeholder="Search for stocks and luck"

@@ -1,18 +1,28 @@
 import React, { Component } from "react";
 import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "recompose";
-import { SignUpLink } from "../SignUp";
+/* import { SignUpLink } from "../SignUp"; */
 import { PasswordForgetLink } from "../PasswordForget";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import styled from "styled-components";
 import image from "../../img/finance.svg";
-import { AuthUserContext } from '../Session';
+import { AuthUserContext } from "../Session";
+import {
+  FormContainer,
+  StyledForm,
+  StyledInput,
+  StyledLabel,
+  StyledButton
+} from "../Styles";
+
 const SignInPage = () => (
   <AuthUserContext.Consumer>
     {authUser =>
       authUser ? (
-        <Redirect to="/home" />) : <PageWrapper>
+        <Redirect to="/home" />
+      ) : (
+        <PageWrapper>
           <Container>
             <FormWrapper>
               <h1>Sign in</h1>
@@ -24,13 +34,15 @@ const SignInPage = () => (
                 <SignInForm />
               </FormContainer>
               <PasswordForgetLink />
-              <SignUpLink />
+              {/* <SignUpLink /> */}
             </FormWrapper>
             <ImageWrapper>
               <Image src={image} alt="Image"></Image>
             </ImageWrapper>
           </Container>
-        </PageWrapper>}
+        </PageWrapper>
+      )
+    }
   </AuthUserContext.Consumer>
 );
 const INITIAL_STATE = {
@@ -63,28 +75,28 @@ class SignInFormBase extends Component {
     const { email, password, error } = this.state;
     const isInvalid = password === "" || email === "";
     return (
-      <Form onSubmit={this.onSubmit}>
-        <Label htmlFor="email">Email Address</Label>
-        <Input
+      <StyledForm onSubmit={this.onSubmit}>
+        <StyledLabel htmlFor="email">Email Address</StyledLabel>
+        <StyledInput
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
-        ></Input>
-        <Label htmlFor="password">Password</Label>
-        <Input
+        ></StyledInput>
+        <StyledLabel htmlFor="password">Password</StyledLabel>
+        <StyledInput
           name="password"
           value={password}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
-        ></Input>
-        <Button disabled={isInvalid} type="submit">
+        ></StyledInput>
+        <StyledButton disabled={isInvalid} type="submit">
           Sign In
-        </Button>
+        </StyledButton>
         {error && <p>{error.message}</p>}
-      </Form>
+      </StyledForm>
     );
   }
 }
@@ -135,65 +147,28 @@ const Container = styled.div`
   margin: auto;
   display: flex;
   align-items: center;
+  @media (max-width: 1012px) {
+    flex-direction: column;
+  }
 `;
 const FormWrapper = styled.div`
   margin-right: 10%;
 `;
-const FormContainer = styled.div`
-  width: 30vw;
-`;
-const Form = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-const FormGoogle = styled(Form)`
+const FormGoogle = styled(StyledForm)`
   margin-bottom: 3vmin;
 `;
-const Input = styled.input`
-  font-size: 14px;
-  padding: 15px 20px;
-  margin-bottom: 2vmin;
-  background-color: #f7f7f7;
-  border: 1px solid #fff;
-  border-radius: 5px;
-  outline: 0;
-  &:hover {
-    border: 1px solid #00b0ff;
-    transition: border 0.5s;
-  }
-  &:focus {
-    background-color: #f2f2f2;
-    border: 1px solid #00b0ff;
-    box-shadow: 0px 0px 2px 0px #00b0ff;
-  }
-`;
-const Label = styled.label`
-  font-size: 12px;
-  line-height: 21px;
-`;
-const Button = styled.button`
-  padding: 12px 15px;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 21px;
-  color: #fff;
-  background-color: #00b0ff;
-  border: 0;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #009ee6;
-    transition: background-color 0.5s;
-  }
-`;
-const ButtonGoogle = styled(Button)`
+const ButtonGoogle = styled(StyledButton)`
   background-color: #334ecd;
   &:hover {
     background-color: #4760d2;
   }
 `;
-const ImageWrapper = styled.div``;
+const ImageWrapper = styled.div`
+  @media (max-width: 1012px) {
+    order: 1;
+  }
+`;
+
 const Image = styled.img`
   width: 30vw;
 `;

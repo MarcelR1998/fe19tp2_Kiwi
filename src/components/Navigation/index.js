@@ -14,11 +14,13 @@ import styled from "styled-components";
 const Navigation = () => (
   <Nav>
     <AuthUserContext.Consumer>
-
       {authUser =>
-        authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />
+        authUser ? (
+          <NavigationAuth authUser={authUser} />
+        ) : (
+          <NavigationNonAuth />
+        )
       }
-
     </AuthUserContext.Consumer>
   </Nav>
 );
@@ -47,17 +49,17 @@ const NavigationAuth = ({ authUser }) => (
       <NavLink to={ROUTES.LANDING}>Landing</NavLink>
     </NavItem> */}
         <NavItem>
-          <NavLink home to={ROUTES.HOME}>
+          <NavLink className="icon-home" to={ROUTES.HOME}>
             Home
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink news to={ROUTES.HOME}>
+          <NavLink className="icon-news" to={ROUTES.HOME}>
             News
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink portfolio to={ROUTES.HOME}>
+          <NavLink className="icon-portfolio" to={ROUTES.HOME}>
             Portfolio
           </NavLink>
         </NavItem>
@@ -68,7 +70,7 @@ const NavigationAuth = ({ authUser }) => (
         </NavItem> */}
         {authUser.roles.includes(ROLES.ADMIN) && (
           <NavItem>
-            <NavLink admin to={ROUTES.ADMIN}>
+            <NavLink className="icon-admin" to={ROUTES.ADMIN}>
               Admin
             </NavLink>
           </NavItem>
@@ -194,6 +196,7 @@ const NavLink = styled(Link)`
   text-decoration: none;
   &:before {
     position: absolute;
+    content: "";
     top: 15px;
     left: 50%;
     transform: translateX(-50%);
@@ -201,23 +204,23 @@ const NavLink = styled(Link)`
     font-weight: 900;
     font-size: 24px;
     
-    content: "${props => {
-    if (props.home) {
-      return "\f009";
-    } else if (props.portfolio) {
-      return "\f200";
-    } else if (props.news) {
-      return "\f1ea";
-    } else if (props.account) {
-      return "\f007";
-    } else if (props.admin) {
-      return "\f502";
-    } else if (props.signin) {
-      return "\f2f6";
-    } else {
-      return "\f059";
-    }
-  }}";
+/*     content: "${props => {
+  if (props.home) {
+    return "\f009";
+  } else if (props.portfolio) {
+    return "\f200";
+  } else if (props.news) {
+    return "\f1ea";
+  } else if (props.account) {
+    return "\f007";
+  } else if (props.admin) {
+    return "\f502";
+  } else if (props.signin) {
+    return "\f2f6";
+  } else {
+    return "\f059";
+  }
+}}"; */
   }
 `;
 

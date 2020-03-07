@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
 
 * {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 body {
@@ -18,3 +18,21 @@ code {
     monospace;*/
 }
 
+.icon-home:before {
+  content: "\f009" !important;
+}
+.icon-portfolio:before {
+  content: "\f200" !important;
+}
+.icon-news:before {
+  content: "\f1ea" !important;
+}
+.icon-account:before {
+  content: "\f007" !important;
+}
+.icon-admin:before {
+  content: "\f502" !important;
+}
+.icon-signin:before {
+  content: "\f2f6" !important;
+}

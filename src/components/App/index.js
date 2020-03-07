@@ -14,14 +14,49 @@ import AdminPage from "../Admin";
 import SecretPage from "../Secret";
 
 import * as ROUTES from "../../constants/routes";
-import { withFirebase } from "../Firebase";
 
-import { withAuthentication } from "../Session";
+import { withAuthentication, AuthUserContext } from "../Session";
 
 const App = () => (
   <Router>
-    <PageContainer>
-      <Navigation />
+    <AuthUserContext.Consumer>
+      {authUser =>
+        authUser ? (
+          <PageContainer>
+            <Navigation />
+            <Main>
+              <Route exact path={ROUTES.LANDING} component={LandingPage} />
+              <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+              <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+              <Route
+                path={ROUTES.PASSWORD_FORGET}
+                component={PasswordForgetPage}
+              />
+              <Route path={ROUTES.HOME} component={HomePage} />
+              <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+              <Route path={ROUTES.ADMIN} component={AdminPage} />
+              <Route path={ROUTES.SECRET} component={SecretPage} />
+            </Main>
+          </PageContainer>
+        ) : (
+          <Main>
+            <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+            <Route
+              path={ROUTES.PASSWORD_FORGET}
+              component={PasswordForgetPage}
+            />
+            <Route path={ROUTES.HOME} component={HomePage} />
+            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+            <Route path={ROUTES.ADMIN} component={AdminPage} />
+            <Route path={ROUTES.SECRET} component={SecretPage} />
+          </Main>
+        )
+      }
+    </AuthUserContext.Consumer>
+
+    {/* <PageContainer>
       <Main>
         <Route exact path={ROUTES.LANDING} component={LandingPage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
@@ -32,7 +67,7 @@ const App = () => (
         <Route path={ROUTES.ADMIN} component={AdminPage} />
         <Route path={ROUTES.SECRET} component={SecretPage} />
       </Main>
-    </PageContainer>
+    </PageContainer> */}
   </Router>
 );
 

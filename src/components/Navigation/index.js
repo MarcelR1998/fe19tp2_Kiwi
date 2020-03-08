@@ -104,8 +104,6 @@ const NavigationNonAuth = () => (
 );
 
 const Nav = styled.div`
-  /* position: fixed;
-  height: 100vh; */
   background-color: #039be5;
 `;
 
@@ -118,28 +116,13 @@ const NavUser = styled.div`
   display: flex;
   align-items: center;
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `;
 
 const TopSearch = styled.div`
   flex-grow: 1;
-`;
-
-const SearchInput = styled.input`
-  /* width: 100%; */
-  width: 20%;
-  padding: 8px 15px;
-  font-size: 14px;
-  background-color: #fff;
-  border: 0;
-  border-radius: 10px;
-  outline: 0;
-  &:focus {
-    width: 100%;
-    transition: width 0.6s;
-  }
 `;
 
 const NavList = styled.ul`
@@ -149,8 +132,7 @@ const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (max-width: 700px) {
-    width: 100vw;
+  @media (max-width: 600px) {
     flex-direction: row;
     justify-content: space-around;
   }
@@ -161,6 +143,16 @@ const NavItem = styled.li`
   text-align: center;
   &:hover {
     background-color: #03a9f4;
+    @media (max-width: 600px) {
+      background-color: unset;
+      opacity: 0.7;
+    }
+  }
+  &:focus {
+    @media (max-width: 600px) {
+      background-color: unset;
+      opacity: 0.7;
+    }
   }
 `;
 
@@ -173,7 +165,8 @@ const NavLink = styled(Link)`
   color: #fff;
   text-align: center;
   text-decoration: none;
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
+    padding: 50px 0px 0px;
     width: auto;
   }
   &:before {
@@ -185,40 +178,11 @@ const NavLink = styled(Link)`
     font-family: "Font Awesome 5 Pro";
     font-weight: 900;
     font-size: 24px;
+    @media (max-width: 600px) {
+      top: 20px;
+      font-size: 20px;
+    }
   }
 `;
-
-/* const UserInfo = styled.div`
-  margin: 10px 0 10px 50px;
-  display: flex;
-`;
-
-const UserImg = styled.img`
-  height: 40px;
-  width: 40px;
-  margin-right: 10px;
-  border-radius: 50%;
-`;
-
-const UserBtn = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 0;
-  background-color: #f2f2f2;
-  cursor: pointer;
-  color: #333;
-  &:hover {
-    color: #666;
-    transition: color 0.3s linear;
-  }
-`;
-
-const UserName = styled.span`
-  padding-right: 5px;
-  font-size: 12px;
-  line-height: 24px;
-  font-weight: bold;
-`; */
 
 export default Navigation;

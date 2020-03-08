@@ -7,6 +7,13 @@ export const TextRight = styled.p`
   text-align: right;
 `;
 
+export const MainWrapper = styled.p`
+  margin-top: 60px;
+  @media (max-width: 600px) {
+    margin-top: 0;
+  }
+`;
+
 /* Page Grid */
 
 export const PageGrid = styled.div`
@@ -16,7 +23,7 @@ export const PageGrid = styled.div`
   grid-template-rows: auto;
   grid-template-columns: 120px auto;
   grid-template-areas: "navbanner usernav" "navpage main";
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     height: auto;
     grid-template-rows: auto;
     grid-template-columns: auto;
@@ -27,8 +34,10 @@ export const PageGrid = styled.div`
 export const GridMain = styled.div`
   grid-area: main;
   overflow: scroll;
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     overflow: auto;
+    margin-top: 0;
+    margin-bottom: 120px;
   }
 `;
 
@@ -54,7 +63,7 @@ export const PageNavWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     width: 100vw;
     flex-direction: row;
     justify-content: space-around;
@@ -67,12 +76,13 @@ export const GridPageNav = styled.div`
   height: 100%;
   flex-grow: 1;
   background-color: #039be5;
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     width: 100vw;
     height: 80px;
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 500;
   }
 `;
 
@@ -86,7 +96,7 @@ export const FormContainer = styled.div`
   @media (max-width: 768px) {
     width: 70vw;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     width: 90vw;
   }
   margin-right: auto;
@@ -100,7 +110,7 @@ export const FormTitle = styled.h1`
 
 export const FormDesc = styled.p`
   font-size: 14px;
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 `;
 
 export const StyledForm = styled.form`
@@ -155,6 +165,7 @@ export const StyledLink = styled(Link)`
 /* BUTTON */
 
 export const StyledButton = styled.button`
+  margin: 10px 0;
   padding: 12px 15px;
   font-size: 14px;
   font-weight: bold;
@@ -172,102 +183,48 @@ export const StyledButton = styled.button`
   }
 `;
 
-/* STOCK LIST & STOCK ITEMS*/
-
-export const StockListWrapper = styled.div`
-  width: 90%;
-  margin: 0 auto;
-`;
-
-export const StyledStockList = styled.ul`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-`;
-
-export const StockListItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  width: 20%;
-  padding: 10px;
-  @media (max-width: 1200px) {
-    width: 29%;
-  }
-  @media (max-width: 1012px) {
-    width: 45%;
-  }
-  @media (max-width: 500px) {
-    width: 90%;
-  }
-`;
-
-export const StockItemMain = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  background-color: #fff;
-  padding: 20px 20px 30px;
-  border-radius: 10px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+export const StyledButtonLink = styled(Link)`
+  display: inline-block;
+  margin: 10px 0;
+  padding: 12px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 21px;
+  color: #fff;
+  text-decoration: none;
+  background-color: #00b0ff;
+  border: 0;
+  border-radius: 5px;
   cursor: pointer;
   &:hover {
-    transform: scale(1.03);
-    transition: transform 0.4s;
+    background-color: #009ee6;
+    transition: background-color 0.5s;
   }
 `;
 
-export const StockItemData = styled.div`
-  flex-grow: 1;
+/* Page Title */
+
+export const PageTitleWrapper = styled.div`
+  margin: 0;
+  padding: 25px;
 `;
 
-export const StockItemButton = styled.div`
-  width: 35px;
-`;
-
-export const StockItemGain = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 20px;
-  width: 100%;
-  margin: 0px;
-  background-color: #8bc34a;
-  border: 0;
-  box-sizing: border-box;
-  border-radius: 0px 0px 10px 10px;
-`;
-
-export const StockSymbol = styled.p`
+export const PageTitle = styled.h2`
   margin: 0;
   padding: 0;
-  padding-bottom: 5px;
-  font-family: "Roboto";
-  font-style: bold;
-  font-weight: 900;
-  font-size: 24px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 26px;
+  letter-spacing: 2px;
   color: #333;
 `;
 
-export const StockDesc = styled.p`
+export const PageDesc = styled.p`
   margin: 0;
   padding: 0;
-  padding-bottom: 15px;
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: 1px;
   color: #333;
-  font-family: "Roboto";
-  font-style: medium;
-  font-size: 12px;
-  color: #666;
-  white-space: nowrap;
-`;
-
-export const StockValue = styled.p`
-  margin: 0;
-  padding: 0;
-  font-family: "Roboto";
-  font-style: bold;
-  font-weight: 500;
-  font-size: 40px;
-  color: #333;
+  opacity: 0.8;
 `;

@@ -3,15 +3,15 @@ import { PasswordForgetForm } from "../PasswordForget";
 import PasswordChangeForm from "../PasswordChange";
 import { AuthUserContext, withAuthorization } from "../Session";
 import styled from "styled-components";
-import { FormTitle, FormDesc } from "../Styles";
+import { MainWrapper } from "../Styles";
 
 const AccountPage = () => (
   <AuthUserContext.Consumer>
     {authUser => (
-      <div>
+      <MainWrapper>
         <AccountWrapper>
           <AccountHeader>
-            <UserImg src="https://66.media.tumblr.com/a667b9f6ba81810d3b608b5fd2dbdc19/c09b191bc35ed178-7b/s1280x1920/0c0ca5bdbfb10eb94f8a4f039e1d33479da22b79.jpg"></UserImg>
+            <UserImg src="https://i2.wp.com/airlinkflight.org/wp-content/uploads/2019/02/male-placeholder-image.jpeg?resize=500%2C500&ssl=1"></UserImg>
             <UserNames>{authUser.username}</UserNames>
             <UserEmail>{authUser.email}</UserEmail>
           </AccountHeader>
@@ -23,7 +23,7 @@ const AccountPage = () => (
         {/* <h1>Account: {authUser.email}</h1>
         <PasswordForgetForm />
         <PasswordChangeForm /> */}
-      </div>
+      </MainWrapper>
     )}
   </AuthUserContext.Consumer>
 );
@@ -31,9 +31,9 @@ const AccountPage = () => (
 const condition = authUser => !!authUser;
 
 const AccountWrapper = styled.div`
-  width: 400px;
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto;
-  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -176,7 +176,7 @@ const SearchField = styled.input`
   @media (max-width: 900px) {
     width: 70%;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     width: 90%;
   }
   &:focus {

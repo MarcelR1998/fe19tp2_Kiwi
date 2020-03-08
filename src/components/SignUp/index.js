@@ -6,6 +6,7 @@ import { AuthUserContext } from "../Session";
 import * as ROUTES from "../../constants/routes";
 import * as ROLES from "../../constants/roles";
 import styled from "styled-components";
+import { StyledButtonLink } from "../Styles";
 import {
   FormContainer,
   StyledForm,
@@ -30,7 +31,7 @@ const SignUpPage = () => (
         <Redirect to="/home" />
       ) : (
         <FormContainer>
-          <h1>Sign up</h1>
+          <h1>Add a new user</h1>
           <SignUpForm />
         </FormContainer>
       )
@@ -151,7 +152,7 @@ class SignUpFormBase extends Component {
           />
         </StyledLabelAdmin>
         <StyledButton disabled={isInvalid} type="submit">
-          Sign Up
+          Add user
         </StyledButton>
         {error && <p>{error.message}</p>}
       </StyledForm>
@@ -160,9 +161,14 @@ class SignUpFormBase extends Component {
 }
 
 const SignUpLink = () => (
-  <p>
+  <div>
+    <StyledButtonLink to={ROUTES.SIGN_UP}>
+      <i class="fas fa-plus"></i> <span>Add User</span>
+    </StyledButtonLink>
+  </div>
+  /* <p>
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-  </p>
+  </p> */
 );
 
 const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);

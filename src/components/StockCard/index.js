@@ -14,7 +14,7 @@ import {
   StockSymbol,
   StockDesc,
   StockValue
-} from "../Styles";
+} from "./styles";
 
 class StockCard extends React.Component {
   state = {};

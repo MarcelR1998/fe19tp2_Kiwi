@@ -25,7 +25,7 @@ class UserNav extends Component {
               {this.state.show && (
                 <CardWrapper>
                   <User>
-                    <UserImg src="https://66.media.tumblr.com/a667b9f6ba81810d3b608b5fd2dbdc19/c09b191bc35ed178-7b/s1280x1920/0c0ca5bdbfb10eb94f8a4f039e1d33479da22b79.jpg"></UserImg>
+                    <UserImg src="https://i2.wp.com/airlinkflight.org/wp-content/uploads/2019/02/male-placeholder-image.jpeg?resize=500%2C500&ssl=1"></UserImg>
                     <UserData>
                       <UserNames>{authUser.username}</UserNames>
                       <UserEmail>{authUser.email}</UserEmail>

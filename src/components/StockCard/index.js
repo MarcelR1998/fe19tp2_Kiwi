@@ -159,7 +159,7 @@ class StockCard extends React.Component {
                           </StockValue>
                         </div>
                         <div>
-                          <StockLabel>Add more</StockLabel>
+                          <StockLabel>Add</StockLabel>
                           <StockAmountInput
                             type="number"
                             name={stock.symbol}

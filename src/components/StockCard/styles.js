@@ -115,6 +115,7 @@ export const StockLabel = styled.span`
   font-size: 12px;
   color: #666;
 `;
+
 export const StockCurrency = styled.span`
   display: inline-block;
   padding: 0 5px 0 0;
@@ -125,7 +126,7 @@ export const StockCurrency = styled.span`
 `;
 
 export const StockAmountInput = styled.input`
-  max-width: 50px;
+  max-width: 40px;
   line-height: 2;
   font-family: "Roboto";
   font-size: 14px;

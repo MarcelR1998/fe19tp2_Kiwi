@@ -7,6 +7,7 @@ import {
   PageTitle,
   StyledLink
 } from "../Styles";
+import { LinkBack, StockChart } from "./styles";
 import { urlValues } from "../ApiReader/recommendationTrends";
 import Charts from "../Charts/index.js";
 
@@ -69,13 +70,15 @@ class StockPage extends React.Component {
     return (
       <MainWrapper>
         <h2>{this.props.stock}</h2>
-        <StyledLink to={ROUTES.HOME}>
+        <LinkBack to={ROUTES.HOME}>
           <i className="fas fa-arrow-left"></i> Back
-        </StyledLink>
+        </LinkBack>
         <PageTitleWrapper>
           <PageTitle>Stock Page</PageTitle>
-          <Charts chartData={chartData} />
         </PageTitleWrapper>
+        <StockChart>
+          <Charts chartData={chartData} />
+        </StockChart>
       </MainWrapper>
     );
   }

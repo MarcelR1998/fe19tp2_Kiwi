@@ -163,7 +163,7 @@ class SignUpFormBase extends Component {
 const SignUpLink = () => (
   <div>
     <StyledButtonLink to={ROUTES.SIGN_UP}>
-      <i class="fas fa-plus"></i> <span>Add User</span>
+      <i className="fas fa-plus"></i> <span>Add User</span>
     </StyledButtonLink>
   </div>
   /* <p>

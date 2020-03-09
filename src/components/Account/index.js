@@ -4,6 +4,7 @@ import PasswordChangeForm from "../PasswordChange";
 import { AuthUserContext, withAuthorization } from "../Session";
 import styled from "styled-components";
 import { MainWrapper } from "../Styles";
+import SignOutButton from "../SignOut";
 
 const AccountPage = () => (
   <AuthUserContext.Consumer>
@@ -14,6 +15,9 @@ const AccountPage = () => (
             <UserImg src="https://i2.wp.com/airlinkflight.org/wp-content/uploads/2019/02/male-placeholder-image.jpeg?resize=500%2C500&ssl=1"></UserImg>
             <UserNames>{authUser.username}</UserNames>
             <UserEmail>{authUser.email}</UserEmail>
+            <SignoutWrapper>
+              <SignOutButton />
+            </SignoutWrapper>
           </AccountHeader>
           <ResetPassword>
             {/* <PasswordForgetForm /> */}
@@ -38,9 +42,14 @@ const AccountWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  @media (max-width: 600px) {
+    max-width: 100%;
+    box-shadow: 0;
+  }
 `;
 
 const AccountHeader = styled.div`
+  position: relative;
   padding: 25px 0;
   width: 100%;
   display: flex;
@@ -78,6 +87,13 @@ const UserEmail = styled.div`
   font-size: 14px;
   color: #fff;
   opacity: 0.7;
+`;
+
+const SignoutWrapper = styled.div`
+  display: none;
+  @media (max-width: 600px) {
+    display: block;
+  }
 `;
 
 export default withAuthorization(condition)(AccountPage);

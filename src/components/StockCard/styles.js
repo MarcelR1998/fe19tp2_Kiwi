@@ -68,6 +68,7 @@ export const StockItemGain = styled.div`
   width: 100%;
   margin: 0px;
   background-color: #8bc34a;
+  background-color: ${props => (props.loose ? "#E53935" : "#8bc34a")};
   border: 0;
   box-sizing: border-box;
   border-radius: 0px 0px 10px 10px;

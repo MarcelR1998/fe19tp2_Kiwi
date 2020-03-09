@@ -18,26 +18,27 @@ const StyledButton = styled.div`
     background-color: #f2f2f2;
     transition: background-color 0.3s;
   }
-  /*   position: relative;
-  display: block;
-  padding: 50px 25px 15px;
-  font-size: 14px;
-  color: #fff;
-  text-align: center;
-  text-decoration: none;
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  &:before {
-    content: "\f2f5";
+  @media (max-width: 600px) {
     position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: "Font Awesome 5 Pro";
-    font-weight: 900;
-    font-size: 24px;
-  } */
+    right: 10px;
+    top: 10px;
+    color: #fff;
+    &:hover {
+      background-color: transparent;
+      opacity: 0.7;
+      transition: opacity 0.4s;
+    }
+    &:after {
+      content: "\f2f5";
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: "Font Awesome 5 Pro";
+      font-weight: 900;
+      font-size: 24px;
+    }
+  }
 `;
 
 export default withFirebase(SignOutButton);

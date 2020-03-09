@@ -34,11 +34,11 @@ const SearchListItem = ({
       <Stockdescription>{stock.description}</Stockdescription>
       {!userStocks.some(stateStock => stateStock.symbol === stock.symbol) ? (
         <AddDeleteButton onClick={e => handleAddStock(stock)}>
-          <i class="fas fa-plus"></i>
+          <i className="fas fa-plus"></i>
         </AddDeleteButton>
       ) : (
         <AddDeleteButton primary onClick={e => handleRemoveStock(stock)}>
-          <i class="fas fa-trash-alt"></i>
+          <i className="fas fa-trash-alt"></i>
         </AddDeleteButton>
       )}
     </AddStocklist>

@@ -176,7 +176,7 @@ class StockCard extends React.Component {
                         onClick={e => this.handleRemoveStock(stock)}
                         primary
                       >
-                        <i class="fas fa-trash-alt"></i>
+                        <i className="fas fa-trash-alt"></i>
                       </AddDeleteButton>
                     </StockItemButton>
                     <StockItemGain></StockItemGain>

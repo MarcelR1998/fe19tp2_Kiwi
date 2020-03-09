@@ -15,7 +15,12 @@ import {
   StockItemGain,
   StockSymbol,
   StockDesc,
-  StockValue
+  StockValue,
+  StockValueOwned,
+  StockLabel,
+  StockCurrency,
+  StockValueContainer,
+  StockAmountInput
 } from "./styles";
 
 class StockCard extends React.Component {
@@ -82,20 +87,23 @@ class StockCard extends React.Component {
       this.props.masterObject[symbol] ? (
         this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
       ) : (
-          <div style={{ transform: "translateY(-8px)" }}>
-            <i className="fas fa-spinner fa-spin fa-xs"></i>
-          </div>
-        )
-    ) : (
         <div style={{ transform: "translateY(-8px)" }}>
           <i className="fas fa-spinner fa-spin fa-xs"></i>
         </div>
       )
+    ) : (
+      <div style={{ transform: "translateY(-8px)" }}>
+        <i className="fas fa-spinner fa-spin fa-xs"></i>
+      </div>
+    );
 
-
-  selectedStock = (e) => {
-    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I' && e.target.tagName !== 'INPUT') {
-      console.log(e.target.closest('li').id);
+  selectedStock = e => {
+    if (
+      e.target.tagName !== "BUTTON" &&
+      e.target.tagName !== "I" &&
+      e.target.tagName !== "INPUT"
+    ) {
+      console.log(e.target.closest("li").id);
       this.setState({
         stockData: this.props.masterObject[e.target.closest("li").id].quoteUrl,
         redirect: true
@@ -106,7 +114,7 @@ class StockCard extends React.Component {
   };
 
   changeMultiplier = (e, symbol) => {
-    console.log("chgMult")
+    console.log("chgMult");
     const { stocklist } = this.state;
     let stockToChange = stocklist.find(stock => stock.symbol === symbol);
     stockToChange.amount = e.target.value;
@@ -115,10 +123,9 @@ class StockCard extends React.Component {
     //let amount = this.state.amounts; // []
     //amount[symbol] = e.target.value; // {AAPL: 56}
     //this.setState({ amounts: amount })
-  }
+  };
 
   render() {
-
     return (
       <StockListWrapper>
         <StyledStockList>
@@ -127,35 +134,55 @@ class StockCard extends React.Component {
               this.state.redirect ? (
                 <Redirect to="/stockpage" stock={this.state.stockData} />
               ) : (
-                  <StockListItem
-                    id={stock.symbol}
-                    key={"o" + index}
-                    onClick={this.selectedStock}
-                  >
-                    <StockItemMain>
-                      <StockItemData>
-                        <StockSymbol>{stock.symbol}</StockSymbol>
-                        <StockDesc>{stock.description}</StockDesc>
-                        <StockValue>
-                          {this.newStockValues(stock.symbol) || "No data"}
-                        </StockValue>
-                        <StockValue>
-                          <span>$</span> {(this.newStockValues(stock.symbol) * (stock.amount ? stock.amount : 1)).toFixed(2) || "No data"}
-                        </StockValue>
-                        <input type="number" name={stock.symbol} onChange={e => this.changeMultiplier(e, stock.symbol)} value={stock.amount ? stock.amount : ''} />
-                      </StockItemData>
-                      <StockItemButton>
-                        <AddDeleteButton
-                          onClick={e => this.handleRemoveStock(stock)}
-                          primary
-                        >
-                          <i class="fas fa-trash-alt"></i>
-                        </AddDeleteButton>
-                      </StockItemButton>
-                      <StockItemGain></StockItemGain>
-                    </StockItemMain>
-                  </StockListItem>
-                )
+                <StockListItem
+                  id={stock.symbol}
+                  key={"o" + index}
+                  onClick={this.selectedStock}
+                >
+                  <StockItemMain>
+                    <StockItemData>
+                      <StockSymbol>{stock.symbol}</StockSymbol>
+                      <StockDesc>{stock.description}</StockDesc>
+                      <StockLabel>Owned stocks worth:</StockLabel>
+                      <StockValueOwned>
+                        <StockCurrency>$</StockCurrency>
+                        {(
+                          this.newStockValues(stock.symbol) *
+                          (stock.amount ? stock.amount : 1)
+                        ).toFixed(2) || "No data"}
+                      </StockValueOwned>
+                      <StockValueContainer>
+                        <div>
+                          <StockLabel>Current stock value:</StockLabel>
+                          <StockValue>
+                            {this.newStockValues(stock.symbol) || "No data"}
+                          </StockValue>
+                        </div>
+                        <div>
+                          <StockLabel>Add more</StockLabel>
+                          <StockAmountInput
+                            type="number"
+                            name={stock.symbol}
+                            onChange={e =>
+                              this.changeMultiplier(e, stock.symbol)
+                            }
+                            value={stock.amount ? stock.amount : "1"}
+                          />
+                        </div>
+                      </StockValueContainer>
+                    </StockItemData>
+                    <StockItemButton>
+                      <AddDeleteButton
+                        onClick={e => this.handleRemoveStock(stock)}
+                        primary
+                      >
+                        <i class="fas fa-trash-alt"></i>
+                      </AddDeleteButton>
+                    </StockItemButton>
+                    <StockItemGain></StockItemGain>
+                  </StockItemMain>
+                </StockListItem>
+              )
             )}
         </StyledStockList>
       </StockListWrapper>

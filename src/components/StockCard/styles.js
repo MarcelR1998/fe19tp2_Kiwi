@@ -31,7 +31,7 @@ export const StockListItem = styled.li`
 
 export const StockItemMain = styled.div`
   position: relative;
-  min-height: 120px;
+  min-height: 200px;
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -73,9 +73,7 @@ export const StockItemGain = styled.div`
   border-radius: 0px 0px 10px 10px;
 `;
 
-export const StockSymbol = styled.p`
-  margin: 0;
-  padding: 0;
+export const StockSymbol = styled.span`
   padding-bottom: 5px;
   font-family: "Roboto";
   font-style: bold;
@@ -84,9 +82,7 @@ export const StockSymbol = styled.p`
   color: #333;
 `;
 
-export const StockDesc = styled.p`
-  margin: 0;
-  padding: 0;
+export const StockDesc = styled.span`
   padding-bottom: 15px;
   color: #333;
   font-family: "Roboto";
@@ -96,12 +92,48 @@ export const StockDesc = styled.p`
   white-space: nowrap;
 `;
 
-export const StockValue = styled.p`
-  margin: 0;
-  padding: 0;
+export const StockValue = styled.span`
   font-family: "Roboto";
-  font-style: bold;
-  font-weight: 500;
-  font-size: 40px;
+  font-size: 30px;
+  letter-spacing: 1px;
   color: #333;
+`;
+export const StockValueOwned = styled.span`
+  font-family: "Roboto";
+  font-size: 40px;
+  line-height: 0.7;
+  letter-spacing: 1px;
+  color: #333;
+  margin-bottom: 10px;
+`;
+
+export const StockLabel = styled.span`
+  display: block;
+  margin-bottom: 5px;
+  font-family: "Roboto";
+  font-size: 12px;
+  color: #666;
+`;
+export const StockCurrency = styled.span`
+  display: inline-block;
+  padding: 0 5px 0 0;
+  font-family: "Roboto";
+  font-size: 24px;
+  vertical-align: top;
+  color: #999;
+`;
+
+export const StockAmountInput = styled.input`
+  max-width: 50px;
+  line-height: 2;
+  font-family: "Roboto";
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;
+
+export const StockValueContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

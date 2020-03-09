@@ -296,9 +296,8 @@ const UpDownView = styled.div`
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
-  <<<<<<<headborder: none;
-  =======border: 0;
-  >>>>>>>2cffdea14ee65d20ad29b8ea64329dbabb660745border-radius: 10px;
+  border: 0;
+  border-radius: 10px;
   margin-bottom: 47px;
   background-color: ${props => (props.primary ? "#F44336" : "#8BC34A")};
 

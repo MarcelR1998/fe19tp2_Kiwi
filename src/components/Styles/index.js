@@ -23,6 +23,7 @@ export const PageGrid = styled.div`
   grid-template-rows: auto;
   grid-template-columns: 120px auto;
   grid-template-areas: "navbanner usernav" "navpage main";
+  overflow: hidden;
   @media (max-width: 600px) {
     height: auto;
     grid-template-rows: auto;
@@ -33,7 +34,7 @@ export const PageGrid = styled.div`
 
 export const GridMain = styled.div`
   grid-area: main;
-  overflow: scroll;
+  overflow: auto;
   @media (max-width: 600px) {
     overflow: auto;
     margin-top: 0;
@@ -56,6 +57,7 @@ export const GridNavBanner = styled.div`
 export const GridNavUser = styled.div`
   grid-area: navuser;
   display: flex;
+  z-index: 1000;
 `;
 
 export const PageNavWrapper = styled.div`

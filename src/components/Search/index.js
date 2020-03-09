@@ -11,12 +11,12 @@ class Search extends React.Component {
     show: true
   };
 
-  handleClick = e => {
+  /* handleClick = e => {
     if (this.node.contains(e.target)) {
       return;
-    }
-    /*     this.handleClickOutside(); */
-  };
+    } */
+  /*     this.handleClickOutside(); */
+  /* }; */
 
   /*  handleClickOutside = () => {
      this.setState({
@@ -37,15 +37,18 @@ class Search extends React.Component {
         });
         console.log(this.props.uid);
       });
-    document.addEventListener("click", this.handleClick, false);
+    /*  document.addEventListener("click", this.handleClick, false); */
   }
-  componentWillUnmount() {
-    /* this.props.firebase.user(this.props.uid).off(); */
-    document.removeEventListener("click", this.handleClick, false);
-  }
+  /*   componentWillUnmount() { */
+  /* this.props.firebase.user(this.props.uid).off(); */
+  /*    document.removeEventListener("click", this.handleClick, false);
+   } */
 
   onchange = e => {
     this.setState({ search: e.target.value });
+    /*    if (e.target.value != "") {
+         this.setState({ hideSearch: true })
+       } */
   };
 
   updateUserStocklist = stocklist => {
@@ -105,23 +108,24 @@ class Search extends React.Component {
           icon="search"
           onChange={this.onchange}
         />
-        <SearchListContainer ref={node => (this.node = node)}>
-          {/* { filteredStocks, userStocks, handleAddStock }  */}
+        {this.state.search.length > 0 ? (
+          <SearchListContainer>
+            {/* { filteredStocks, userStocks, handleAddStock }  */}
 
-          {this.state.show && (
-            <SearchListUl>
-              {this.state.search && (
-                <SearchList
-                  filteredStocks={filteredStocks.splice(0, 50)}
-                  userStocks={this.state.stocklist}
-                  handleAddStock={this.handleAddStock}
-                  handleRemoveStock={this.handleRemoveStock}
-                />
-              )}
-            </SearchListUl>
-          )}
+            {this.state.show && (
+              <SearchListUl>
+                {this.state.search && (
+                  <SearchList
+                    filteredStocks={filteredStocks.splice(0, 50)}
+                    userStocks={this.state.stocklist}
+                    handleAddStock={this.handleAddStock}
+                    handleRemoveStock={this.handleRemoveStock}
+                  />
+                )}
+              </SearchListUl>
+            )}
 
-          {/*           {this.state.search && (
+            {/*           {this.state.search && (
             <SearchList
               filteredStocks={filteredStocks.splice(0, 50)}
               userStocks={this.state.stocklist}
@@ -130,14 +134,14 @@ class Search extends React.Component {
             />
           )} */}
 
-          {/*this.state.search && filteredStocks.splice(0, 50).map((stock, index) =>
+            {/*this.state.search && filteredStocks.splice(0, 50).map((stock, index) =>
                         <AddStocklist key={'s' + index}><Stocksymbol>{stock.symbol}</Stocksymbol>
                             <Stockdescription>{stock.description}</Stockdescription>
                             {!(this.state.stocklist.some(stateStock => stateStock.symbol === stock.symbol)) ? 
                                 <AddDeleteButton onClick={(e) => this.handleAddStock(stock)}><AddDeleteText>+</AddDeleteText></AddDeleteButton> : null }
                             </AddStocklist>)*/}
-          {/* <Hr /> */}
-          {/*  {this.state.stocklist &&
+            {/* <Hr /> */}
+            {/*  {this.state.stocklist &&
             this.state.stocklist.map((stock, index) => (
               <MyStocklist key={"o" + index}>
                 <Stocksymbol>{stock.symbol}</Stocksymbol>
@@ -152,7 +156,8 @@ class Search extends React.Component {
                 <UpDownView></UpDownView>
               </MyStocklist>
             ))} */}
-        </SearchListContainer>
+          </SearchListContainer>
+        ) : null}
       </SearchWrapper>
     );
   }
@@ -293,9 +298,8 @@ const UpDownView = styled.div`
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
-  <<<<<<<headborder: none;
-  =======border: 0;
-  >>>>>>>2cffdea14ee65d20ad29b8ea64329dbabb660745border-radius: 10px;
+  border: 0;
+  border-radius: 10px;
   margin-bottom: 47px;
   background-color: ${props => (props.primary ? "#F44336" : "#8BC34A")};
 

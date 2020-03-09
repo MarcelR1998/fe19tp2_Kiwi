@@ -98,3 +98,5 @@ export const UserID = styled.span`
   font-size: 14px;
   color: #333;
 `;
+
+export const UserTH = styled.div``;

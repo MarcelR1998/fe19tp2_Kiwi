@@ -132,6 +132,9 @@ const CardLink = styled(Link)`
 const UserInfo = styled.div`
   margin: 10px 0 10px 50px;
   display: flex;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const UserImg = styled.img`

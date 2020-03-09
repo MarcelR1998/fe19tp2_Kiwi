@@ -24,32 +24,25 @@ const Navigation = () => (
         authUser ? (
           <NavigationAuth authUser={authUser} />
         ) : (
-            <NavigationNonAuth />
-          )
+          <NavigationNonAuth />
+        )
       }
     </AuthUserContext.Consumer>
   </Nav>
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <PageNavWrapper>
-    <GridNavUser>
+  <PageNavWrapper className="PageNavWrapper">
+    <GridNavUser className="GridNavUser">
       <GridNavBanner>LOGO</GridNavBanner>
-      <NavUser>
+      <NavUser className="NavUser">
         <TopSearch>
           <Search uid={authUser.uid} />
-          {/* <SearchInput placeholder="Search"></SearchInput> */}
         </TopSearch>
         <UserNav />
-        {/* <UserBtn>
-            <UserImg src="https://via.placeholder.com/60"></UserImg>
-            <UserName>{authUser.username}</UserName>
-            <i class="fas fa-angle-down"></i>
-          </UserBtn>
-        </UserNav> */}
       </NavUser>
     </GridNavUser>
-    <GridPageNav>
+    <GridPageNav className="GridPageNav">
       <NavList>
         {/* <NavItem>
       <NavLink to={ROUTES.LANDING}>Landing</NavLink>
@@ -104,7 +97,7 @@ const NavigationNonAuth = () => (
 );
 
 const Nav = styled.div`
-  background-color: #039be5;
+  /* background-color: #039be5; */
 `;
 
 const NavUser = styled.div`
@@ -117,7 +110,7 @@ const NavUser = styled.div`
   align-items: center;
   box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
   @media (max-width: 600px) {
-    display: none;
+    /* display: none; */
   }
 `;
 

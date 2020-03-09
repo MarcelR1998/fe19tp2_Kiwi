@@ -124,37 +124,6 @@ class Search extends React.Component {
             </SearchListUl>
           )}
 
-          {/*           {this.state.search && (
-            <SearchList
-              filteredStocks={filteredStocks.splice(0, 50)}
-              userStocks={this.state.stocklist}
-              handleAddStock={this.handleAddStock}
-              handleRemoveStock={this.handleRemoveStock}
-            />
-          )} */}
-
-          {/*this.state.search && filteredStocks.splice(0, 50).map((stock, index) =>
-                        <AddStocklist key={'s' + index}><Stocksymbol>{stock.symbol}</Stocksymbol>
-                            <Stockdescription>{stock.description}</Stockdescription>
-                            {!(this.state.stocklist.some(stateStock => stateStock.symbol === stock.symbol)) ? 
-                                <AddDeleteButton onClick={(e) => this.handleAddStock(stock)}><AddDeleteText>+</AddDeleteText></AddDeleteButton> : null }
-                            </AddStocklist>)*/}
-          {/* <Hr /> */}
-          {/*  {this.state.stocklist &&
-            this.state.stocklist.map((stock, index) => (
-              <MyStocklist key={"o" + index}>
-                <Stocksymbol>{stock.symbol}</Stocksymbol>
-                <Stockdescription>{stock.description}</Stockdescription>
-                <AddDeleteButton
-                  onClick={e => this.handleRemoveStock(stock)}
-                  primary
-                >
-                  <AddDeleteText>-</AddDeleteText>
-                </AddDeleteButton>
-                <StockValue>315,6</StockValue>
-                <UpDownView></UpDownView>
-              </MyStocklist>
-            ))} */}
         </SearchListContainer> : null}
       </SearchWrapper>
     );

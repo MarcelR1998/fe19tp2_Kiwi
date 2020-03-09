@@ -17,7 +17,6 @@ export const StockListItem = styled.li`
   display: flex;
   flex-direction: column;
   width: 20%;
-  min-height: 300px;
   padding: 10px;
   @media (max-width: 1200px) {
     width: 29%;

@@ -2,7 +2,6 @@ import React from "react";
 import usStocksList from "../ApiReader/usStocksList.json";
 import styled from "styled-components";
 import { withFirebase } from "../Firebase";
-import Charts from "../Charts/index.js";
 import * as ROUTES from "../../constants/routes";
 
 import { NavLink, withRouter, Redirect } from "react-router-dom";
@@ -21,7 +20,8 @@ import {
 
 class StockCard extends React.Component {
   state = {
-    redirect: false
+    redirect: false,
+    amounts: {}
   };
 
   componentDidMount() {
@@ -82,18 +82,18 @@ class StockCard extends React.Component {
       this.props.masterObject[symbol] ? (
         this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
       ) : (
-          <div style={{ transform: "translateY(-16px)" }}>
+          <div style={{ transform: "translateY(-8px)" }}>
             <i className="fas fa-spinner fa-spin fa-xs"></i>
           </div>
         )
     ) : (
-        <div style={{ transform: "translateY(-16px)" }}>
+        <div style={{ transform: "translateY(-8px)" }}>
           <i className="fas fa-spinner fa-spin fa-xs"></i>
         </div>
       );
 
   selectedStock = (e) => {
-    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I') {
+    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I' && e.target.tagName !== 'INPUT') {
       console.log(e.target.closest('li').id);
       this.setState({
         stockData: this.props.masterObject[e.target.closest('li').id].quoteUrl,
@@ -103,25 +103,19 @@ class StockCard extends React.Component {
 
   }
 
+  changeMultiplier = (e, symbol) => {
+    console.log("chgMult")
+    const { stocklist } = this.state;
+    let stockToChange = stocklist.find(stock => stock.symbol === symbol);
+    stockToChange.amount = e.target.value;
+    //console.log(stocklist)
+    this.updateUserStocklist(stocklist);
+    //let amount = this.state.amounts; // []
+    //amount[symbol] = e.target.value; // {AAPL: 56}
+    //this.setState({ amounts: amount })
+  }
+
   render() {
-    /*   console.log(this.props.masterObject); */
-    /* 
-        let dataRes = JSON.parse(localStorage.getItem('data'));
-    
-        let chartData = {
-          labels: Object.keys(this.props.masterObject || dataRes),
-          datasets: [
-            {
-              label: 'Quote',
-              data: Object.values(this.props.masterObject || dataRes).map(quote => quote.quoteUrl ? quote.quoteUrl.c : 1),
-              backgroundColor: [
-                'rgb(247, 166, 74)',
-                'rgb(248, 182, 106)',
-                'rgb(249, 198, 139)',
-              ]
-            }
-          ]
-        }; */
 
     return (
 
@@ -138,6 +132,10 @@ class StockCard extends React.Component {
                       <StockValue>
                         {this.newStockValues(stock.symbol) || "No data"}
                       </StockValue>
+                      <StockValue>
+                        <span>$</span> {(this.newStockValues(stock.symbol) * (stock.amount ? stock.amount : 1)).toFixed(2) || "No data"}
+                      </StockValue>
+                      <input type="number" name={stock.symbol} onChange={e => this.changeMultiplier(e, stock.symbol)} value={stock.amount ? stock.amount : ''} />
                     </StockItemData>
                     <StockItemButton>
                       <AddDeleteButton
@@ -201,6 +199,7 @@ const UpDownView = styled.div`
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
+  font-size: 15px;
   color: #fff;
   border: 0;
   border-radius: 10px;

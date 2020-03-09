@@ -38,22 +38,12 @@ const NavigationAuth = ({ authUser }) => (
       <NavUser>
         <TopSearch>
           <Search uid={authUser.uid} />
-          {/* <SearchInput placeholder="Search"></SearchInput> */}
         </TopSearch>
         <UserNav />
-        {/* <UserBtn>
-            <UserImg src="https://via.placeholder.com/60"></UserImg>
-            <UserName>{authUser.username}</UserName>
-            <i class="fas fa-angle-down"></i>
-          </UserBtn>
-        </UserNav> */}
       </NavUser>
     </GridNavUser>
     <GridPageNav>
       <NavList>
-        {/* <NavItem>
-      <NavLink to={ROUTES.LANDING}>Landing</NavLink>
-    </NavItem> */}
         <NavItem>
           <NavLink className="icon-home" to={ROUTES.HOME}>
             Home
@@ -81,9 +71,6 @@ const NavigationAuth = ({ authUser }) => (
             </NavLink>
           </NavItem>
         )}
-        {/*         <NavItem>
-          <SignOutButton />
-        </NavItem> */}
       </NavList>
     </GridPageNav>
   </PageNavWrapper>

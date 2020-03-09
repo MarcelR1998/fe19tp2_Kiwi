@@ -7,7 +7,7 @@ export const TextRight = styled.p`
   text-align: right;
 `;
 
-export const MainWrapper = styled.p`
+export const MainWrapper = styled.div`
   margin-top: 60px;
   @media (max-width: 600px) {
     margin-top: 0;
@@ -28,12 +28,12 @@ export const PageGrid = styled.div`
     height: auto;
     grid-template-rows: auto;
     grid-template-columns: auto;
-    grid-template-areas: "navbanner" "usernav" "main" "navpage";
+    grid-template-areas: "navuser" "main" "navpage";
   }
 `;
 
 export const GridMain = styled.div`
-  grid-area: main;
+  /* grid-area: main; */
   overflow: auto;
   @media (max-width: 600px) {
     overflow: auto;
@@ -59,6 +59,7 @@ export const GridNavBanner = styled.div`
 
 export const GridNavUser = styled.div`
   grid-area: navuser;
+  width: 100%;
   display: flex;
   z-index: 1000;
 `;
@@ -69,6 +70,7 @@ export const PageNavWrapper = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: 600px) {
+    height: auto;
     width: 100vw;
     flex-direction: row;
     justify-content: space-around;
@@ -82,12 +84,14 @@ export const GridPageNav = styled.div`
   flex-grow: 1;
   background-color: #039be5;
   @media (max-width: 600px) {
+    flex-grow: 0;
     width: 100vw;
     height: 80px;
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 500;
+    background-color: #039be5;
   }
 `;
 

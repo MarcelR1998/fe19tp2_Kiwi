@@ -149,10 +149,10 @@ const SearchField = styled.input`
     width: 70%;
   }
   @media (max-width: 600px) {
-    width: 90%;
+    width: 50%;
   }
   &:focus {
-    width: 100%;
+    width: 90%;
     transition: width 0.6s;
   }
 `;
@@ -265,6 +265,7 @@ const UpDownView = styled.div`
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
+  font-size: 15px;
   border: 0;
   border-radius: 10px;
   margin-bottom: 47px;

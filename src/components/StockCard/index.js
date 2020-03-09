@@ -90,18 +90,20 @@ class StockCard extends React.Component {
         <div style={{ transform: "translateY(-8px)" }}>
           <i className="fas fa-spinner fa-spin fa-xs"></i>
         </div>
-      );
+      )
+
 
   selectedStock = (e) => {
     if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I' && e.target.tagName !== 'INPUT') {
       console.log(e.target.closest('li').id);
       this.setState({
-        stockData: this.props.masterObject[e.target.closest('li').id].quoteUrl,
+        stockData: this.props.masterObject[e.target.closest("li").id].quoteUrl,
         redirect: true
-      })
-    } else { console.log('failed') }
-
-  }
+      });
+    } else {
+      console.log("failed");
+    }
+  };
 
   changeMultiplier = (e, symbol) => {
     console.log("chgMult")
@@ -118,38 +120,42 @@ class StockCard extends React.Component {
   render() {
 
     return (
-
       <StockListWrapper>
         <StyledStockList>
           {this.state.stocklist &&
-            this.state.stocklist.map((stock, index) => (
+            this.state.stocklist.map((stock, index) =>
               this.state.redirect ? (
-                <Redirect to="/stockpage" stock={this.state.stockData} />) : (<StockListItem id={stock.symbol} key={"o" + index} onClick={this.selectedStock}>
-                  <StockItemMain>
-                    <StockItemData>
-                      <StockSymbol>{stock.symbol}</StockSymbol>
-                      <StockDesc>{stock.description}</StockDesc>
-                      <StockValue>
-                        {this.newStockValues(stock.symbol) || "No data"}
-                      </StockValue>
-                      <StockValue>
-                        <span>$</span> {(this.newStockValues(stock.symbol) * (stock.amount ? stock.amount : 1)).toFixed(2) || "No data"}
-                      </StockValue>
-                      <input type="number" name={stock.symbol} onChange={e => this.changeMultiplier(e, stock.symbol)} value={stock.amount ? stock.amount : ''} />
-                    </StockItemData>
-                    <StockItemButton>
-                      <AddDeleteButton
-                        onClick={e => this.handleRemoveStock(stock)}
-                        primary
-                      >
-                        <i class="fas fa-trash-alt"></i>
-                      </AddDeleteButton>
-                    </StockItemButton>
-                    <StockItemGain></StockItemGain>
-                  </StockItemMain>
-                </StockListItem>
+                <Redirect to="/stockpage" stock={this.state.stockData} />
+              ) : (
+                  <StockListItem
+                    id={stock.symbol}
+                    key={"o" + index}
+                    onClick={this.selectedStock}
+                  >
+                    <StockItemMain>
+                      <StockItemData>
+                        <StockSymbol>{stock.symbol}</StockSymbol>
+                        <StockDesc>{stock.description}</StockDesc>
+                        <StockValue>
+                          {this.newStockValues(stock.symbol) || "No data"}
+                        </StockValue>
+                        <StockValue>
+                          <span>$</span> {(this.newStockValues(stock.symbol) * (stock.amount ? stock.amount : 1)).toFixed(2) || "No data"}
+                        </StockValue>
+                        <input type="number" name={stock.symbol} onChange={e => this.changeMultiplier(e, stock.symbol)} value={stock.amount ? stock.amount : ''} />
+                      </StockItemData>
+                      <StockItemButton>
+                        <AddDeleteButton
+                          onClick={e => this.handleRemoveStock(stock)}
+                          primary
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </AddDeleteButton>
+                      </StockItemButton>
+                      <StockItemGain></StockItemGain>
+                    </StockItemMain>
+                  </StockListItem>
                 )
-            )
             )}
         </StyledStockList>
       </StockListWrapper>
@@ -159,7 +165,6 @@ class StockCard extends React.Component {
 
 const AddDeleteText = styled.span`
   color: #fff;
-
 `;
 
 const MyStocklist = styled.div`

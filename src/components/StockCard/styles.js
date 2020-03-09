@@ -30,8 +30,8 @@ export const StockListItem = styled.li`
 `;
 
 export const StockItemMain = styled.div`
-  min-height: 120px;
   position: relative;
+  min-height: 120px;
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -57,6 +57,7 @@ export const StockItemButton = styled.div`
   top: 15px;
   right: 15px;
   width: 35px;
+  font-size: 15px;
 `;
 
 export const StockItemGain = styled.div`

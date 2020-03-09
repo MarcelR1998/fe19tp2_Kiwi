@@ -22,7 +22,7 @@ const SearchListItem = ({
   stock,
   userStocks,
   handleAddStock,
-  handleRemoveStock,
+  handleRemoveStock
 }) => {
   if (!userStocks) {
     userStocks = [];
@@ -37,10 +37,10 @@ const SearchListItem = ({
           <i class="fas fa-plus"></i>
         </AddDeleteButton>
       ) : (
-          <AddDeleteButton primary onClick={e => handleRemoveStock(stock)}>
-            <i class="fas fa-trash-alt"></i>
-          </AddDeleteButton>
-        )}
+        <AddDeleteButton primary onClick={e => handleRemoveStock(stock)}>
+          <i class="fas fa-trash-alt"></i>
+        </AddDeleteButton>
+      )}
     </AddStocklist>
   );
 };
@@ -142,6 +142,7 @@ const UpDownView = styled.div`
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
+  font-size: 15px;
   border: none;
   border-radius: 10px;
   margin-bottom: 47px;

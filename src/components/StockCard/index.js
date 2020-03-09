@@ -82,26 +82,27 @@ class StockCard extends React.Component {
       this.props.masterObject[symbol] ? (
         this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
       ) : (
-          <div style={{ transform: "translateY(-16px)" }}>
-            <i className="fas fa-spinner fa-spin fa-xs"></i>
-          </div>
-        )
-    ) : (
         <div style={{ transform: "translateY(-16px)" }}>
           <i className="fas fa-spinner fa-spin fa-xs"></i>
         </div>
-      );
+      )
+    ) : (
+      <div style={{ transform: "translateY(-16px)" }}>
+        <i className="fas fa-spinner fa-spin fa-xs"></i>
+      </div>
+    );
 
-  selectedStock = (e) => {
-    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I') {
-      console.log(e.target.closest('li').id);
+  selectedStock = e => {
+    if (e.target.tagName !== "BUTTON" && e.target.tagName !== "I") {
+      console.log(e.target.closest("li").id);
       this.setState({
-        stockData: this.props.masterObject[e.target.closest('li').id].quoteUrl,
+        stockData: this.props.masterObject[e.target.closest("li").id].quoteUrl,
         redirect: true
-      })
-    } else { console.log('failed') }
-
-  }
+      });
+    } else {
+      console.log("failed");
+    }
+  };
 
   render() {
     /*   console.log(this.props.masterObject); */
@@ -124,13 +125,18 @@ class StockCard extends React.Component {
         }; */
 
     return (
-
       <StockListWrapper>
         <StyledStockList>
           {this.state.stocklist &&
-            this.state.stocklist.map((stock, index) => (
+            this.state.stocklist.map((stock, index) =>
               this.state.redirect ? (
-                <Redirect to="/stockpage" stock={this.state.stockData} />) : (<StockListItem id={stock.symbol} key={"o" + index} onClick={this.selectedStock}>
+                <Redirect to="/stockpage" stock={this.state.stockData} />
+              ) : (
+                <StockListItem
+                  id={stock.symbol}
+                  key={"o" + index}
+                  onClick={this.selectedStock}
+                >
                   <StockItemMain>
                     <StockItemData>
                       <StockSymbol>{stock.symbol}</StockSymbol>
@@ -150,8 +156,7 @@ class StockCard extends React.Component {
                     <StockItemGain></StockItemGain>
                   </StockItemMain>
                 </StockListItem>
-                )
-            )
+              )
             )}
         </StyledStockList>
       </StockListWrapper>
@@ -161,7 +166,6 @@ class StockCard extends React.Component {
 
 const AddDeleteText = styled.span`
   color: #fff;
-
 `;
 
 const MyStocklist = styled.div`
@@ -201,6 +205,7 @@ const UpDownView = styled.div`
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
+  font-size: 15px;
   color: #fff;
   border: 0;
   border-radius: 10px;

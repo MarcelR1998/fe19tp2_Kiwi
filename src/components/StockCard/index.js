@@ -3,6 +3,9 @@ import usStocksList from "../ApiReader/usStocksList.json";
 import styled from "styled-components";
 import { withFirebase } from "../Firebase";
 import Charts from "../Charts/index.js";
+import * as ROUTES from "../../constants/routes";
+
+import { NavLink, withRouter, Redirect } from "react-router-dom";
 import {
   StockListWrapper,
   StyledStockList,
@@ -17,7 +20,9 @@ import {
 } from "./styles";
 
 class StockCard extends React.Component {
-  state = {};
+  state = {
+    redirect: false
+  };
 
   componentDidMount() {
     this.setState({ loading: true });
@@ -77,15 +82,26 @@ class StockCard extends React.Component {
       this.props.masterObject[symbol] ? (
         this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
       ) : (
+          <div style={{ transform: "translateY(-16px)" }}>
+            <i className="fas fa-spinner fa-spin fa-xs"></i>
+          </div>
+        )
+    ) : (
         <div style={{ transform: "translateY(-16px)" }}>
           <i className="fas fa-spinner fa-spin fa-xs"></i>
         </div>
-      )
-    ) : (
-      <div style={{ transform: "translateY(-16px)" }}>
-        <i className="fas fa-spinner fa-spin fa-xs"></i>
-      </div>
-    );
+      );
+
+  selectedStock = (e) => {
+    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'I') {
+      console.log(e.target.closest('li').id);
+      this.setState({
+        stockData: this.props.masterObject[e.target.closest('li').id].quoteUrl,
+        redirect: true
+      })
+    } else { console.log('failed') }
+
+  }
 
   render() {
     /*   console.log(this.props.masterObject); */
@@ -108,45 +124,44 @@ class StockCard extends React.Component {
         }; */
 
     return (
+
       <StockListWrapper>
         <StyledStockList>
           {this.state.stocklist &&
             this.state.stocklist.map((stock, index) => (
-              <StockListItem key={"o" + index}>
-                <StockItemMain>
-                  <StockItemData>
-                    <StockSymbol>{stock.symbol}</StockSymbol>
-                    <StockDesc>{stock.description}</StockDesc>
-                    <StockValue>
-                      {this.newStockValues(stock.symbol) || "No data"}
-                    </StockValue>
-                  </StockItemData>
-                  <StockItemButton>
-                    <AddDeleteButton
-                      onClick={e => this.handleRemoveStock(stock)}
-                      primary
-                    >
-                      <AddDeleteText>-</AddDeleteText>
-                    </AddDeleteButton>
-                  </StockItemButton>
-                  <StockItemGain></StockItemGain>
-                </StockItemMain>
-              </StockListItem>
-            ))}
+              this.state.redirect ? (
+                <Redirect to="/stockpage" stock={this.state.stockData} />) : (<StockListItem id={stock.symbol} key={"o" + index} onClick={this.selectedStock}>
+                  <StockItemMain>
+                    <StockItemData>
+                      <StockSymbol>{stock.symbol}</StockSymbol>
+                      <StockDesc>{stock.description}</StockDesc>
+                      <StockValue>
+                        {this.newStockValues(stock.symbol) || "No data"}
+                      </StockValue>
+                    </StockItemData>
+                    <StockItemButton>
+                      <AddDeleteButton
+                        onClick={e => this.handleRemoveStock(stock)}
+                        primary
+                      >
+                        <i class="fas fa-trash-alt"></i>
+                      </AddDeleteButton>
+                    </StockItemButton>
+                    <StockItemGain></StockItemGain>
+                  </StockItemMain>
+                </StockListItem>
+                )
+            )
+            )}
         </StyledStockList>
       </StockListWrapper>
     );
   }
 }
 
-const AddDeleteText = styled.p`
-  font-family: Roboto;
-  color: #ffffff;
-  font-style: bold;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 0px;
-  margin-top: 14px;
+const AddDeleteText = styled.span`
+  color: #fff;
+
 `;
 
 const MyStocklist = styled.div`
@@ -186,7 +201,7 @@ const UpDownView = styled.div`
 const AddDeleteButton = styled.button`
   width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
-
+  color: #fff;
   border: 0;
   border-radius: 10px;
   margin-bottom: 47px;

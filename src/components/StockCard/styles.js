@@ -17,6 +17,7 @@ export const StockListItem = styled.li`
   display: flex;
   flex-direction: column;
   width: 20%;
+  min-height: 300px;
   padding: 10px;
   @media (max-width: 1200px) {
     width: 29%;
@@ -30,6 +31,7 @@ export const StockListItem = styled.li`
 `;
 
 export const StockItemMain = styled.div`
+  min-height: 120px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -46,6 +48,9 @@ export const StockItemMain = styled.div`
 
 export const StockItemData = styled.div`
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const StockItemButton = styled.div`

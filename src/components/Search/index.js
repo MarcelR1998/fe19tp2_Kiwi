@@ -11,12 +11,12 @@ class Search extends React.Component {
     show: true
   };
 
-  handleClick = e => {
+  /* handleClick = e => {
     if (this.node.contains(e.target)) {
       return;
-    }
-    /*     this.handleClickOutside(); */
-  };
+    } */
+  /*     this.handleClickOutside(); */
+  /* }; */
 
   /*  handleClickOutside = () => {
      this.setState({
@@ -37,15 +37,18 @@ class Search extends React.Component {
         });
         console.log(this.props.uid);
       });
-    document.addEventListener("click", this.handleClick, false);
+    /*  document.addEventListener("click", this.handleClick, false); */
   }
-  componentWillUnmount() {
-    /* this.props.firebase.user(this.props.uid).off(); */
-    document.removeEventListener("click", this.handleClick, false);
-  }
+  /*   componentWillUnmount() { */
+  /* this.props.firebase.user(this.props.uid).off(); */
+  /*    document.removeEventListener("click", this.handleClick, false);
+   } */
 
   onchange = e => {
     this.setState({ search: e.target.value });
+    /*    if (e.target.value != "") {
+         this.setState({ hideSearch: true })
+       } */
   };
 
   updateUserStocklist = stocklist => {
@@ -105,7 +108,7 @@ class Search extends React.Component {
           icon="search"
           onChange={this.onchange}
         />
-        <SearchListContainer ref={node => (this.node = node)}>
+        {(this.state.search.length > 0) ? <SearchListContainer>
           {/* { filteredStocks, userStocks, handleAddStock }  */}
 
           {this.state.show && (
@@ -152,7 +155,7 @@ class Search extends React.Component {
                 <UpDownView></UpDownView>
               </MyStocklist>
             ))} */}
-        </SearchListContainer>
+        </SearchListContainer> : null}
       </SearchWrapper>
     );
   }

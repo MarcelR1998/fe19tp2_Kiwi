@@ -24,8 +24,8 @@ const Navigation = () => (
         authUser ? (
           <NavigationAuth authUser={authUser} />
         ) : (
-          <NavigationNonAuth />
-        )
+            <NavigationNonAuth />
+          )
       }
     </AuthUserContext.Consumer>
   </Nav>
@@ -60,7 +60,7 @@ const NavigationAuth = ({ authUser }) => (
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className="icon-news" to={ROUTES.HOME}>
+          <NavLink className="icon-news" to={ROUTES.STOCKPAGE}>
             News
           </NavLink>
         </NavItem>
@@ -91,9 +91,9 @@ const NavigationAuth = ({ authUser }) => (
 const NavigationNonAuth = () => (
   <div>
     <NavList>
-      <NavItem>
+      <NavLink>
         <NavLink to={ROUTES.LANDING}>Landing</NavLink>
-      </NavItem>{" "}
+      </NavLink>{" "}
       <NavItem>
         <NavLink signin to={ROUTES.SIGN_IN}>
           Sign In

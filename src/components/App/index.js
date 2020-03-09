@@ -18,6 +18,7 @@ import HomePage from "../Home";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
 import SecretPage from "../Secret";
+import StockPage from '../StockPage';
 
 import * as ROUTES from "../../constants/routes";
 
@@ -44,23 +45,24 @@ const App = () => (
               <Route path={ROUTES.ACCOUNT} component={AccountPage} />
               <Route path={ROUTES.ADMIN} component={AdminPage} />
               <Route path={ROUTES.SECRET} component={SecretPage} />
+              <Route path={ROUTES.STOCKPAGE} component={StockPage} />
             </GridMain>
           </PageGrid>
         ) : (
-          <GridMain>
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
-            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route
-              path={ROUTES.PASSWORD_FORGET}
-              component={PasswordForgetPage}
-            />
-            <Route path={ROUTES.HOME} component={HomePage} />
-            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-            <Route path={ROUTES.ADMIN} component={AdminPage} />
-            <Route path={ROUTES.SECRET} component={SecretPage} />
-          </GridMain>
-        )
+            <GridMain>
+              <Route exact path={ROUTES.LANDING} component={LandingPage} />
+              <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+              <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+              <Route
+                path={ROUTES.PASSWORD_FORGET}
+                component={PasswordForgetPage}
+              />
+              <Route path={ROUTES.HOME} component={HomePage} />
+              <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+              <Route path={ROUTES.ADMIN} component={AdminPage} />
+              <Route path={ROUTES.SECRET} component={SecretPage} />
+            </GridMain>
+          )
       }
     </AuthUserContext.Consumer>
 

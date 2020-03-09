@@ -34,11 +34,11 @@ const SearchListItem = ({
       <Stockdescription>{stock.description}</Stockdescription>
       {!userStocks.some(stateStock => stateStock.symbol === stock.symbol) ? (
         <AddDeleteButton onClick={e => handleAddStock(stock)}>
-          <AddDeleteText>+</AddDeleteText>
+          <i class="fas fa-plus"></i>
         </AddDeleteButton>
       ) : (
           <AddDeleteButton primary onClick={e => handleRemoveStock(stock)}>
-            <AddDeleteText>-</AddDeleteText>
+            <i class="fas fa-trash-alt"></i>
           </AddDeleteButton>
         )}
     </AddStocklist>
@@ -146,7 +146,7 @@ const AddDeleteButton = styled.button`
   border-radius: 10px;
   margin-bottom: 47px;
   background-color: ${props => (props.primary ? "#F44336" : "#8BC34A")};
-
+  color: #fff;
   grid-column: ${props => (props.primary ? "4" : "3 /4")};
   grid-row: 2;
 

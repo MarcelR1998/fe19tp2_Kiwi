@@ -51,6 +51,9 @@ export const GridNavBanner = styled.div`
   color: #fff;
   flex-shrink: 0;
   background-color: #039be5;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const GridNavUser = styled.div`

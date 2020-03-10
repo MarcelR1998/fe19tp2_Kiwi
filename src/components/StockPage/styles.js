@@ -10,3 +10,5 @@ export const StockChart = styled.div`
   width: 90%;
   margin: 0 auto;
 `;
+
+export const NewsWrapper = styled.div``;

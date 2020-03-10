@@ -1,15 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import {
-  MainWrapper,
-  PageTitleWrapper,
-  PageTitle,
-  StyledLink
-} from "../Styles";
-import { LinkBack, StockChart } from "./styles";
+import { MainWrapper, PageTitleWrapper, PageTitle } from "../Styles";
+import { LinkBack, StockChart, NewsWrapper } from "./styles";
 import { urlValues } from "../ApiReader/recommendationTrends";
 import Charts from "../Charts/index.js";
+import News from "../News";
 
 class StockPage extends React.Component {
   componentDidMount() {
@@ -79,6 +75,9 @@ class StockPage extends React.Component {
         <StockChart>
           <Charts chartData={chartData} />
         </StockChart>
+        <NewsWrapper>
+            <News />
+        </NewsWrapper>
       </MainWrapper>
     );
   }

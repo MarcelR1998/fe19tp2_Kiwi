@@ -1,7 +1,22 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import handelsbanken from "../../img/handelsbanken.svg";
+import nordea from "../../img/nordea.svg";
+
+/* LOGO */
+
+export const Nordea = nordea;
+export const Handelsbanken = handelsbanken;
 
 /* Basic Positioning */
+
+export const white = "#fff";
+export const black = "#333";
+export const lightgrey = "#f2f2f2";
+export const primary = "#039be5";
+export const accent = "#00b0ff";
+export const red = "#e53935";
+export const green = "#8bc34a";
 
 export const TextRight = styled.p`
   text-align: right;
@@ -49,9 +64,9 @@ export const GridNavBanner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: ${white};
   flex-shrink: 0;
-  background-color: #039be5;
+  background-color: ${primary};
   @media (max-width: 600px) {
     display: none;
   }
@@ -82,7 +97,7 @@ export const GridPageNav = styled.div`
   width: 120px;
   height: 100%;
   flex-grow: 1;
-  background-color: #039be5;
+  background-color: ${primary};
   @media (max-width: 600px) {
     flex-grow: 0;
     width: 100vw;
@@ -91,7 +106,7 @@ export const GridPageNav = styled.div`
     bottom: 0;
     left: 0;
     z-index: 500;
-    background-color: #039be5;
+    background-color: ${primary};
   }
 `;
 
@@ -133,17 +148,17 @@ export const StyledInput = styled.input`
   padding: 15px 20px;
   margin-bottom: 2vmin;
   background-color: #f7f7f7;
-  border: 1px solid #fff;
+  border: 1px solid ${white};
   border-radius: 5px;
   outline: 0;
   &:hover {
-    border: 1px solid #00b0ff;
+    border: 1px solid ${accent};
     transition: border 0.5s;
   }
   &:focus {
-    background-color: #f2f2f2;
-    border: 1px solid #00b0ff;
-    box-shadow: 0px 0px 2px 0px #00b0ff;
+    background-color: ${lightgrey};
+    border: 1px solid ${accent};
+    box-shadow: 0px 0px 2px 0px ${accent};
   }
 `;
 
@@ -155,7 +170,7 @@ export const StyledLabel = styled.label`
 /* LINK */
 
 export const StyledA = styled.a`
-  color: #00b0ff;
+  color: ${accent};
   text-decoration: none;
   &:hover {
     color: #068ccc;
@@ -163,7 +178,7 @@ export const StyledA = styled.a`
   }
 `;
 export const StyledLink = styled(Link)`
-  color: #00b0ff;
+  color: ${accent};
   text-decoration: none;
   &:hover {
     color: #068ccc;
@@ -180,7 +195,7 @@ export const StyledButton = styled.button`
   font-weight: bold;
   line-height: 21px;
   color: ${props => (props.disabled ? "#f2f2f2" : "#fff")};
-  background-color: #00b0ff;
+  background-color: ${accent};
   border: 0;
   border-radius: 5px;
   opacity: ${props => (props.disabled ? "0.5" : "1")};
@@ -199,9 +214,9 @@ export const StyledButtonLink = styled(Link)`
   font-size: 14px;
   font-weight: bold;
   line-height: 21px;
-  color: #fff;
+  color: ${white};
   text-decoration: none;
-  background-color: #00b0ff;
+  background-color: ${accent};
   border: 0;
   border-radius: 5px;
   cursor: pointer;
@@ -225,7 +240,7 @@ export const PageTitle = styled.h2`
   font-weight: bold;
   line-height: 26px;
   letter-spacing: 2px;
-  color: #333;
+  color: ${black};
 `;
 
 export const PageDesc = styled.p`
@@ -234,6 +249,6 @@ export const PageDesc = styled.p`
   font-size: 14px;
   line-height: 26px;
   letter-spacing: 1px;
-  color: #333;
+  color: ${black};
   opacity: 0.8;
 `;

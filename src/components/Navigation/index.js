@@ -14,7 +14,8 @@ import {
   GridNavBanner,
   GridNavUser,
   GridPageNav,
-  PageNavWrapper
+  PageNavWrapper,
+  Nordea
 } from "../Styles";
 
 const Navigation = () => (
@@ -34,7 +35,9 @@ const Navigation = () => (
 const NavigationAuth = ({ authUser }) => (
   <PageNavWrapper className="PageNavWrapper">
     <GridNavUser className="GridNavUser">
-      <GridNavBanner>LOGO</GridNavBanner>
+      <GridNavBanner>
+        <LogoImg src={Nordea} alt="Logo"></LogoImg>
+      </GridNavBanner>
       <NavUser className="NavUser">
         <TopSearch>
           <Search uid={authUser.uid} />
@@ -170,6 +173,10 @@ const NavLink = styled(Link)`
       font-size: 20px;
     }
   }
+`;
+
+const LogoImg = styled.img`
+  width: 80%;
 `;
 
 export default Navigation;

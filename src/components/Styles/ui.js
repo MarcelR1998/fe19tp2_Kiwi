@@ -5,6 +5,7 @@ export const black = "#333";
 export const lightgrey = "#f2f2f2";
 export const primary = "#039be5";
 export const accent = "#00b0ff";
+export const lightaccent = "rgba(0,176,255,0.1)";
 export const red = "#e53935";
 export const green = "#8bc34a";
 export const link = "#00b0ff";
@@ -14,5 +15,6 @@ export const linkhover = "#068ccc";
 
 export const mainfont = "'Roboto'";
 export const mainfontsize = "14px";
+export const middlefontsize = "16px";
 export const titlefontsize = "18px";
 export const smallfontsize = "12px";

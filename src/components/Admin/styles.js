@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import * as UI from "../Styles/ui";
 
 export const UsersListWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   /* box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); */
-  background-color: #fff;
+  background-color: ${UI.white};
 `;
 
 export const ListOfUsers = styled.ul`
@@ -26,14 +27,12 @@ export const UserItem = styled.li`
   cursor: pointer;
   &:hover {
     background-color: rgba(0, 176, 255, 0.1);
-    transform: scale(1.01);
-    transition: transform 0.4s;
-    @media (max-width: 600px) {
-      transform: none;
-    }
+    transition: 0.3s;
   }
   @media (max-width: 600px) {
     padding: 15px 30px;
+    flex-direction: column;
+    align-items: flex-start;
   }
   @media (max-width: 320px) {
     padding: 15px 30px;
@@ -54,7 +53,7 @@ export const UserInfo = styled.div`
   flex-grow: 1;
   display: flex;
   align-items: center;
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
@@ -64,7 +63,7 @@ export const UserInfo = styled.div`
 export const UserData = styled.div`
   width: 70%;
   display: flex;
-  @media (max-width: 1012px) {
+  @media (max-width: 1140px) {
     width: 50%;
     flex-direction: column;
   }
@@ -74,29 +73,29 @@ export const UserName = styled.span`
   display: block;
   width: 40%;
   padding: 5px 0;
-  font-family: "Roboto";
-  font-size: 16px;
+  font-family: ${UI.mainfont};
+  font-size: ${UI.middlefontsize};
   font-weight: bold;
   letter-spacing: 1px;
-  color: #333;
+  color: ${UI.black};
 `;
 
 export const UserEmail = styled.span`
   display: block;
   width: 40%;
   padding: 5px 0;
-  font-family: "Roboto";
-  font-size: 14px;
-  color: #333;
+  font-family: ${UI.mainfont};
+  font-size: ${UI.mainfontsize};
+  color: ${UI.black};
   opacity: 0.8;
 `;
 
 export const UserID = styled.span`
   display: block;
   padding: 5px 0;
-  font-family: "Roboto";
-  font-size: 14px;
-  color: #333;
+  font-family: ${UI.mainfont};
+  font-size: ${UI.mainfontsize};
+  color: ${UI.black};
 `;
 
 export const UserTH = styled.div``;

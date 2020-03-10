@@ -4,7 +4,8 @@ import { compose } from "recompose";
 import { withAuthorization } from "../Session";
 import * as ROLES from "../../constants/roles";
 import { SignUpLink } from "../SignUp";
-import { MainWrapper, PageTitleWrapper, PageTitle, PageDesc } from "../Styles";
+import * as GLOBSTYLES from "../Styles";
+import * as STYLES from "./styles";
 import {
   UsersListWrapper,
   ListOfUsers,
@@ -47,59 +48,38 @@ class AdminPage extends Component {
     const { users, loading } = this.state;
 
     return (
-      <MainWrapper>
-        {/*         <h1>Admin</h1>
-        <p>The Admin Page is accessible by every signed in admin user.</p>
- */}
-
-        <PageTitleWrapper>
-          <PageTitle>All Users</PageTitle>
-          <PageDesc>Browse and manage users.</PageDesc>
+      <GLOBSTYLES.MainWrapper>
+        <GLOBSTYLES.PageTitleWrapper>
+          <GLOBSTYLES.PageTitle>All Users</GLOBSTYLES.PageTitle>
+          <GLOBSTYLES.PageDesc>Browse and manage users.</GLOBSTYLES.PageDesc>
           <SignUpLink />
-        </PageTitleWrapper>
+        </GLOBSTYLES.PageTitleWrapper>
 
         <UserList users={users} />
         {loading && <div>Loading ...</div>}
-      </MainWrapper>
+      </GLOBSTYLES.MainWrapper>
     );
   }
 }
 const UserList = ({ users }) => (
-  <UsersListWrapper>
-    <ListOfUsers>
+  <STYLES.UsersListWrapper>
+    <STYLES.ListOfUsers>
       {users.map(user => (
-        <UserItem key={user.uid}>
-          <UserPhoto src="https://i2.wp.com/airlinkflight.org/wp-content/uploads/2019/02/male-placeholder-image.jpeg?resize=500%2C500&ssl=1"></UserPhoto>
-          <UserInfo>
-            <UserData>
-              <UserName>{user.username}</UserName>
-              <UserEmail>{user.email}</UserEmail>
-            </UserData>
-
-            <UserID>{user.uid}</UserID>
-          </UserInfo>
-        </UserItem>
+        <STYLES.UserItem key={user.uid}>
+          <STYLES.UserPhoto src="https://i2.wp.com/airlinkflight.org/wp-content/uploads/2019/02/male-placeholder-image.jpeg?resize=500%2C500&ssl=1"></STYLES.UserPhoto>
+          <STYLES.UserInfo>
+            <STYLES.UserData>
+              <STYLES.UserName>{user.username}</STYLES.UserName>
+              <STYLES.UserEmail>{user.email}</STYLES.UserEmail>
+            </STYLES.UserData>
+            <STYLES.UserID>{user.uid}</STYLES.UserID>
+          </STYLES.UserInfo>
+          <GLOBSTYLES.StyledButton>Remove</GLOBSTYLES.StyledButton>
+        </STYLES.UserItem>
       ))}
-    </ListOfUsers>
-  </UsersListWrapper>
+    </STYLES.ListOfUsers>
+  </STYLES.UsersListWrapper>
 );
-/* const UserList = ({ users }) => (
-  <ul>
-    {users.map(user => (
-      <li key={user.uid}>
-        <span>
-          <strong>ID:</strong> {user.uid}
-        </span>
-        <span>
-          <strong>E-Mail:</strong> {user.email}
-        </span>
-        <span>
-          <strong>Username:</strong> {user.username}
-        </span>
-      </li>
-    ))}
-  </ul>
-); */
 
 const condition = authUser => authUser && authUser.roles.includes(ROLES.ADMIN);
 

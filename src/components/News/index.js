@@ -14,14 +14,12 @@ import {
   StoryDate
 } from "../News/styles";
 
-const myNews = stocknews;
-
 /* const LatestNews = NewNews =>
   news.map(story => {
     console.log(story.headline);
   }); */
 
-const News = myNews => {
+const News = () => {
   return (
     <MainWrapper>
       <PageTitleWrapper>
@@ -35,7 +33,13 @@ const News = myNews => {
               <StoryInfo>
                 <StorySource>{story.source}</StorySource>
                 <span>&#9679;</span>
-                <StoryDate>{story.datetime}</StoryDate>
+                <StoryDate>
+                  {String(new Date(eval(story.datetime + "000"))).slice(0, 3)}
+                  ,&nbsp;
+                  {String(new Date(eval(story.datetime + "000"))).slice(4, 15)}
+                  ,&nbsp;
+                  {String(new Date(eval(story.datetime + "000"))).slice(16, 21)}
+                </StoryDate>
               </StoryInfo>
               <StoryTitle>
                 <StoryA href="link">{story.headline}</StoryA>

@@ -60,6 +60,7 @@ class StockCard extends React.Component {
     this.setState({
       stocklist: stocklist
     });
+
   };
 
   handleAddStock = newStock => {
@@ -82,6 +83,7 @@ class StockCard extends React.Component {
       stock => stock.symbol !== oldStock.symbol
     );
     this.updateUserStocklist(newStockList);
+    localStorage.removeItem(oldStock.symbol);
   };
 
   newStockValues = symbol =>
@@ -128,17 +130,16 @@ class StockCard extends React.Component {
     //this.setState({ amounts: amount })
   };
 
-  /* setLocalStorage = symbol => {
-    if (this.props.masterObject[symbol].quoteUrl) {
-      localStorage.setItem(symbol, JSON.stringify(this.props.masterObject[symbol].quoteUrl.c.toFixed(2)))
-    } else { console.log('not stored') }
-  } */
+  setLocalStorageValue = (symbol) => {
+    localStorage.setItem([symbol], JSON.stringify(this.props.masterObject[symbol].quoteUrl.c.toFixed(2)))
+
+  }
 
   /* compairValue = symbol => {
-    if (JSON.parse(localStorage.getItem([symbol])) > this.newStockValues(symbol)) {
-      (<div style={{ backgroundColor: 'green' }}></div>)
+    if (JSON.parse(localStorage.getItem([symbol])) < this.newStockValues(symbol)) {
+      <StockItemGain></StockItemGain>
     } else { (<div style={{ backgroundColor: 'red' }}></div>) }
-  } */
+  }  */
 
   render() {
 
@@ -199,11 +200,10 @@ class StockCard extends React.Component {
                           <i className="fas fa-trash-alt"></i>
                         </AddDeleteButton>
                       </StockItemButton>
-                      <StockItemGain></StockItemGain>
-                      {/* {(JSON.parse(localStorage.getItem(stock.symbol)) < this.newStockValues(stock.symbol)) ? <StockItemGain></StockItemGain> : <StockItemGain style={{ backgroundColor: 'red' }}></StockItemGain>} */}
+                      {(JSON.parse(localStorage.getItem(stock.symbol)) <= this.newStockValues(stock.symbol)) ? <StockItemGain></StockItemGain> : <StockItemGain style={{ backgroundColor: 'red' }}></StockItemGain>}
+                      {this.props.masterObject ? this.props.masterObject[stock.symbol] ? this.setLocalStorageValue(stock.symbol) : "" : ""}
                     </StockItemMain>
                   </StockListItem>
-
                 )
             )}
 

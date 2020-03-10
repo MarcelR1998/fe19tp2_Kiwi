@@ -81,6 +81,8 @@ class Search extends React.Component {
       newStockList.push(newStock);
       console.log(newStock, stockList);
       this.updateUserStocklist(newStockList);
+      this.setLocalStorage(newStock.symbol)
+      console.log(typeof newStock.symbol)
     }
   };
 
@@ -98,6 +100,13 @@ class Search extends React.Component {
     } else { this.setState({ show: false }) }
 
   }
+
+  setLocalStorage = symbol => {
+
+    localStorage.setItem([symbol], JSON.stringify(1))
+
+  }
+
 
   render() {
     const { search } = this.state;

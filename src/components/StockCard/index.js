@@ -200,8 +200,12 @@ class StockCard extends React.Component {
                           <i className="fas fa-trash-alt"></i>
                         </AddDeleteButton>
                       </StockItemButton>
-                      {(JSON.parse(localStorage.getItem(stock.symbol)) <= this.newStockValues(stock.symbol)) ? <StockItemGain></StockItemGain> : <StockItemGain style={{ backgroundColor: 'red' }}></StockItemGain>}
-                      {this.props.masterObject ? this.props.masterObject[stock.symbol] ? this.setLocalStorageValue(stock.symbol) : "" : ""}
+                      {(JSON.parse(localStorage.getItem(stock.symbol)) <= this.newStockValues(stock.symbol)) ?
+                        <StockItemGain></StockItemGain> :
+                        <StockItemGain style={{ backgroundColor: 'red' }}></StockItemGain>}
+                      {this.props.masterObject ?
+                        this.props.masterObject[stock.symbol] ?
+                          this.setLocalStorageValue(stock.symbol) : "" : ""}
                     </StockItemMain>
                   </StockListItem>
                 )

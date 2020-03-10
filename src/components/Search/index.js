@@ -92,6 +92,7 @@ class Search extends React.Component {
     );
 
     this.updateUserStocklist(newStockList);
+    localStorage.removeItem(oldStock.symbol);
   };
 
   closeSearch = (e) => {

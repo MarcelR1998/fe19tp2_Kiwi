@@ -2,19 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import handelsbanken from "../../img/handelsbanken.svg";
 import nordea from "../../img/nordea.svg";
-import {
-  white,
-  black,
-  lightgrey,
-  primary,
-  accent,
-  mainfont,
-  mainfontsize,
-  titlefontsize,
-  smallfontsize,
-  link,
-  linkhover
-} from "../Styles/ui";
+import * as UI from "../Styles/ui";
 
 /* LOGO */
 
@@ -69,9 +57,9 @@ export const GridNavBanner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${white};
+  color: ${UI.white};
   flex-shrink: 0;
-  background-color: ${primary};
+  background-color: ${UI.primary};
   @media (max-width: 600px) {
     display: none;
   }
@@ -82,6 +70,9 @@ export const GridNavUser = styled.div`
   width: 100%;
   display: flex;
   z-index: 1000;
+  @media (max-width: 600px) {
+    position: fixed;
+  }
 `;
 
 export const PageNavWrapper = styled.div`
@@ -102,7 +93,7 @@ export const GridPageNav = styled.div`
   width: 120px;
   height: 100%;
   flex-grow: 1;
-  background-color: ${primary};
+  background-color: ${UI.primary};
   @media (max-width: 600px) {
     flex-grow: 0;
     width: 100vw;
@@ -111,7 +102,7 @@ export const GridPageNav = styled.div`
     bottom: 0;
     left: 0;
     z-index: 500;
-    background-color: ${primary};
+    background-color: ${UI.primary};
   }
 `;
 
@@ -138,7 +129,7 @@ export const FormTitle = styled.h1`
 `;
 
 export const FormDesc = styled.p`
-  font-size: 14px;
+  font-size: ${UI.mainfontsize};
   margin-bottom: 30px;
 `;
 
@@ -149,33 +140,33 @@ export const StyledForm = styled.form`
 `;
 
 export const StyledInput = styled.input`
-  font-size: 14px;
+  font-size: ${UI.mainfontsize};
   padding: 15px 20px;
   margin-bottom: 2vmin;
   background-color: #f7f7f7;
-  border: 1px solid ${white};
+  border: 1px solid ${UI.white};
   border-radius: 5px;
   outline: 0;
   &:hover {
-    border: 1px solid ${accent};
+    border: 1px solid ${UI.accent};
     transition: border 0.5s;
   }
   &:focus {
-    background-color: ${lightgrey};
-    border: 1px solid ${accent};
-    box-shadow: 0px 0px 2px 0px ${accent};
+    background-color: ${UI.lightgrey};
+    border: 1px solid ${UI.accent};
+    box-shadow: 0px 0px 2px 0px ${UI.accent};
   }
 `;
 
 export const StyledLabel = styled.label`
-  font-size: 12px;
+  font-size: ${UI.smallfontsize};
   line-height: 21px;
 `;
 
 /* LINK */
 
 export const StyledA = styled.a`
-  color: ${accent};
+  color: ${UI.accent};
   text-decoration: none;
   &:hover {
     color: #068ccc;
@@ -183,7 +174,7 @@ export const StyledA = styled.a`
   }
 `;
 export const StyledLink = styled(Link)`
-  color: ${accent};
+  color: ${UI.accent};
   text-decoration: none;
   &:hover {
     color: #068ccc;
@@ -196,11 +187,11 @@ export const StyledLink = styled(Link)`
 export const StyledButton = styled.button`
   margin: 10px 0;
   padding: 12px 15px;
-  font-size: 14px;
+  font-size: ${UI.mainfontsize};
   font-weight: bold;
   line-height: 21px;
-  color: ${props => (props.disabled ? "#f2f2f2" : "#fff")};
-  background-color: ${accent};
+  color: ${UI.white};
+  background-color: ${UI.accent};
   border: 0;
   border-radius: 5px;
   opacity: ${props => (props.disabled ? "0.5" : "1")};
@@ -216,12 +207,12 @@ export const StyledButtonLink = styled(Link)`
   display: inline-block;
   margin: 10px 0;
   padding: 12px 15px;
-  font-size: 14px;
+  font-size: ${UI.mainfontsize};
   font-weight: bold;
   line-height: 21px;
-  color: ${white};
+  color: ${UI.white};
   text-decoration: none;
-  background-color: ${accent};
+  background-color: ${UI.accent};
   border: 0;
   border-radius: 5px;
   cursor: pointer;
@@ -241,19 +232,19 @@ export const PageTitleWrapper = styled.div`
 export const PageTitle = styled.h2`
   margin: 0;
   padding: 0;
-  font-size: 18px;
+  font-size: ${UI.largefontsize};
   font-weight: bold;
   line-height: 26px;
   letter-spacing: 2px;
-  color: ${black};
+  color: ${UI.black};
 `;
 
 export const PageDesc = styled.p`
   margin: 0;
   padding: 0;
-  font-size: 14px;
+  font-size: ${UI.mainfontsize};
   line-height: 26px;
   letter-spacing: 1px;
-  color: ${black};
+  color: ${UI.black};
   opacity: 0.8;
 `;

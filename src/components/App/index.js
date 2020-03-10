@@ -1,16 +1,7 @@
 import React from "react";
-
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import {
-  PageGrid,
-  GridMain,
-  GridNavBanner,
-  GridNavUser,
-  GridPageNav
-} from "../Styles";
-
+import * as GLOBSTYLES from "../Styles";
 import Navigation from "../Navigation";
-import LandingPage from "../Landing";
 import SignUpPage from "../SignUp";
 import SignInPage from "../SignIn";
 import PasswordForgetPage from "../PasswordForget";
@@ -19,9 +10,7 @@ import AccountPage from "../Account";
 import AdminPage from "../Admin";
 import SecretPage from "../Secret";
 import StockPage from "../StockPage";
-
 import * as ROUTES from "../../constants/routes";
-
 import { withAuthentication, AuthUserContext } from "../Session";
 import News from "../News";
 
@@ -30,9 +19,9 @@ const App = () => (
     <AuthUserContext.Consumer>
       {authUser =>
         authUser ? (
-          <PageGrid>
+          <GLOBSTYLES.PageGrid>
             <Navigation />
-            <GridMain>
+            <GLOBSTYLES.GridMain>
               <Route exact path={ROUTES.HOME} component={HomePage} />
               <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
               <Route path={ROUTES.SIGN_IN} component={SignInPage} />
@@ -45,10 +34,10 @@ const App = () => (
               <Route path={ROUTES.SECRET} component={SecretPage} />
               <Route path={ROUTES.STOCKPAGE} component={StockPage} />
               <Route path={ROUTES.NEWS} component={News} />
-            </GridMain>
-          </PageGrid>
+            </GLOBSTYLES.GridMain>
+          </GLOBSTYLES.PageGrid>
         ) : (
-          <GridMain>
+          <GLOBSTYLES.GridMain>
             <Route exact path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />
@@ -60,7 +49,7 @@ const App = () => (
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
             <Route path={ROUTES.SECRET} component={SecretPage} />
-          </GridMain>
+          </GLOBSTYLES.GridMain>
         )
       }
     </AuthUserContext.Consumer>

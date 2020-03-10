@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { MainWrapper, PageTitleWrapper, PageTitle } from "../Styles";
-import { LinkBack, StockChart, NewsWrapper } from "./styles";
+import { LinkBack, StockChart, StockContainer } from "./styles";
 import { urlValues } from "../ApiReader/recommendationTrends";
 import Charts from "../Charts/index.js";
-import News from "../News";
+import StockNews from "../News/applenews";
 
 class StockPage extends React.Component {
   componentDidMount() {
@@ -28,7 +28,7 @@ class StockPage extends React.Component {
     var startDate = new Date("2020-03-01"); //YYYY-MM-DD
     var endDate = new Date("2020-03-09"); //YYYY-MM-DD
 
-    var getDateArray = function (start, end) {
+    var getDateArray = function(start, end) {
       var arr = new Array();
       var dt = new Date(start);
       while (dt <= end) {
@@ -65,17 +65,19 @@ class StockPage extends React.Component {
     };
     return (
       <MainWrapper>
-        <h2>{this.props.stock}</h2>
+        {/* <h2>{this.props.stock}</h2> */}
         <LinkBack to={ROUTES.HOME}>
           <i className="fas fa-arrow-left"></i> Back
         </LinkBack>
         <PageTitleWrapper>
-          <PageTitle>Stock Page</PageTitle>
+          <PageTitle>AAPL (Apple Inc.)</PageTitle>
         </PageTitleWrapper>
-        <StockChart>
-          <Charts chartData={chartData} />
-        </StockChart>
-        <News />
+        <StockContainer>
+          <StockChart>
+            <Charts chartData={chartData} />
+          </StockChart>
+          <StockNews />
+        </StockContainer>
       </MainWrapper>
     );
   }

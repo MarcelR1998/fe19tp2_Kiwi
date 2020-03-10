@@ -23,6 +23,7 @@ import StockPage from "../StockPage";
 import * as ROUTES from "../../constants/routes";
 
 import { withAuthentication, AuthUserContext } from "../Session";
+import News from "../News";
 
 const App = () => (
   <Router>
@@ -32,23 +33,23 @@ const App = () => (
           <PageGrid>
             <Navigation />
             <GridMain>
-              <Route exact path={ROUTES.LANDING} component={LandingPage} />
+              <Route exact path={ROUTES.HOME} component={HomePage} />
               <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
               <Route path={ROUTES.SIGN_IN} component={SignInPage} />
               <Route
                 path={ROUTES.PASSWORD_FORGET}
                 component={PasswordForgetPage}
               />
-              <Route path={ROUTES.HOME} component={HomePage} />
               <Route path={ROUTES.ACCOUNT} component={AccountPage} />
               <Route path={ROUTES.ADMIN} component={AdminPage} />
               <Route path={ROUTES.SECRET} component={SecretPage} />
               <Route path={ROUTES.STOCKPAGE} component={StockPage} />
+              <Route path={ROUTES.NEWS} component={News} />
             </GridMain>
           </PageGrid>
         ) : (
           <GridMain>
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
+            <Route exact path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />
             <Route

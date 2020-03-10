@@ -1,22 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import SignOutButton from "../SignOut";
 import UserNav from "../Navigation/UserNav";
 import Search from "../Search";
-
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";
 import * as ROLES from "../../constants/roles";
-
 import styled from "styled-components";
-import {
-  GridNavBanner,
-  GridNavUser,
-  GridPageNav,
-  PageNavWrapper,
-  Nordea
-} from "../Styles";
+import * as GLOBSTYLES from "../Styles";
 
 const Navigation = () => (
   <Nav>
@@ -33,19 +23,19 @@ const Navigation = () => (
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <PageNavWrapper className="PageNavWrapper">
-    <GridNavUser className="GridNavUser">
-      <GridNavBanner>
-        <LogoImg src={Nordea} alt="Logo"></LogoImg>
-      </GridNavBanner>
+  <GLOBSTYLES.PageNavWrapper className="PageNavWrapper">
+    <GLOBSTYLES.GridNavUser className="GridNavUser">
+      <GLOBSTYLES.GridNavBanner>
+        <LogoImg src={GLOBSTYLES.Nordea} alt="Logo"></LogoImg>
+      </GLOBSTYLES.GridNavBanner>
       <NavUser className="NavUser">
         <TopSearch>
           <Search uid={authUser.uid} />
         </TopSearch>
         <UserNav />
       </NavUser>
-    </GridNavUser>
-    <GridPageNav className="GridPageNav">
+    </GLOBSTYLES.GridNavUser>
+    <GLOBSTYLES.GridPageNav className="GridPageNav">
       <NavList>
         <NavItem>
           <NavLink className="icon-home" to={ROUTES.HOME}>
@@ -53,13 +43,8 @@ const NavigationAuth = ({ authUser }) => (
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink className="icon-news" to={ROUTES.STOCKPAGE}>
+          <NavLink className="icon-news" to={ROUTES.NEWS}>
             News
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink className="icon-portfolio" to={ROUTES.HOME}>
-            Portfolio
           </NavLink>
         </NavItem>
         <NavItem className="account-item">
@@ -75,15 +60,15 @@ const NavigationAuth = ({ authUser }) => (
           </NavItem>
         )}
       </NavList>
-    </GridPageNav>
-  </PageNavWrapper>
+    </GLOBSTYLES.GridPageNav>
+  </GLOBSTYLES.PageNavWrapper>
 );
 const NavigationNonAuth = () => (
   <div>
     <NavList>
       <NavLink>
-        <NavLink to={ROUTES.LANDING}>Landing</NavLink>
-      </NavLink>{" "}
+        <NavLink to={ROUTES.HOME}>Home</NavLink>
+      </NavLink>
       <NavItem>
         <NavLink signin to={ROUTES.SIGN_IN}>
           Sign In

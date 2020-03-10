@@ -1,5 +1,5 @@
 import React from "react";
-import stocknews from "./news.json";
+import stocknews from "./applenews.json";
 import * as GLOBSTYLES from "../Styles";
 import * as STYLES from "../News/styles";
 
@@ -7,13 +7,10 @@ const News = () => {
   return (
     <GLOBSTYLES.MainWrapper>
       <GLOBSTYLES.PageTitleWrapper>
-        <GLOBSTYLES.PageTitle>Latest News</GLOBSTYLES.PageTitle>
-        <GLOBSTYLES.PageDesc>
-          Stay up to date with the latest news from the business world
-        </GLOBSTYLES.PageDesc>
+        <GLOBSTYLES.PageTitle>Company News</GLOBSTYLES.PageTitle>
       </GLOBSTYLES.PageTitleWrapper>
       <STYLES.NewsContainer>
-        {stocknews.map(story => (
+        {stocknews.slice(0, 5).map(story => (
           <STYLES.NewsStoryItem key={story.id}>
             <STYLES.StoryImg src={story.image}></STYLES.StoryImg>
             <STYLES.StoryWrapper>

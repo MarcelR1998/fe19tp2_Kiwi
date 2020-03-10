@@ -12,3 +12,4 @@ export const StockChart = styled.div`
 `;
 
 export const NewsWrapper = styled.div``;
+export const StockContainer = styled.div``;

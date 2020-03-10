@@ -38,11 +38,12 @@ class Search extends React.Component {
         console.log(this.props.uid);
       });
     /*  document.addEventListener("click", this.handleClick, false); */
+    document.addEventListener('mousedown', this.closeSearch, false)
   }
-  /*   componentWillUnmount() { */
-  /* this.props.firebase.user(this.props.uid).off(); */
-  /*    document.removeEventListener("click", this.handleClick, false);
-   } */
+  componentWillUnmount() {
+    /* this.props.firebase.user(this.props.uid).off(); */
+    document.removeEventListener("mousedown", this.closeSearch, false);
+  }
 
   onchange = e => {
     this.setState({ search: e.target.value });
@@ -91,6 +92,13 @@ class Search extends React.Component {
     this.updateUserStocklist(newStockList);
   };
 
+  closeSearch = (e) => {
+    if (this.node.contains(e.target)) {
+      this.setState({ show: true })
+    } else { this.setState({ show: false }) }
+
+  }
+
   render() {
     const { search } = this.state;
     const filteredStocks = usStocksList.filter(stock => {
@@ -101,7 +109,7 @@ class Search extends React.Component {
     });
 
     return (
-      <SearchWrapper>
+      <SearchWrapper ref={node => this.node = node}>
         <SearchField
           label="Search Stock"
           placeholder="Search for stocks and luck"

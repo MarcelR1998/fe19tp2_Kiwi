@@ -2,6 +2,19 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import handelsbanken from "../../img/handelsbanken.svg";
 import nordea from "../../img/nordea.svg";
+import {
+  white,
+  black,
+  lightgrey,
+  primary,
+  accent,
+  mainfont,
+  mainfontsize,
+  titlefontsize,
+  smallfontsize,
+  link,
+  linkhover
+} from "../Styles/ui";
 
 /* LOGO */
 
@@ -9,14 +22,6 @@ export const Nordea = nordea;
 export const Handelsbanken = handelsbanken;
 
 /* Basic Positioning */
-
-export const white = "#fff";
-export const black = "#333";
-export const lightgrey = "#f2f2f2";
-export const primary = "#039be5";
-export const accent = "#00b0ff";
-export const red = "#e53935";
-export const green = "#8bc34a";
 
 export const TextRight = styled.p`
   text-align: right;

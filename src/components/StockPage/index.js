@@ -75,9 +75,7 @@ class StockPage extends React.Component {
         <StockChart>
           <Charts chartData={chartData} />
         </StockChart>
-        <NewsWrapper>
-            <News />
-        </NewsWrapper>
+        <News />
       </MainWrapper>
     );
   }

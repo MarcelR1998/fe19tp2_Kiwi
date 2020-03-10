@@ -34,6 +34,7 @@ export const StoryWrapper = styled.div`
 
 export const StoryImg = styled.img`
   max-width: 150px;
+  max-height: 120px;
   margin: 0 15px;
   background-color: ${lightgrey};
   object-fit: cover;

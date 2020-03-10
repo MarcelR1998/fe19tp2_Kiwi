@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { MainWrapper, PageTitleWrapper, PageTitle } from "../Styles";
-import { LinkBack, StockChart, StockContainer } from "./styles";
+import { LinkBack, StockChart, StockTitle, StockDesc } from "./styles";
 import { urlValues } from "../ApiReader/recommendationTrends";
 import Charts from "../Charts/index.js";
 import StockNews from "../News/applenews";
@@ -25,8 +25,8 @@ class StockPage extends React.Component {
     } */
 
   render() {
-    var startDate = new Date("2020-03-01"); //YYYY-MM-DD
-    var endDate = new Date("2020-03-09"); //YYYY-MM-DD
+    var startDate = new Date("2020-03-02"); //YYYY-MM-DD
+    var endDate = new Date("2020-03-10"); //YYYY-MM-DD
 
     var getDateArray = function(start, end) {
       var arr = new Array();
@@ -49,17 +49,34 @@ class StockPage extends React.Component {
       return values;
     };
 
+    const dates = [
+      "Mar 02, 2020",
+      "Mar 03, 2020",
+      "Mar 04, 2020",
+      "Mar 05, 2020",
+      "Mar 06, 2020",
+      "Mar 09, 2020",
+      "Mar 10, 2020"
+    ];
+    const historicalData = [
+      282.28,
+      303.67,
+      296.44,
+      295.52,
+      282.0,
+      263.75,
+      277.14
+    ];
+
     let chartData = {
-      labels: dateArr.map(item => item.toString().slice(4, 15)),
+      /* labels: dateArr.map(item => item.toString().slice(4, 15)), */
+      labels: dates,
       datasets: [
         {
           label: "Quote",
-          data: randomNumbers(),
-          backgroundColor: [
-            "rgb(247, 166, 74)",
-            "rgb(248, 182, 106)",
-            "rgb(249, 198, 139)"
-          ]
+          data: historicalData,
+          /* data: randomNumbers(), */
+          backgroundColor: ["rgba(0,176,255,0.5)"]
         }
       ]
     };
@@ -72,12 +89,12 @@ class StockPage extends React.Component {
         <PageTitleWrapper>
           <PageTitle>AAPL (Apple Inc.)</PageTitle>
         </PageTitleWrapper>
-        <StockContainer>
-          <StockChart>
-            <Charts chartData={chartData} />
-          </StockChart>
-          <StockNews />
-        </StockContainer>
+        <StockChart>
+          <StockTitle>Historical Data</StockTitle>
+          <StockDesc>Time Period: Mar 2, 2020 - Mar 10, 2020</StockDesc>
+          <Charts chartData={chartData} />
+        </StockChart>
+        <StockNews />
       </MainWrapper>
     );
   }

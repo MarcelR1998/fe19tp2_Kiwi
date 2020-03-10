@@ -7,9 +7,33 @@ export const LinkBack = styled(StyledLink)`
 `;
 
 export const StockChart = styled.div`
-  width: 90%;
+  width: 60%;
   margin: 0 auto;
+  @media (max-width: 1012px) {
+    width: 80%;
+  }
+  @media (max-width: 700px) {
+    width: 90%;
+  }
 `;
 
-export const NewsWrapper = styled.div``;
-export const StockContainer = styled.div``;
+export const StockTitle = styled.h3`
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #333;
+  text-align: center;
+`;
+
+export const StockDesc = styled.p`
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #888;
+  text-align: center;
+`;

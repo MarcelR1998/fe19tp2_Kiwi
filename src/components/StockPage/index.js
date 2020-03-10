@@ -28,7 +28,7 @@ class StockPage extends React.Component {
     var startDate = new Date("2020-03-01"); //YYYY-MM-DD
     var endDate = new Date("2020-03-09"); //YYYY-MM-DD
 
-    var getDateArray = function(start, end) {
+    var getDateArray = function (start, end) {
       var arr = new Array();
       var dt = new Date(start);
       while (dt <= end) {

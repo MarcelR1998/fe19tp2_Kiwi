@@ -73,6 +73,7 @@ class StockCard extends React.Component {
       const newStockList = stockList;
       newStockList.push(newStock);
       this.updateUserStocklist(newStockList);
+
     }
   };
 
@@ -87,6 +88,7 @@ class StockCard extends React.Component {
     this.props.masterObject && !this.state.loading ? (
       this.props.masterObject[symbol] ? (
         this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
+
       ) : (
           <div style={{ transform: "translateY(-8px)" }}>
             <i className="fas fa-spinner fa-spin fa-xs"></i>
@@ -126,11 +128,11 @@ class StockCard extends React.Component {
     //this.setState({ amounts: amount })
   };
 
-  setLocalStorage = symbol => {
-    if (this.props.masterObject && this.state.loading) {
-      localStorage.setItem([symbol], JSON.stringify(this.props.masterObject[symbol].quoteUrl.c.toFixed(2)))
+  /* setLocalStorage = symbol => {
+    if (this.props.masterObject[symbol].quoteUrl) {
+      localStorage.setItem(symbol, JSON.stringify(this.props.masterObject[symbol].quoteUrl.c.toFixed(2)))
     } else { console.log('not stored') }
-  }
+  } */
 
   /* compairValue = symbol => {
     if (JSON.parse(localStorage.getItem([symbol])) > this.newStockValues(symbol)) {
@@ -174,7 +176,6 @@ class StockCard extends React.Component {
                             <StockValue>
                               {this.newStockValues(stock.symbol) || "No data"}
 
-                              {/* console.log(JSON.parse(localStorage.getItem(([stock.symbol])))) */}
                             </StockValue>
                           </div>
                           <div>
@@ -198,14 +199,17 @@ class StockCard extends React.Component {
                           <i className="fas fa-trash-alt"></i>
                         </AddDeleteButton>
                       </StockItemButton>
-                      {(JSON.parse(localStorage.getItem(stock.symbol)) < this.newStockValues(stock.symbol)) ? <StockItemGain>{this.setLocalStorage(stock.symbol)}</StockItemGain> : <StockItemGain style={{ backgroundColor: 'red' }}>{this.setLocalStorage(stock.symbol)}</StockItemGain>}
-
+                      <StockItemGain></StockItemGain>
+                      {/* {(JSON.parse(localStorage.getItem(stock.symbol)) < this.newStockValues(stock.symbol)) ? <StockItemGain></StockItemGain> : <StockItemGain style={{ backgroundColor: 'red' }}></StockItemGain>} */}
                     </StockItemMain>
                   </StockListItem>
+
                 )
             )}
+
         </StyledStockList>
       </StockListWrapper>
+
     );
   }
 }

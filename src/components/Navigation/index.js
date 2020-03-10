@@ -1,15 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import UserNav from "../Navigation/UserNav";
 import Search from "../Search";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";
 import * as ROLES from "../../constants/roles";
-import styled from "styled-components";
 import * as GLOBSTYLES from "../Styles";
+import * as STYLES from "./styles";
 
 const Navigation = () => (
-  <Nav>
+  <STYLES.Nav>
     <AuthUserContext.Consumer>
       {authUser =>
         authUser ? (
@@ -19,149 +18,65 @@ const Navigation = () => (
         )
       }
     </AuthUserContext.Consumer>
-  </Nav>
+  </STYLES.Nav>
 );
 
 const NavigationAuth = ({ authUser }) => (
   <GLOBSTYLES.PageNavWrapper className="PageNavWrapper">
     <GLOBSTYLES.GridNavUser className="GridNavUser">
       <GLOBSTYLES.GridNavBanner>
-        <LogoImg src={GLOBSTYLES.Nordea} alt="Logo"></LogoImg>
+        <STYLES.LogoImg src={GLOBSTYLES.Nordea} alt="Logo"></STYLES.LogoImg>
       </GLOBSTYLES.GridNavBanner>
-      <NavUser className="NavUser">
-        <TopSearch>
+      <STYLES.NavUser className="NavUser">
+        <STYLES.TopSearch>
           <Search uid={authUser.uid} />
-        </TopSearch>
+        </STYLES.TopSearch>
         <UserNav />
-      </NavUser>
+      </STYLES.NavUser>
     </GLOBSTYLES.GridNavUser>
     <GLOBSTYLES.GridPageNav className="GridPageNav">
-      <NavList>
-        <NavItem>
-          <NavLink className="icon-home" to={ROUTES.HOME}>
+      <STYLES.NavList>
+        <STYLES.NavItem>
+          <STYLES.NavLink className="icon-home" to={ROUTES.HOME}>
             Home
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink className="icon-news" to={ROUTES.NEWS}>
+          </STYLES.NavLink>
+        </STYLES.NavItem>
+        <STYLES.NavItem>
+          <STYLES.NavLink className="icon-news" to={ROUTES.NEWS}>
             News
-          </NavLink>
-        </NavItem>
-        <NavItem className="account-item">
-          <NavLink className="icon-account" to={ROUTES.ACCOUNT}>
+          </STYLES.NavLink>
+        </STYLES.NavItem>
+        <STYLES.NavItem className="account-item">
+          <STYLES.NavLink className="icon-account" to={ROUTES.ACCOUNT}>
             Account
-          </NavLink>
-        </NavItem>
-        {authUser.roles.includes(ROLES.ADMIN) && (
-          <NavItem>
-            <NavLink className="icon-admin" to={ROUTES.ADMIN}>
+          </STYLES.NavLink>
+        </STYLES.NavItem>
+      </STYLES.NavList>
+      {authUser.roles.includes(ROLES.ADMIN) && (
+        <STYLES.NavList>
+          <STYLES.NavItem>
+            <STYLES.NavLink className="icon-admin" to={ROUTES.ADMIN}>
               Admin
-            </NavLink>
-          </NavItem>
-        )}
-      </NavList>
+            </STYLES.NavLink>
+          </STYLES.NavItem>
+        </STYLES.NavList>
+      )}
     </GLOBSTYLES.GridPageNav>
   </GLOBSTYLES.PageNavWrapper>
 );
 const NavigationNonAuth = () => (
   <div>
-    <NavList>
-      <NavLink>
-        <NavLink to={ROUTES.HOME}>Home</NavLink>
-      </NavLink>
-      <NavItem>
-        <NavLink signin to={ROUTES.SIGN_IN}>
+    <STYLES.NavList>
+      <STYLES.NavLink>
+        <STYLES.NavLink to={ROUTES.HOME}>Home</STYLES.NavLink>
+      </STYLES.NavLink>
+      <STYLES.NavItem>
+        <STYLES.NavLink signin to={ROUTES.SIGN_IN}>
           Sign In
-        </NavLink>
-      </NavItem>
-    </NavList>
+        </STYLES.NavLink>
+      </STYLES.NavItem>
+    </STYLES.NavList>
   </div>
 );
-
-const Nav = styled.div`
-  /* background-color: #039be5; */
-`;
-
-const NavUser = styled.div`
-  padding: 0 25px;
-  position: relative;
-  flex-grow: 1;
-  height: 60px;
-  background-color: #f2f2f2;
-  display: flex;
-  align-items: center;
-  box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
-  @media (max-width: 600px) {
-    /* display: none; */
-  }
-`;
-
-const TopSearch = styled.div`
-  flex-grow: 1;
-`;
-
-const NavList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @media (max-width: 600px) {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-`;
-
-const NavItem = styled.li`
-  margin-bottom: 15px;
-  text-align: center;
-  &:hover {
-    background-color: #03a9f4;
-    @media (max-width: 600px) {
-      background-color: unset;
-      opacity: 0.7;
-    }
-  }
-  &:focus {
-    @media (max-width: 600px) {
-      background-color: unset;
-      opacity: 0.7;
-    }
-  }
-`;
-
-const NavLink = styled(Link)`
-  width: 70px;
-  position: relative;
-  display: block;
-  padding: 50px 25px 15px;
-  font-size: 14px;
-  color: #fff;
-  text-align: center;
-  text-decoration: none;
-  @media (max-width: 600px) {
-    padding: 50px 0px 0px;
-    width: auto;
-  }
-  &:before {
-    position: absolute;
-    content: "";
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: "Font Awesome 5 Pro";
-    font-weight: 900;
-    font-size: 24px;
-    @media (max-width: 600px) {
-      top: 20px;
-      font-size: 20px;
-    }
-  }
-`;
-
-const LogoImg = styled.img`
-  width: 80%;
-`;
 
 export default Navigation;

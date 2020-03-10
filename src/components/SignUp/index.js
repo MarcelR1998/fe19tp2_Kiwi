@@ -1,19 +1,13 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import { AuthUserContext } from "../Session";
 import * as ROUTES from "../../constants/routes";
 import * as ROLES from "../../constants/roles";
 import styled from "styled-components";
 import { StyledButtonLink } from "../Styles";
-import {
-  FormContainer,
-  StyledForm,
-  StyledInput,
-  StyledLabel,
-  StyledButton
-} from "../Styles";
+import * as GLOBSTYLES from "../Styles";
 
 const INITIAL_STATE = {
   username: "",
@@ -24,9 +18,22 @@ const INITIAL_STATE = {
   error: null
 };
 
-const SignUpPage = () => (
+const SignUpPage = ({ authUser }) => (
   <AuthUserContext.Consumer>
     {authUser =>
+      authUser.roles.includes(ROLES.ADMIN) ? (
+        <GLOBSTYLES.MainWrapper>
+          <GLOBSTYLES.FormContainer>
+            <GLOBSTYLES.PageTitleWrapper>
+              <GLOBSTYLES.PageTitle>Add a new user</GLOBSTYLES.PageTitle>
+            </GLOBSTYLES.PageTitleWrapper>
+            <SignUpForm />
+          </GLOBSTYLES.FormContainer>
+        </GLOBSTYLES.MainWrapper>
+      ) : null
+    }
+
+    {/* {authUser =>
       authUser ? (
         <Redirect to="/home" />
       ) : (
@@ -35,7 +42,7 @@ const SignUpPage = () => (
           <SignUpForm />
         </FormContainer>
       )
-    }
+    } */}
   </AuthUserContext.Consumer>
 );
 
@@ -109,39 +116,45 @@ class SignUpFormBase extends Component {
       email === "" ||
       username === "";
     return (
-      <StyledForm onSubmit={this.onSubmit}>
-        <StyledLabel htmlFor="username">Full Name</StyledLabel>
-        <StyledInput
+      <GLOBSTYLES.StyledForm onSubmit={this.onSubmit}>
+        <GLOBSTYLES.StyledLabel htmlFor="username">
+          Full Name
+        </GLOBSTYLES.StyledLabel>
+        <GLOBSTYLES.StyledInput
           name="username"
           value={username}
           onChange={this.onChange}
           type="text"
           placeholder="Full Name"
-        ></StyledInput>
-        <StyledLabel htmlFor="email">E-mail</StyledLabel>
-        <StyledInput
+        ></GLOBSTYLES.StyledInput>
+        <GLOBSTYLES.StyledLabel htmlFor="email">E-mail</GLOBSTYLES.StyledLabel>
+        <GLOBSTYLES.StyledInput
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
           placeholder="Email Address"
-        ></StyledInput>
-        <StyledLabel htmlFor="passwordOne">Password</StyledLabel>
-        <StyledInput
+        ></GLOBSTYLES.StyledInput>
+        <GLOBSTYLES.StyledLabel htmlFor="passwordOne">
+          Password
+        </GLOBSTYLES.StyledLabel>
+        <GLOBSTYLES.StyledInput
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
-        ></StyledInput>
-        <StyledLabel htmlFor="passwordTwo">Confirm Password</StyledLabel>
-        <StyledInput
+        ></GLOBSTYLES.StyledInput>
+        <GLOBSTYLES.StyledLabel htmlFor="passwordTwo">
+          Confirm Password
+        </GLOBSTYLES.StyledLabel>
+        <GLOBSTYLES.StyledInput
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
           placeholder="Confirm Password"
-        ></StyledInput>
+        ></GLOBSTYLES.StyledInput>
         <StyledLabelAdmin>
           Admin:
           <input
@@ -151,11 +164,11 @@ class SignUpFormBase extends Component {
             onChange={this.onChangeCheckbox}
           />
         </StyledLabelAdmin>
-        <StyledButton disabled={isInvalid} type="submit">
+        <GLOBSTYLES.StyledButton disabled={isInvalid} type="submit">
           Add user
-        </StyledButton>
+        </GLOBSTYLES.StyledButton>
         {error && <p>{error.message}</p>}
-      </StyledForm>
+      </GLOBSTYLES.StyledForm>
     );
   }
 }
@@ -173,7 +186,7 @@ const SignUpLink = () => (
 
 const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase);
 
-const StyledLabelAdmin = styled(StyledLabel)`
+const StyledLabelAdmin = styled(GLOBSTYLES.StyledLabel)`
   font-size: 14px;
   padding: 0 0 20px;
 `;

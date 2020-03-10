@@ -6,17 +6,6 @@ import * as ROLES from "../../constants/roles";
 import { SignUpLink } from "../SignUp";
 import * as GLOBSTYLES from "../Styles";
 import * as STYLES from "./styles";
-import {
-  UsersListWrapper,
-  ListOfUsers,
-  UserItem,
-  UserInfo,
-  UserPhoto,
-  UserData,
-  UserName,
-  UserEmail,
-  UserID
-} from "./styles";
 
 class AdminPage extends Component {
   constructor(props) {

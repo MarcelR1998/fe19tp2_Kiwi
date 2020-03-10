@@ -70,8 +70,8 @@ class PieChart extends Component {
 
                             },
                             legend: {
-                                display: true,
-                                position: 'right',
+                                display: false,
+                                position: 'bottom',
 
                             },
                             scales: {
@@ -84,7 +84,7 @@ class PieChart extends Component {
 
                                 }],
                                 xAxes: [{
-                                    display: true //this will remove all the x-axis grid lines
+                                    display: false //this will remove all the x-axis grid lines
                                 }]
                             }
                         }

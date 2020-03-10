@@ -10,7 +10,7 @@ const HomePage = () => (
       authUser ? (
         <GLOBSTYLES.MainWrapper>
           <GLOBSTYLES.PageTitleWrapper>
-            <GLOBSTYLES.PageTitle>Home Page</GLOBSTYLES.PageTitle>
+            <GLOBSTYLES.PageTitle>My stocks</GLOBSTYLES.PageTitle>
             <GLOBSTYLES.PageDesc>
               Manage your stocks on this dashboard
             </GLOBSTYLES.PageDesc>

@@ -20,7 +20,13 @@ import {
   StockLabel,
   StockCurrency,
   StockValueContainer,
-  StockAmountInput
+  StockAmountInput,
+  StockLabel2,
+  StockLabel3,
+  StockCurrency2,
+  HrLine,
+
+ 
 } from "./styles";
 
 class StockCard extends React.Component {
@@ -157,9 +163,23 @@ class StockCard extends React.Component {
                       <StockItemData>
                         <StockSymbol>{stock.symbol}</StockSymbol>
                         <StockDesc>{stock.description}</StockDesc>
-                        <StockLabel>Owned stocks worth:</StockLabel>
+                        
+                        <HrLine /> 
+                         
+                        
+                        <StockValueContainer>
+                          <div>
+                            <StockLabel>Current stock value:</StockLabel>
+                            <StockCurrency>$</StockCurrency>
+                            <StockValue>
+                            
+                              {this.newStockValues(stock.symbol) || "No data"}
+                            </StockValue>
+                          </div>
+                          <StockLabel2>Owned stocks worth:</StockLabel2>
+                          <StockCurrency2>$</StockCurrency2>
                         <StockValueOwned>
-                          <StockCurrency>$</StockCurrency>
+                          
                           {this.props.masterObject && !this.state.loading ? (
                             (
                               this.newStockValues(stock.symbol) *
@@ -170,16 +190,10 @@ class StockCard extends React.Component {
                                 <i className="fas fa-spinner fa-spin fa-xs"></i>
                               </div>
                             )}
+                            
                         </StockValueOwned>
-                        <StockValueContainer>
                           <div>
-                            <StockLabel>Current stock value:</StockLabel>
-                            <StockValue>
-                              {this.newStockValues(stock.symbol) || "No data"}
-                            </StockValue>
-                          </div>
-                          <div>
-                            <StockLabel>Add</StockLabel>
+                            <StockLabel3>Amount</StockLabel3>
                             <StockAmountInput
                               type="number"
                               name={stock.symbol}
@@ -259,13 +273,18 @@ const UpDownView = styled.div`
 `;
 
 const AddDeleteButton = styled.button`
-  width: ${props => (props.primary ? "35px" : "65px")};
+display: block;
+position: absolute;
+top: 0px;
+right: 6px;
+width: ${props => (props.primary ? "35px" : "65px")};
   height: 32px;
   font-size: 15px;
   color: #fff;
   border: 0;
-  border-radius: 10px;
-  margin-bottom: 47px;
+  border-radius: 5px;
+  margin-bottom: 0px;
+
   background-color: ${props => (props.primary ? "#E53935" : "#8BC34A")};
 
   grid-column: ${props => (props.primary ? "4" : "3 /4")};

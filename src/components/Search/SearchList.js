@@ -144,7 +144,7 @@ const AddDeleteButton = styled.button`
   height: 32px;
   font-size: 15px;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-bottom: 47px;
   background-color: ${props => (props.primary ? "#F44336" : "#8BC34A")};
   color: #fff;

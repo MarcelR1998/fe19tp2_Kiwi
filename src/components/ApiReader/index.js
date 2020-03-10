@@ -12,6 +12,7 @@ import StockCard from '../StockCard/index.js';
 /* import UserStockList from '../UserStockList'; */
 import { withFirebase } from '../Firebase';
 import { unstable_batchedUpdates } from 'react-dom';
+import PieChart from '../StockCard/piechart.js';
 //const http = rateLimit(axios.create(), { maxRequests: 2, perMilliseconds: 4000, maxRPS: 2 })
 const http = rateLimit(axios.create(), { maxRequests: 2, perMilliseconds: 1000, maxRPS: 2 })
 http.getMaxRPS() // 2
@@ -113,6 +114,7 @@ class ApiReader extends React.Component {
                         <StockCard key={200} uid={this.props.uid} masterObject={this.state.masterObject} />
                         : '' : <StockCard key={100} uid={this.props.uid} />}
                     { /* <div onClick={() => localStorage.setItem('data', JSON.stringify(this.state.masterObject))} >SYNC LS AND masterObject!</div> */}
+                    <PieChart uid={this.props.uid} />
                 </div>
             )
         } else {

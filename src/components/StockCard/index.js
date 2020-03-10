@@ -41,7 +41,6 @@ class StockCard extends React.Component {
           loading: false
           /*   storage: localStorage.getItem('data') */
         });
-
       });
   }
   /*  componentWillUnmount() {
@@ -60,7 +59,6 @@ class StockCard extends React.Component {
     this.setState({
       stocklist: stocklist
     });
-
   };
 
   handleAddStock = newStock => {
@@ -74,7 +72,6 @@ class StockCard extends React.Component {
       const newStockList = stockList;
       newStockList.push(newStock);
       this.updateUserStocklist(newStockList);
-
     }
   };
 
@@ -90,17 +87,16 @@ class StockCard extends React.Component {
     this.props.masterObject && !this.state.loading ? (
       this.props.masterObject[symbol] ? (
         this.props.masterObject[symbol].quoteUrl.c.toFixed(2)
-
       ) : (
-          <div style={{ transform: "translateY(-8px)" }}>
-            <i className="fas fa-spinner fa-spin fa-xs"></i>
-          </div>
-        )
-    ) : (
         <div style={{ transform: "translateY(-8px)" }}>
           <i className="fas fa-spinner fa-spin fa-xs"></i>
         </div>
-      );
+      )
+    ) : (
+      <div style={{ transform: "translateY(-8px)" }}>
+        <i className="fas fa-spinner fa-spin fa-xs"></i>
+      </div>
+    );
 
   selectedStock = e => {
     if (
@@ -130,10 +126,12 @@ class StockCard extends React.Component {
     //this.setState({ amounts: amount })
   };
 
-  setLocalStorageValue = (symbol) => {
-    localStorage.setItem([symbol], JSON.stringify(this.props.masterObject[symbol].quoteUrl.c.toFixed(2)))
-
-  }
+  setLocalStorageValue = symbol => {
+    localStorage.setItem(
+      [symbol],
+      JSON.stringify(this.props.masterObject[symbol].quoteUrl.c.toFixed(2))
+    );
+  };
 
   /* compairValue = symbol => {
     if (JSON.parse(localStorage.getItem([symbol])) < this.newStockValues(symbol)) {
@@ -142,7 +140,6 @@ class StockCard extends React.Component {
   }  */
 
   render() {
-
     return (
       <StockListWrapper>
         <StyledStockList>
@@ -151,65 +148,74 @@ class StockCard extends React.Component {
               this.state.redirect ? (
                 <Redirect to="/stockpage" stock={this.state.stockData} />
               ) : (
-                  <StockListItem
-                    id={stock.symbol}
-                    key={"o" + index}
-                    onClick={this.selectedStock}
-                  >
-                    <StockItemMain>
-                      <StockItemData>
-                        <StockSymbol>{stock.symbol}</StockSymbol>
-                        <StockDesc>{stock.description}</StockDesc>
-                        <StockLabel>Owned stocks worth:</StockLabel>
-                        <StockValueOwned>
-                          <StockCurrency>$</StockCurrency>
-                          {this.props.masterObject && !this.state.loading ?
-                            (this.newStockValues(stock.symbol) *
-                              (stock.amount ? stock.amount : 1)
-                            ).toFixed(2)
-                            : <div style={{ transform: "translateY(-8px)" }}>
-                              <i className="fas fa-spinner fa-spin fa-xs"></i>
-                            </div>}
-                        </StockValueOwned>
-                        <StockValueContainer>
-                          <div>
-                            <StockLabel>Current stock value:</StockLabel>
-                            <StockValue>
-                              {this.newStockValues(stock.symbol) || "No data"}
-
-                            </StockValue>
+                <StockListItem
+                  id={stock.symbol}
+                  key={"o" + index}
+                  onClick={this.selectedStock}
+                >
+                  <StockItemMain>
+                    <StockItemData>
+                      <StockSymbol>{stock.symbol}</StockSymbol>
+                      <StockDesc>{stock.description}</StockDesc>
+                      <StockLabel>Owned stocks worth:</StockLabel>
+                      <StockValueOwned>
+                        <StockCurrency>$</StockCurrency>
+                        {this.props.masterObject && !this.state.loading ? (
+                          (
+                            this.newStockValues(stock.symbol) *
+                            (stock.amount ? stock.amount : 1)
+                          ).toFixed(2)
+                        ) : (
+                          <div style={{ transform: "translateY(-8px)" }}>
+                            <i className="fas fa-spinner fa-spin fa-xs"></i>
                           </div>
-                          <div>
-                            <StockLabel>Add</StockLabel>
-                            <StockAmountInput
-                              type="number"
-                              name={stock.symbol}
-                              onChange={e =>
-                                this.changeMultiplier(e, stock.symbol)
-                              }
-                              value={stock.amount ? stock.amount : "1"}
-                            />
-                          </div>
-                        </StockValueContainer>
-                      </StockItemData>
-                      <StockItemButton>
-                        <AddDeleteButton
-                          onClick={e => this.handleRemoveStock(stock)}
-                          primary
-                        >
-                          <i className="fas fa-trash-alt"></i>
-                        </AddDeleteButton>
-                      </StockItemButton>
-                      {(JSON.parse(localStorage.getItem(stock.symbol)) <= this.newStockValues(stock.symbol)) ? <StockItemGain></StockItemGain> : <StockItemGain style={{ backgroundColor: 'red' }}></StockItemGain>}
-                      {this.props.masterObject ? this.props.masterObject[stock.symbol] ? this.setLocalStorageValue(stock.symbol) : "" : ""}
-                    </StockItemMain>
-                  </StockListItem>
-                )
+                        )}
+                      </StockValueOwned>
+                      <StockValueContainer>
+                        <div>
+                          <StockLabel>Current stock value:</StockLabel>
+                          <StockValue>
+                            {this.newStockValues(stock.symbol) || "No data"}
+                          </StockValue>
+                        </div>
+                        <div>
+                          <StockLabel>Add</StockLabel>
+                          <StockAmountInput
+                            type="number"
+                            name={stock.symbol}
+                            onChange={e =>
+                              this.changeMultiplier(e, stock.symbol)
+                            }
+                            value={stock.amount ? stock.amount : "1"}
+                          />
+                        </div>
+                      </StockValueContainer>
+                    </StockItemData>
+                    <StockItemButton>
+                      <AddDeleteButton
+                        onClick={e => this.handleRemoveStock(stock)}
+                        primary
+                      >
+                        <i className="fas fa-trash-alt"></i>
+                      </AddDeleteButton>
+                    </StockItemButton>
+                    {JSON.parse(localStorage.getItem(stock.symbol)) <=
+                    this.newStockValues(stock.symbol) ? (
+                      <StockItemGain></StockItemGain>
+                    ) : (
+                      <StockItemGain loose></StockItemGain>
+                    )}
+                    {this.props.masterObject
+                      ? this.props.masterObject[stock.symbol]
+                        ? this.setLocalStorageValue(stock.symbol)
+                        : ""
+                      : ""}
+                  </StockItemMain>
+                </StockListItem>
+              )
             )}
-
         </StyledStockList>
       </StockListWrapper>
-
     );
   }
 }

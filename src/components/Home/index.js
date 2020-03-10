@@ -2,22 +2,21 @@ import React from "react";
 import { withAuthorization } from "../Session";
 import ApiReader, { buildMasterObject } from "../ApiReader/index.js";
 import { AuthUserContext } from "../Session";
-import { MainWrapper, PageTitleWrapper, PageTitle, PageDesc } from "../Styles";
+import * as GLOBSTYLES from "../Styles";
 
 const HomePage = () => (
   <AuthUserContext.Consumer>
     {authUser =>
       authUser ? (
-        <MainWrapper>
-          <PageTitleWrapper>
-            <PageTitle>Home Page</PageTitle>
-            <PageDesc>
-              The Home Page is accessible by every signed in user.
-            </PageDesc>
-          </PageTitleWrapper>
-
+        <GLOBSTYLES.MainWrapper>
+          <GLOBSTYLES.PageTitleWrapper>
+            <GLOBSTYLES.PageTitle>Home Page</GLOBSTYLES.PageTitle>
+            <GLOBSTYLES.PageDesc>
+              Manage your stocks on this dashboard
+            </GLOBSTYLES.PageDesc>
+          </GLOBSTYLES.PageTitleWrapper>
           <ApiReader uid={authUser.uid} />
-        </MainWrapper>
+        </GLOBSTYLES.MainWrapper>
       ) : null
     }
   </AuthUserContext.Consumer>

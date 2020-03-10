@@ -1,55 +1,42 @@
 import React from "react";
 import stocknews from "./news.json";
-import { MainWrapper, PageTitleWrapper, PageTitle } from "../Styles";
-import {
-  NewsContainer,
-  NewsStoryItem,
-  StoryWrapper,
-  StoryImg,
-  StoryTitle,
-  StoryA,
-  StoryText,
-  StoryInfo,
-  StorySource,
-  StoryDate
-} from "../News/styles";
-
-/* const LatestNews = NewNews =>
-  news.map(story => {
-    console.log(story.headline);
-  }); */
+import * as GLOBSTYLES from "../Styles";
+import * as STYLES from "../News/styles";
 
 const News = () => {
   return (
-    <MainWrapper>
-      <PageTitleWrapper>
-        <PageTitle>Latest News</PageTitle>
-      </PageTitleWrapper>
-      <NewsContainer>
+    <GLOBSTYLES.MainWrapper>
+      <GLOBSTYLES.PageTitleWrapper>
+        <GLOBSTYLES.PageTitle>Latest News</GLOBSTYLES.PageTitle>
+        <GLOBSTYLES.PageDesc>
+          Stay up to date with the latest news from the business world
+        </GLOBSTYLES.PageDesc>
+      </GLOBSTYLES.PageTitleWrapper>
+      <STYLES.NewsContainer>
         {stocknews.map(story => (
-          <NewsStoryItem key={story.id}>
-            <StoryImg src={story.image}></StoryImg>
-            <StoryWrapper>
-              <StoryInfo>
-                <StorySource>{story.source}</StorySource>
+          <STYLES.NewsStoryItem key={story.id}>
+            <STYLES.StoryImg src={story.image}></STYLES.StoryImg>
+            <STYLES.StoryWrapper>
+              <STYLES.StoryInfo>
+                <STYLES.StorySource>{story.source}</STYLES.StorySource>
                 <span>&#9679;</span>
-                <StoryDate>
+                <STYLES.StoryDate>
                   {String(new Date(eval(story.datetime + "000"))).slice(0, 3)}
                   ,&nbsp;
                   {String(new Date(eval(story.datetime + "000"))).slice(4, 15)}
                   ,&nbsp;
                   {String(new Date(eval(story.datetime + "000"))).slice(16, 21)}
-                </StoryDate>
-              </StoryInfo>
-              <StoryTitle>
-                <StoryA href="link">{story.headline}</StoryA>
-              </StoryTitle>
-              <StoryText>{story.summary}</StoryText>
-            </StoryWrapper>
-          </NewsStoryItem>
+                </STYLES.StoryDate>
+              </STYLES.StoryInfo>
+              <STYLES.StoryTitle>
+                <STYLES.StoryA href="link">{story.headline}</STYLES.StoryA>
+              </STYLES.StoryTitle>
+              <STYLES.StoryText>{story.summary}</STYLES.StoryText>
+            </STYLES.StoryWrapper>
+          </STYLES.NewsStoryItem>
         ))}
-      </NewsContainer>
-    </MainWrapper>
+      </STYLES.NewsContainer>
+    </GLOBSTYLES.MainWrapper>
   );
 };
 

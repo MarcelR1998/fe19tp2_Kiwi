@@ -19,21 +19,16 @@ const INITIAL_STATE = {
 };
 
 const SignUpPage = ({ authUser }) => (
-  <AuthUserContext.Consumer>
-    {authUser =>
-      authUser.roles.includes(ROLES.ADMIN) ? (
-        <GLOBSTYLES.MainWrapper>
-          <GLOBSTYLES.FormContainer>
-            <GLOBSTYLES.PageTitleWrapper>
-              <GLOBSTYLES.PageTitle>Add a new user</GLOBSTYLES.PageTitle>
-            </GLOBSTYLES.PageTitleWrapper>
-            <SignUpForm />
-          </GLOBSTYLES.FormContainer>
-        </GLOBSTYLES.MainWrapper>
-      ) : null
-    }
+  <GLOBSTYLES.MainWrapper>
+    <GLOBSTYLES.FormContainer>
+      <GLOBSTYLES.PageTitleWrapper>
+        <GLOBSTYLES.PageTitle>Add a new user</GLOBSTYLES.PageTitle>
+      </GLOBSTYLES.PageTitleWrapper>
+      <SignUpForm />
+    </GLOBSTYLES.FormContainer>
+  </GLOBSTYLES.MainWrapper>
 
-    {/* {authUser =>
+  /* {authUser =>
       authUser ? (
         <Redirect to="/home" />
       ) : (
@@ -42,8 +37,7 @@ const SignUpPage = ({ authUser }) => (
           <SignUpForm />
         </FormContainer>
       )
-    } */}
-  </AuthUserContext.Consumer>
+    } */
 );
 
 const stocklist = [

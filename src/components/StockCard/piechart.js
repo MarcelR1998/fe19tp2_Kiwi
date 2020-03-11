@@ -1,100 +1,96 @@
-import React, { Component } from 'react';
-import { Bar, Line, Pie, Bubble } from 'react-chartjs-2';
+import React, { Component } from "react";
+import { Bar, Line, Pie, Bubble } from "react-chartjs-2";
 import { withFirebase } from "../Firebase";
 import styled from "styled-components";
 
 class PieChart extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            chartData: props.chartData,
-            loading: true,
+  constructor(props) {
+    super(props);
+    this.state = {
+      chartData: props.chartData,
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ loading: true });
+    this.props.firebase
+      .user(this.props.uid)
+      .child("stocklist")
+      .on("value", snapshot => {
+        const userObject = snapshot.val();
+        this.setState({
+          stocklist: userObject,
+          loading: false
+          /*   storage: localStorage.getItem('data') */
+        });
+      });
+  }
+
+  render() {
+    let labelVar = [];
+    let dataVar = [];
+    let color = [];
+
+    if (this.state.loading != true && this.state.stocklist) {
+      labelVar = this.state.stocklist.map(stock => stock.symbol);
+      dataVar = this.state.stocklist.map(stock => stock.amount);
+
+      //Pushar färgen blå till en array som används som färgdata
+      for (let i = 0; i < this.state.stocklist.length; i++) {
+        color.push("#039be5");
+      }
+    }
+
+    let chartData = {
+      labels: labelVar,
+      datasets: [
+        {
+          label: "Your stocks",
+          data: dataVar,
+          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
         }
-    }
+      ]
+    };
 
-    componentDidMount() {
-        this.setState({ loading: true });
-        this.props.firebase
-            .user(this.props.uid)
-            .child("stocklist")
-            .on("value", snapshot => {
-                const userObject = snapshot.val();
-                this.setState({
-                    stocklist: userObject,
-                    loading: false
-                    /*   storage: localStorage.getItem('data') */
-                });
-
-            });
-    }
-
-
-    render() {
-
-        let labelVar = [];
-        let dataVar = [];
-        let color = [];
-
-        if (this.state.loading != true && this.state.stocklist) {
-            labelVar = this.state.stocklist.map(stock => stock.symbol);
-            dataVar = this.state.stocklist.map(stock => stock.amount);
-
-            //Pushar färgen blå till en array som används som färgdata
-            for (let i = 0; i < this.state.stocklist.length; i++) {
-                color.push("#039be5")
-            }
-        }
-
-        let chartData = {
-            labels: labelVar,
-            datasets: [
-                {
-                    label: "Quote",
-                    data: dataVar,
-                    backgroundColor: color,
-                }
-            ]
-        };
-
-        return (
-
-            <pieChartDiv >
-                <div className="chart">
-                    <Pie
-                        data={chartData}
-                        options={{
-
-
-                            title: {
-                                display: false,
-
-                            },
-                            legend: {
-                                display: false,
-                                position: 'bottom',
-
-                            },
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true,
-
-                                    },
-                                    display: false
-
-                                }],
-                                xAxes: [{
-                                    display: false //this will remove all the x-axis grid lines
-                                }]
-                            }
-                        }
-
-                        }
-                    />
-                </div>
-            </pieChartDiv>
-        )
-    }
+    return (
+      <pieChartDiv>
+        <div className="chart">
+          <Pie
+            data={chartData}
+            options={{
+              title: {
+                display: false
+              },
+              legend: {
+                display: false,
+                position: "top"
+              },
+              title: {
+                display: true,
+                text: "Your stocks"
+              },
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true
+                    },
+                    display: false
+                  }
+                ],
+                xAxes: [
+                  {
+                    display: false //this will remove all the x-axis grid lines
+                  }
+                ]
+              }
+            }}
+          />
+        </div>
+      </pieChartDiv>
+    );
+  }
 }
 
 const pieChartDiv = styled.div`

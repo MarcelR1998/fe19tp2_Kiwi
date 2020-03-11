@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StockListWrapper = styled.div`
   width: 90%;
   margin: 0 auto;
+  flex-grow: 1;
 `;
 
 export const StyledStockList = styled.ul`
@@ -16,15 +17,14 @@ export const StyledStockList = styled.ul`
 export const StockListItem = styled.li`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 25%;
   padding: 10px;
   @media (max-width: 1200px) {
-    width: 29%;
-  }
-  @media (max-width: 1012px) {
     width: 45%;
   }
-
+  @media (max-width: 1012px) {
+    width: 90%;
+  }
   @media (max-width: 640px) {
     width: 90%;
   }
@@ -151,10 +151,10 @@ export const StockLabel3 = styled.span`
 `;
 
 export const StockCurrency = styled.span`
-display: block;
-position: absolute;
-top: 108px;
-left: 12px;
+  display: block;
+  position: absolute;
+  top: 108px;
+  left: 12px;
   padding: 0 5px 0 0;
   font-family: "Roboto";
   font-size: 12px;
@@ -162,10 +162,10 @@ left: 12px;
   color: #999;
 `;
 export const StockCurrency2 = styled.span`
-display: block;
-position: absolute;
-top: 164px;
-left: 12px;
+  display: block;
+  position: absolute;
+  top: 164px;
+  left: 12px;
   padding: 0 5px 0 0;
   font-family: "Roboto";
   font-size: 12px;
@@ -192,15 +192,14 @@ export const StockValueContainer = styled.div`
   justify-content: space-between;
 `;
 export const HrLine = styled.div`
-display: block;
-position: absolute;
+  display: block;
+  position: absolute;
   top: 76px;
   right: 20px;
   left: 20px;
 
   justify-content: center;
   max-width: 95%;
- 
-  border: 0.25px solid #C4C4C4;
 
+  border: 0.25px solid #c4c4c4;
 `;

@@ -1,41 +1,21 @@
 import React from "react";
-import { countries } from "./miscData.js";
-import { apiKey, baseUrl, stockExchange } from "../../constants/urls";
-import { filterSymbol } from "./usStocks";
 import styled from "styled-components";
-import {
-  companyObjects,
-  urlKeys,
-  urlValues,
-  hej,
-  companyNamesFunc,
-  companyObjectsFunc,
-  stocklist
-} from "./recommendationTrends.js"; // {AAPL: http...}
-import { sendMessage } from "../../constants/functions";
+import { urlKeys, companyNamesFunc } from "./recommendationTrends.js"; // {AAPL: http...}
 import axios from "axios";
 import rateLimit from "axios-rate-limit";
-import Charts from "../Charts";
-/* import StockValueData from '../StockCard/stockValueData.js'; */
 import StockCard from "../StockCard/index.js";
-/* import UserStockList from '../UserStockList'; */
 import { withFirebase } from "../Firebase";
-import { unstable_batchedUpdates } from "react-dom";
 import PieChart from "../StockCard/piechart.js";
-//const http = rateLimit(axios.create(), { maxRequests: 2, perMilliseconds: 4000, maxRPS: 2 })
+
 const http = rateLimit(axios.create(), {
   maxRequests: 2,
   perMilliseconds: 1000,
   maxRPS: 2
 });
-http.getMaxRPS(); // 2
-let companySymbols = Object.keys(companyObjects); // ['AAPL',...]
-let lastSymbol = companySymbols[companySymbols.length - 1];
-let lastUrl = urlKeys[urlKeys.length - 1];
-let urls = Object.values(companyObjects); // [['Http:...'...],['Http:...'...]]
-let historyData = [];
-let userStocks;
+
+
 let lastSymbols;
+
 class ApiReader extends React.Component {
   constructor(props) {
     super(props);
@@ -43,19 +23,10 @@ class ApiReader extends React.Component {
       masterObject: null,
       Loaded: false
     };
-    this.companySymbols = companySymbols;
-    this.lastSymbol = lastSymbol;
-    this.lastUrl = lastUrl;
-    this.buildMasterObject = this.buildMasterObject.bind(this);
-    this.historyData = historyData;
+
     this.getSymbolData = this.getSymbolData.bind(this);
   }
-  buildMasterObject() {
-    if (this.state.Loaded) {
-      userStocks = this.state.masterObject;
-      return userStocks;
-    }
-  }
+
   componentDidMount() {
     if (this.props.uid) {
       this.props.firebase.user(this.props.uid).on("value", snapshot => {
@@ -66,18 +37,17 @@ class ApiReader extends React.Component {
           const companyNames = companyNamesFunc(stocklist);
           const companyObj = Object.assign({}, ...companyNames);
           const companySymb = Object.keys(companyObj);
-          //urls = Object.values(companyObjects)
 
           this.getSymbolData(companyObj, companySymb);
           lastSymbols = Object.keys(companyObj)[
             Object.keys(companyObj).length - 1
           ];
         } else {
-          console.log("hej");
+          return;
         }
       });
     } else {
-      console.log("error");
+      console.log("error user not found");
     }
   }
   componentWillUnmount() {
@@ -85,9 +55,8 @@ class ApiReader extends React.Component {
   }
   async getSymbolData(companyObj, companySymb) {
     const masterObject = {};
-    //const urlKeys = ['quotes', 'priceTargets', 'news', 'recs'];
+
     companySymb.forEach(symbol => {
-      // ['AA', 'AAPL',]
       let urls = companyObj[symbol];
       urls.map(async (url, index) => {
         const legend = urlKeys[index];
@@ -110,22 +79,7 @@ class ApiReader extends React.Component {
   }
 
   render() {
-    /* if (!this.state.masterObject) {
-            return null
-        }
-        if (this.state.masterObject[lastSymbols]) {
-            const LSdata = localStorage.getItem('data')
-            if (LSdata) {
-                if (Object.keys(JSON.parse(LSdata)).toString() !== Object.keys(this.state.masterObject).toString()) {
-                    localStorage.setItem('data', JSON.stringify(this.state.masterObject));
 
-                }
-            }
-            else {
-                //console.log("First run maybe LS set")
-                localStorage.setItem('data', JSON.stringify(this.state.masterObject));
-            }
-        } */
     if (this.state.Loaded) {
       return (
         <Wrapper>
@@ -137,12 +91,11 @@ class ApiReader extends React.Component {
                 masterObject={this.state.masterObject}
               />
             ) : (
-              ""
-            )
+                ""
+              )
           ) : (
-            <StockCard key={100} uid={this.props.uid} />
-          )}
-          {/* <div onClick={() => localStorage.setItem('data', JSON.stringify(this.state.masterObject))} >SYNC LS AND masterObject!</div> */}
+              <StockCard key={100} uid={this.props.uid} />
+            )}
           <PieChart uid={this.props.uid} />
         </Wrapper>
       );
